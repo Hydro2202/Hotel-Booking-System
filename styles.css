@@ -1,0 +1,17 @@
+/* --- Custom styles to match the sample image --- */
+body { background: #f5f5f5; font-family: 'Helvetica Neue', Arial, sans-serif; }
+    .topbar { background: #111; color: #ddd; font-size: 0.9rem; }
+    .topbar a { color: #ddd; text-decoration: none; }
+    .brand { font-weight: 700; letter-spacing: 2px; }
+    .hero { position: relative; height: 520px; overflow: hidden; }
+    .hero .carousel-item { height: 520px; background-size: cover; background-position: center; }
+    .hero .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); }
+    .hero .carousel-caption { bottom: 40%; transform: translateY(10%); }
+    .hero h1 { font-size: 56px; letter-spacing: 4px; font-weight: 700; }
+   .rooms-section { padding: 60px 0; }
+    .room-card img { height: 180px; object-fit: cover; }
+footer { background:#222; color:#bbb; padding:20px 0; }
+
+    /* small tweaks to match sample look */
+    .navbar-light .navbar-nav .nav-link { color: #333; }
+    .logo-small { font-size: 1rem; color: #666; }
