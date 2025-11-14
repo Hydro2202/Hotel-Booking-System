@@ -38,7 +38,36 @@ body{ font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial; b
 .card-listing:hover{ transform: translateY(-6px); box-shadow:0 20px 40px rgba(15,23,36,0.08); }
 .card-listing img{ height:180px; object-fit:cover; }
 .heart-btn{ background:rgba(255,255,255,0.95); border-radius:999px; padding:.45rem; box-shadow:0 6px 18px rgba(15,23,36,0.06); }
-.menu-dropdown{ min-width:220px; border-radius:12px; box-shadow:0 10px 30px rgba(15,23,36,0.12); }
+.menu-dropdown{ 
+  min-width:240px; 
+  border-radius:12px; 
+  box-shadow:0 2px 16px rgba(0,0,0,0.18);
+  border: 1px solid rgba(0,0,0,0.08);
+  padding: 8px 0;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  background: white;
+}
+
+.user-menu-btn:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.menu-item {
+  transition: background-color 0.15s ease;
+  color: #222 !important;
+  font-size: 14px;
+}
+
+.menu-item:hover {
+  background-color: #f7f7f7;
+}
+
+.menu-item i {
+  color: #717171;
+}
 
 /* Guest dropdown styles */
 .guests-popup{ position:absolute; left:0; right:0; top:100%; margin-top:.75rem; background:#fff; border-radius:18px; box-shadow:0 12px 40px rgba(15,23,36,0.12); padding:1rem; max-width:420px; }
