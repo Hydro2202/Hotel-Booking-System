@@ -160,11 +160,11 @@
     <div class="hero-content fade-in">
       <h1 class="hero-title">{{vm.t('welcomeTo')}} <span class="hero-highlight">StayUp</span></h1>
       <p class="hero-subtitle">{{vm.t('experienceLuxury')}}</p>
-      <div class="mt-4">
-        <button class="btn btn-gold btn-lg me-3 btn-ripple btn-glow" ng-click="vm.openBookingModal()">
+      <div class="mt-4 d-flex align-items-center justify-content-center gap-3 flex-wrap">
+        <button class="btn btn-gold btn-lg btn-ripple btn-glow hero-cta-btn" ng-click="vm.openBookingModal()">
           <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookYourStay')}}
         </button>
-        <button class="btn btn-outline-gold btn-lg btn-ripple btn-glow" ng-click="vm.scrollToSection('rooms')">
+        <button class="btn btn-outline-gold btn-lg btn-ripple btn-glow hero-cta-btn" ng-click="vm.scrollToSection('rooms')">
           <i class="fas fa-bed me-2"></i>{{vm.t('viewRooms')}}
         </button>
       </div>
@@ -424,7 +424,7 @@
           </div>
         </div>
       </div>
-    </div>
+              </div>
   </section>
 
   <!-- ============================================
@@ -622,26 +622,32 @@
       </div>
       <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false" title="Contact">
         <i class="fas fa-phone"></i>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ============================================
        LIVE CHAT WIDGET
        ============================================ -->
   <div class="chat-widget" ng-class="{'show': vm.showChat}">
-    <div class="chat-header">
-      <div>
-        <h6 class="mb-0">{{vm.t('liveChatSupport')}}</h6>
-        <small>{{vm.t('weAreHere')}}</small>
-      </div>
-      <button class="btn btn-sm btn-light" ng-click="vm.toggleChat()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
     <div class="chat-messages">
+      <div class="chat-header-close">
+        <button class="btn-close-chat" ng-click="vm.toggleChat()" aria-label="Close chat">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
       <div class="chat-message" ng-class="msg.type" ng-repeat="msg in vm.chatMessages">
-        {{msg.text}}
+        <div class="chat-message-content">
+          <div class="chat-message-avatar" ng-if="msg.type === 'bot'">
+            <i class="fas fa-headset"></i>
+          </div>
+          <div class="chat-message-text">
+            {{msg.text}}
+          </div>
+          <div class="chat-message-avatar" ng-if="msg.type === 'user'">
+            <i class="fas fa-user"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div class="chat-input-area">
@@ -650,16 +656,6 @@
         <i class="fas fa-paper-plane"></i>
       </button>
     </div>
-  </div>
-  <div class="chat-toggle" ng-if="!vm.showChat" ng-click="vm.toggleChat()">
-    <i class="fas fa-comments"></i>
-  </div>
-
-  <!-- ============================================
-       BACK TO TOP BUTTON
-       ============================================ -->
-  <div class="back-to-top" ng-class="{'show': vm.showBackToTop}" ng-click="vm.scrollToTop()">
-    <i class="fas fa-arrow-up"></i>
   </div>
 
   <!-- ============================================

@@ -1884,7 +1884,7 @@ angular.module('hotelApp', [])
     // ============================================
     vm.showChat = false;
     vm.chatMessages = [
-      { type: 'bot', text: 'Hello! Welcome to Hotel Ni Yuan. How can I assist you today?' }
+      { type: 'bot', text: 'Hello! Welcome to StayUp. How can I assist you today?' }
     ];
     vm.chatInput = '';
 
