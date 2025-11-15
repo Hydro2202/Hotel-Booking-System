@@ -1,330 +1,1433 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" ng-app="hotelApp">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure Haven — Modern Booking</title>
-  <!-- Bootstrap CSS (Offline) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StayUp- Luxury Hotel Booking</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="styles.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body ng-controller="MainCtrl as vm">
-  <!-- Top navigation -->
-  <nav class="navbar topbar navbar-expand-lg navbar-light bg-white border-bottom">
+<body ng-controller="MainCtrl as vm" ng-class="{'dark-mode': vm.darkMode}">
+
+  <!-- ============================================
+       LOADING SCREEN
+       ============================================ -->
+  <div class="loading-screen" ng-class="{'hidden': !vm.showLoading}">
+    <div>
+      <div class="loading-logo">StayUp</div>
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       NAVBAR
+       ============================================ -->
+  <nav class="navbar navbar-expand-lg navbar-luxury">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-        <i class="fa-solid fa-hotel fa-2x" style="color:var(--accent)"></i>
-        <span class="fw-bold">Azure Haven</span>
+      <a class="navbar-brand" href="#" ng-click="vm.navigateTo('home')">
+        <i class="fas fa-hotel"></i>
+        <span>StayUp</span>
       </a>
-
-      <div class="d-flex align-items-center ms-auto gap-3">
-        <button class="btn btn-light rounded-pill">Hello Raiden!</button>
-
-        <!-- profile avatar with dropdown -->
-        <div class="dropdown position-relative">
-          <button class="d-flex align-items-center gap-2 border rounded-pill p-1 ps-3 pe-2 bg-white text-decoration-none user-menu-btn" type="button" id="profileMenu" data-bs-toggle="dropdown" aria-expanded="false" onclick="toggleUserMenu()" style="border: 1px solid #ddd; cursor: pointer; transition: box-shadow 0.2s ease;">
-            <i class="fa-solid fa-bars text-dark"></i>
-            <img ng-src="{{vm.profile.avatar}}" class="profile-avatar" alt="profile" style="width:30px;height:30px;">
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end menu-dropdown mt-2" id="userDropdownMenu" aria-labelledby="profileMenu" style="min-width: 240px; padding: 8px 0; display: none;">
-            <li><a class="dropdown-item menu-item" href="#" style="padding: 12px 16px; display: flex; align-items: center;"><i class="fa-regular fa-message me-3" style="width: 20px;"></i> Messages</a></li>
-            <li><a class="dropdown-item menu-item" href="#" style="padding: 12px 16px; display: flex; align-items: center;"><i class="fa-regular fa-user me-3" style="width: 20px;"></i> Profile</a></li>
-            <li><a class="dropdown-item menu-item" href="#" style="padding: 12px 16px; display: flex; align-items: center;"><i class="fa-regular fa-heart me-3" style="width: 20px;"></i> Wishlists</a></li>
-            <li><hr class="dropdown-divider my-2"></li>
-            <li><a class="dropdown-item menu-item" href="#" style="padding: 12px 16px; display: flex; align-items: center;"><i class="fa-solid fa-gear me-3" style="width: 20px;"></i> Account settings</a></li>
-            <li><hr class="dropdown-divider my-2"></li>
-            <li><a class="dropdown-item menu-item" href="#" style="padding: 12px 16px; display: flex; align-items: center;"><i class="fa-solid fa-right-from-bracket me-3" style="width: 20px;"></i> Logout</a></li>
+      
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('home')">{{vm.t('home')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('rooms')">{{vm.t('rooms')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('amenities')">{{vm.t('amenities')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('gallery')">{{vm.t('gallery')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('testimonials')">{{vm.t('testimonials')}}</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" ng-click="vm.navigateTo('contact')">{{vm.t('contact')}}</a>
+          </li>
+          <li class="nav-item ms-3">
+            <button class="btn-book-now btn-gold-elegant" ng-click="vm.openBookingModal()">
+              <i class="fas fa-calendar-check"></i>
+              <span class="btn-text">{{vm.t('bookNow')}}</span>
+            </button>
+          </li>
+          <li class="nav-item ms-3" ng-if="vm.profile.name !== 'Guest'">
+            <div class="dropdown user-profile-dropdown">
+              <a class="nav-link user-profile-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="user-avatar-circle">
+                  <i class="fas fa-user"></i>
+                </div>
+                <span class="user-name">{{vm.profile.name}}</span>
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end elegant-dropdown">
+                <li><a class="dropdown-item elegant-dropdown-item" href="#" ng-click="vm.openDashboard()">
+                  <i class="fas fa-calendar-check"></i>
+                  <span>{{vm.t('myBookings')}}</span>
+                </a></li>
+                <li><a class="dropdown-item elegant-dropdown-item" href="#" ng-click="vm.openWishlist()">
+                  <i class="fas fa-heart"></i>
+                  <span>{{vm.t('wishlist')}}</span>
+                </a></li>
+                <li><a class="dropdown-item elegant-dropdown-item" href="#" ng-click="vm.openProfile()">
+                  <i class="fas fa-user"></i>
+                  <span>{{vm.t('profile')}}</span>
+                </a></li>
+                <li><hr class="dropdown-divider elegant-divider"></li>
+                <li><a class="dropdown-item elegant-dropdown-item" href="#" ng-click="vm.logout()">
+                  <i class="fas fa-sign-out-alt"></i>
+                  <span>{{vm.t('logout')}}</span>
+                </a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item ms-2" ng-if="vm.profile.name === 'Guest'">
+            <a class="nav-link login-link" href="#" ng-click="vm.openLogin()">
+              <i class="fas fa-sign-in-alt me-1"></i>{{vm.t('login')}}
+            </a>
+          </li>
+          <li class="nav-item ms-2">
+            <div class="language-selector elegant-selector">
+              <button class="btn-icon-elegant" ng-click="vm.showLanguageDropdown = !vm.showLanguageDropdown" title="Select Language">
+                <i class="fas fa-globe"></i>
+                <span class="icon-label">{{vm.currentLanguage.toUpperCase()}}</span>
+              </button>
+              <div class="language-dropdown elegant-dropdown-menu" ng-class="{'show': vm.showLanguageDropdown}">
+                <div class="language-option elegant-option" ng-class="{'active': vm.currentLanguage === 'en'}" ng-click="vm.setLanguage('en'); vm.showLanguageDropdown = false">
+                  <i class="fas fa-check" ng-if="vm.currentLanguage === 'en'"></i>
+                  <span>English</span>
+                </div>
+                <div class="language-option elegant-option" ng-class="{'active': vm.currentLanguage === 'ph'}" ng-click="vm.setLanguage('ph'); vm.showLanguageDropdown = false">
+                  <i class="fas fa-check" ng-if="vm.currentLanguage === 'ph'"></i>
+                  <span>Filipino</span>
+                </div>
+                <div class="language-option elegant-option" ng-class="{'active': vm.currentLanguage === 'kr'}" ng-click="vm.setLanguage('kr'); vm.showLanguageDropdown = false">
+                  <i class="fas fa-check" ng-if="vm.currentLanguage === 'kr'"></i>
+                  <span>한국어</span>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item ms-2">
+            <button class="btn-icon-elegant dark-mode-toggle" ng-click="vm.toggleDarkMode()" title="Toggle Dark Mode">
+              <i class="fas" ng-class="{'fa-moon': !vm.darkMode, 'fa-sun': vm.darkMode}"></i>
+            </button>
+          </li>
           </ul>
-        </div>
       </div>
     </div>
   </nav>
 
-  <!-- Hero area -->
-  <header class="hero" style="background:linear-gradient(90deg, rgba(43,140,255,0.06), rgba(255,56,92,0.03)), url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1650&q=80') center/cover no-repeat; min-height:40vh; display:flex; align-items:center;">
-    <div class="container text-center">
-      <h1 class="fw-bold text-white" style="text-shadow: 0 2px 8px rgba(0,0,0,0.8); font-size: 2.5rem;">Find stays for any trip</h1>
-      <p class="text-white" style="text-shadow: 0 2px 6px rgba(0,0,0,0.7); font-size: 1.1rem;">Homes, rooms, and more — search easily</p>
-    </div>
-  </header>
-
-  <!-- Floating search bar -->
-  <div class="container search-floating">
-    <div class="search-card bg-white p-3 p-md-2"> 
-      <form class="row g-2 align-items-center position-relative" ng-submit="vm.searchRooms()">
-        <div class="col-md-5 position-relative px-3">
-          <label class="form-label small text-muted mb-1" style="font-weight:600">Where</label>
-          <input type="text" class="form-control search-input" placeholder="Search destinations" ng-model="vm.search.where" ng-focus="vm.showSuggestions=true" ng-keyup="vm.updateSuggestions()">
-          <div class="where-suggestions" ng-show="vm.showSuggestions">
-            <div class="p-3"><small class="text-muted">Recent searches</small></div>
-            <div ng-repeat="s in vm.recentSearches" class="suggest-item" ng-click="vm.chooseSuggestion(s)">
-              <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width:44px;height:44px"><i class="fa-solid fa-map-location-dot text-muted"></i></div>
-              <div>
-                <div class="fw-bold">{{s.title}}</div>
-                <small class="text-muted">{{s.subtitle}}</small>
-              </div>
-            </div>
-            <div class="p-3"><small class="text-muted">Suggested destinations</small></div>
-            <div ng-repeat="d in vm.suggestedDestinations" class="suggest-item" ng-click="vm.chooseSuggestion(d)">
-              <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width:44px;height:44px"><i class="fa-solid fa-location-arrow text-muted"></i></div>
-              <div>
-                <div class="fw-bold">{{d.title}}</div>
-                <small class="text-muted">{{d.subtitle}}</small>
-              </div>
-            </div>
-          </div>
+  <!-- ============================================
+       SEARCH BAR
+       ============================================ -->
+  <div class="container my-4" ng-if="vm.currentPage === 'home'">
+    <div class="search-container">
+      <input type="text" class="search-input" ng-attr-placeholder="{{vm.t('searchPlaceholder')}}" ng-model="vm.searchQuery" ng-keyup="vm.updateSearch()" ng-focus="vm.updateSearch()">
+      <i class="fas fa-search position-absolute" style="right: 1.5rem; top: 50%; transform: translateY(-50%); color: var(--gray);"></i>
+      <div class="search-suggestions" ng-class="{'show': vm.showSuggestions}">
+        <div class="suggestion-item" ng-repeat="suggestion in vm.searchSuggestions" ng-click="vm.selectSuggestion(suggestion)">
+          <i class="fas" ng-class="{'fa-bed': suggestion.type === 'room', 'fa-star': suggestion.type === 'amenity'}" class="me-2"></i>
+          {{suggestion.text}}
         </div>
-
-        <div class="col-md-2 px-2 position-relative">
-          <label class="form-label small text-muted mb-1" style="font-weight:600">Check in</label>
-          <input type="text" class="form-control search-input" readonly ng-model="vm.displayCheckin" ng-click="vm.openCalendar('checkin')">
-        </div>
-
-        <div class="col-md-2 px-2 position-relative">
-          <label class="form-label small text-muted mb-1" style="font-weight:600">Check out</label>
-          <input type="text" class="form-control search-input" readonly ng-model="vm.displayCheckout" ng-click="vm.openCalendar('checkout')">
-        </div>
-
-        <div class="col-md-2 px-2 position-relative">
-          <label class="form-label small text-muted mb-1" style="font-weight:600">Who</label>
-          <input type="text" class="form-control search-input" readonly ng-model="vm.displayGuests" ng-click="vm.toggleGuests()">
-
-          <div class="guests-popup" ng-show="vm.showGuests">
-            <div class="guest-row">
-              <div>
-                <div class="fw-bold">Adults</div>
-                <small class="text-muted">Ages 13 or above</small>
-              </div>
-              <div class="guest-controls">
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('adults', -1)" ng-disabled="vm.guests.adults<=1">-</button>
-                <div>{{vm.guests.adults}}</div>
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('adults', 1)">+</button>
-              </div>
-            </div>
-            <div class="guest-row">
-              <div>
-                <div class="fw-bold">Children</div>
-                <small class="text-muted">Ages 2 – 12</small>
-              </div>
-              <div class="guest-controls">
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('children', -1)" ng-disabled="vm.guests.children<=0">-</button>
-                <div>{{vm.guests.children}}</div>
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('children', 1)">+</button>
-              </div>
-            </div>
-            <div class="guest-row">
-              <div>
-                <div class="fw-bold">Infants</div>
-                <small class="text-muted">Under 2</small>
-              </div>
-              <div class="guest-controls">
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('infants', -1)" ng-disabled="vm.guests.infants<=0">-</button>
-                <div>{{vm.guests.infants}}</div>
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('infants', 1)">+</button>
-              </div>
-            </div>
-            <div class="guest-row">
-              <div>
-                <div class="fw-bold">Pets</div>
-                <small class="text-muted">Bringing a service animal?</small>
-              </div>
-              <div class="guest-controls">
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('pets', -1)" ng-disabled="vm.guests.pets<=0">-</button>
-                <div>{{vm.guests.pets}}</div>
-                <button type="button" class="count-btn" ng-click="vm.changeGuests('pets', 1)">+</button>
-              </div>
-            </div>
-            <div class="mt-3 text-end">
-              <button class="btn btn-outline-secondary btn-sm me-2" ng-click="vm.resetGuests()">Reset</button>
-              <button class="btn btn-primary btn-sm" ng-click="vm.closeGuests()">Done</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-1 text-end px-3">
-          <button type="submit" class="btn" style="background:var(--accent); color:#fff; border-radius:28px; padding:10px 18px"><i class="fa-solid fa-magnifying-glass me-2"></i>Search</button>
-        </div>
-
-        <!-- Calendar popup (two-month view) -->
-        <div class="calendar-popup" ng-show="vm.showCalendar">
-          <div class="calendar-month" ng-repeat="m in vm.calendarMonths">
-            <div class="calendar-head">
-              <div class="fw-bold">{{m.title}}</div>
-              <div>
-                <button class="btn btn-sm btn-light me-1" ng-click="vm.prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
-                <button class="btn btn-sm btn-light" ng-click="vm.nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
-              </div>
-            </div>
-            <div class="calendar-grid small text-muted text-center">
-              <div class="fw-semibold">S</div><div class="fw-semibold">M</div><div class="fw-semibold">T</div><div class="fw-semibold">W</div><div class="fw-semibold">T</div><div class="fw-semibold">F</div><div class="fw-semibold">S</div>
-              <div ng-repeat="day in m.days" ng-class="{'day':true,'disabled':!day.inMonth,'selected':day.isSelected,'in-range':day.inRange}" ng-click="vm.selectDate(day)">{{day.date.getDate()}}</div>
-            </div>
-          </div>
-          <div style="flex:1;padding-left:8px;min-width:220px;">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <div>
-                <div class="fw-bold">{{vm.displayCheckin || 'Add dates'}}</div>
-                <small class="text-muted">Check in</small>
-              </div>
-              <div>
-                <div class="fw-bold">{{vm.displayCheckout || 'Add dates'}}</div>
-                <small class="text-muted">Check out</small>
-              </div>
-            </div>
-            <div class="mt-3">
-              <button class="btn btn-outline-secondary btn-sm me-2" ng-click="vm.clearDates()">Clear</button>
-              <button class="btn btn-primary btn-sm" ng-click="vm.closeCalendar()">Done</button>
-            </div>
-          </div>
-        </div>
-
-      </form>
+      </div>
     </div>
   </div>
 
-  <!-- Listings grid -->
- <!-- Popular Stays Section -->
-    <main class="container mt-5" ng-controller="MainCtrl as vm">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0">Popular stays</h3>
-        <div class="scroll-buttons">
-        <button class="btn btn-light btn-sm me-2" ng-click="vm.scrollLeft()">
-            <i class="fa-solid fa-chevron-left"></i>
+  <!-- ============================================
+       HERO SECTION
+       ============================================ -->
+  <section class="hero-section parallax" id="home" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&h=1080&fit=crop') center/cover;">
+    <div class="hero-content fade-in">
+      <h1 class="hero-title">{{vm.t('welcomeTo')}} <span class="hero-highlight">StayUp</span></h1>
+      <p class="hero-subtitle">{{vm.t('experienceLuxury')}}</p>
+      <div class="mt-4">
+        <button class="btn btn-gold btn-lg me-3 btn-ripple btn-glow" ng-click="vm.openBookingModal()">
+          <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookYourStay')}}
         </button>
-        <button class="btn btn-light btn-sm" ng-click="vm.scrollRight()">
-            <i class="fa-solid fa-chevron-right"></i>
+        <button class="btn btn-outline-gold btn-lg btn-ripple btn-glow" ng-click="vm.scrollToSection('rooms')">
+          <i class="fas fa-bed me-2"></i>{{vm.t('viewRooms')}}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FEATURED ROOMS CAROUSEL
+       ============================================ -->
+  <section class="section" ng-if="vm.currentPage === 'home'">
+    <div class="container">
+      <h2 class="section-title">{{vm.t('featuredRooms')}}</h2>
+      <div class="featured-carousel position-relative">
+        <div class="carousel-control-custom carousel-control-prev-custom" ng-click="vm.prevFeatured()">
+          <i class="fas fa-chevron-left"></i>
+        </div>
+        <div class="carousel-control-custom carousel-control-next-custom" ng-click="vm.nextFeatured()">
+          <i class="fas fa-chevron-right"></i>
+        </div>
+        <div class="room-card glass-card" ng-if="vm.featuredRooms[vm.currentFeaturedIndex]">
+          <div class="row align-items-center">
+            <div class="col-md-6">
+              <img ng-src="{{vm.featuredRooms[vm.currentFeaturedIndex].image}}" alt="{{vm.featuredRooms[vm.currentFeaturedIndex].name}}" class="img-fluid rounded">
+            </div>
+            <div class="col-md-6">
+              <h3>{{vm.featuredRooms[vm.currentFeaturedIndex].name}}</h3>
+              <p>{{vm.featuredRooms[vm.currentFeaturedIndex].description}}</p>
+              <div class="room-price">₱{{vm.featuredRooms[vm.currentFeaturedIndex].price | number}}<span>{{vm.t('perNight')}}</span></div>
+              <button class="btn btn-gold mt-3 btn-ripple btn-glow" ng-click="vm.openBookingModal(vm.featuredRooms[vm.currentFeaturedIndex])">
+                <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookNow')}}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       HOTEL HIGHLIGHTS
+       ============================================ -->
+  <section class="section bg-light">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="amenity-item">
+            <i class="fas fa-swimming-pool amenity-icon"></i>
+            <h5 class="amenity-title">Luxury Pool</h5>
+            <p class="amenity-description">Relax by our stunning infinity pool</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="amenity-item">
+            <i class="fas fa-utensils amenity-icon"></i>
+            <h5 class="amenity-title">Fine Dining</h5>
+            <p class="amenity-description">Award-winning restaurants</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="amenity-item">
+            <i class="fas fa-spa amenity-icon"></i>
+            <h5 class="amenity-title">Spa & Wellness</h5>
+            <p class="amenity-description">Rejuvenate your body and mind</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="amenity-item">
+            <i class="fas fa-concierge-bell amenity-icon"></i>
+            <h5 class="amenity-title">24/7 Service</h5>
+            <p class="amenity-description">Round-the-clock concierge</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ABOUT SECTION
+       ============================================ -->
+  <section class="section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h2 class="section-title text-start">About StayUp</h2>
+          <p class="lead">Where Luxury Meets Tradition</p>
+          <p>Nestled in the heart of the city, StayUp offers an unparalleled experience of luxury and comfort. Our elegant rooms, world-class amenities, and exceptional service create memories that last a lifetime.</p>
+          <p>With over 20 years of excellence in hospitality, we combine traditional elegance with modern sophistication to provide our guests with an unforgettable stay.</p>
+          <button class="btn btn-gold mt-3" ng-click="vm.scrollToSection('contact')">
+            Learn More
+          </button>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&h=600&fit=crop" alt="Hotel" class="img-fluid rounded shadow-luxury">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       ROOMS SECTION
+       ============================================ -->
+  <section class="section bg-light" id="rooms">
+    <div class="container">
+      <h2 class="section-title">Our Luxurious Rooms</h2>
+      <p class="section-subtitle">Choose from our exquisite collection of rooms and suites</p>
+
+      <!-- Filters -->
+      <div class="filter-section">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="filter-group">
+              <label class="filter-label">Price Range</label>
+              <div class="d-flex gap-2">
+                <input type="number" class="form-control" ng-model="vm.filters.priceRange.min" placeholder="Min" ng-change="vm.applyFilters()">
+                <input type="number" class="form-control" ng-model="vm.filters.priceRange.max" placeholder="Max" ng-change="vm.applyFilters()">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="filter-group">
+              <label class="filter-label">Room Type</label>
+              <select class="form-select" ng-model="vm.filters.roomType" ng-change="vm.applyFilters()">
+                <option value="">All Types</option>
+                <option value="Standard">Standard</option>
+                <option value="Suite">Suite</option>
+                <option value="Family">Family</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="filter-group">
+              <label class="filter-label">Max Guests</label>
+              <select class="form-select" ng-model="vm.filters.maxGuests" ng-change="vm.applyFilters()">
+                <option value="">Any</option>
+                <option value="2">2 Guests</option>
+                <option value="4">4 Guests</option>
+              </select>
+              </div>
+            </div>
+          <div class="col-md-3">
+            <div class="filter-group">
+              <label class="filter-label">&nbsp;</label>
+              <button class="btn btn-outline-gold w-100" ng-click="vm.clearFilters()">Clear Filters</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- Sort Options -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <label class="me-2">{{vm.t('sortBy')}}:</label>
+          <select class="form-select d-inline-block" style="width: auto;" ng-model="vm.sortBy" ng-change="vm.applySort()">
+            <option value="popular">{{vm.t('mostPopular')}}</option>
+            <option value="price-low">{{vm.t('priceLowHigh')}}</option>
+            <option value="price-high">{{vm.t('priceHighLow')}}</option>
+            <option value="newest">{{vm.t('newestFirst')}}</option>
+          </select>
+        </div>
+        <div>
+          <button class="btn btn-outline-gold btn-sm" ng-click="vm.openComparison()" ng-if="vm.compareRooms.length >= 2">
+            <i class="fas fa-balance-scale me-2"></i>{{vm.t('compare')}} ({{vm.compareRooms.length}})
+          </button>
+        </div>
+        </div>
+
+      <!-- Room Cards -->
+      <div class="row">
+        <div class="col-lg-4 col-md-6 fade-in" ng-repeat="room in vm.filteredRooms">
+          <div class="room-card position-relative">
+            <button class="wishlist-btn" ng-class="{'active': room.inWishlist}" ng-click="vm.toggleWishlist(room); $event.stopPropagation()">
+              <i ng-class="{'fas fa-heart': room.inWishlist, 'far fa-heart': !room.inWishlist}"></i>
+            </button>
+            <img ng-src="{{room.image}}" alt="{{room.name}}" class="room-image">
+            <div class="room-content">
+              <h3 class="room-title">{{room.name}}</h3>
+              <div class="room-amenities">
+                <span class="amenity-badge" ng-repeat="amenity in room.amenities">{{amenity}}</span>
+              </div>
+              <p class="room-description">{{room.description}}</p>
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                  <div class="room-price">₱{{room.price | number}}<span>{{vm.t('perNight')}}</span></div>
+                  <small class="text-muted">{{room.size}} · {{vm.t('upTo')}} {{room.maxGuests}} {{vm.t('guests')}}</small>
+                </div>
+              </div>
+              <div class="d-flex gap-2 mb-2">
+                <button class="btn btn-outline-gold flex-fill btn-ripple btn-glow" ng-click="vm.openRoomDetails(room)">
+                  <i class="fas fa-info-circle me-2"></i>{{vm.t('viewDetails')}}
+                </button>
+                <button class="btn btn-gold flex-fill btn-ripple btn-glow" ng-click="vm.openBookingModal(room)">
+                  <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookNow')}}
+                </button>
+              </div>
+              <div class="d-flex gap-2">
+                <button class="btn btn-sm btn-outline-secondary flex-fill" ng-click="vm.addToCompare(room)" ng-disabled="vm.compareRooms.length >= vm.maxCompare || vm.compareRooms.find(function(r) { return r.id === room.id; })">
+                  <i class="fas fa-balance-scale me-1"></i>{{vm.t('compare')}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+      <!-- Recently Viewed -->
+      <div class="mt-5" ng-if="vm.recentlyViewed.length > 0">
+        <h3 class="mb-3">{{vm.t('recentlyViewed')}}</h3>
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6" ng-repeat="room in vm.recentlyViewed">
+            <div class="room-card">
+              <img ng-src="{{room.image}}" alt="{{room.name}}" class="room-image" style="height:150px;">
+              <div class="room-content">
+                <h5 class="room-title">{{room.name}}</h5>
+                <div class="room-price">₱{{room.price | number}}<span>{{vm.t('perNight')}}</span></div>
+                <button class="btn btn-gold btn-sm w-100 mt-2" ng-click="vm.openRoomDetails(room)">View</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       AMENITIES SECTION
+       ============================================ -->
+  <section class="section" id="amenities">
+    <div class="container">
+      <h2 class="section-title">World-Class Amenities</h2>
+      <p class="section-subtitle">Everything you need for a perfect stay</p>
+      
+      <div class="row">
+        <div class="col-lg-4 col-md-6" ng-repeat="amenity in vm.amenities">
+          <div class="amenity-item">
+            <i class="fas {{amenity.icon}} amenity-icon"></i>
+            <h5 class="amenity-title">{{amenity.title}}</h5>
+            <p class="amenity-description">{{amenity.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       GALLERY SECTION
+       ============================================ -->
+  <section class="section bg-light" id="gallery">
+    <div class="container">
+      <h2 class="section-title">Photo Gallery</h2>
+      <p class="section-subtitle">Take a glimpse of our beautiful hotel</p>
+      
+      <div class="gallery-grid">
+        <div class="gallery-item" ng-repeat="image in vm.galleryImages" ng-click="vm.openGallery(image)">
+          <img ng-src="{{image}}" alt="Gallery Image">
+          <div class="gallery-overlay">
+            <i class="fas fa-search-plus"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       FAQ SECTION
+       ============================================ -->
+  <section class="section bg-light" id="faq">
+    <div class="container">
+      <h2 class="section-title">{{vm.t('frequentlyAsked')}}</h2>
+      <p class="section-subtitle">{{vm.t('everythingYouNeed')}}</p>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="faq-item" ng-class="{'active': faq.active}" ng-repeat="faq in vm.faqs">
+            <div class="faq-question" ng-click="vm.toggleFAQ($index)">
+              <span>{{vm.t(faq.questionKey)}}</span>
+              <i class="fas fa-chevron-down faq-icon"></i>
+            </div>
+            <div class="faq-answer" ng-class="{'show': faq.active}">
+              {{vm.t(faq.answerKey)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       TESTIMONIALS SECTION
+       ============================================ -->
+  <section class="section" id="testimonials">
+    <div class="container">
+      <h2 class="section-title">{{vm.t('whatGuestsSay')}}</h2>
+      <p class="section-subtitle">{{vm.t('realExperiences')}}</p>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="testimonial-card fade-in">
+            <div class="testimonial-stars">
+              <i class="fas fa-star" ng-repeat="n in [1,2,3,4,5]"></i>
+            </div>
+            <p class="testimonial-text">"{{vm.testimonials[vm.currentTestimonial].text}}"</p>
+            <h5 class="testimonial-author">{{vm.testimonials[vm.currentTestimonial].name}}</h5>
+            <p class="testimonial-location">{{vm.testimonials[vm.currentTestimonial].location}}</p>
+            <div class="mt-3">
+              <button class="btn btn-sm btn-outline-gold me-2 btn-ripple" ng-click="vm.prevTestimonial()">
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <button class="btn btn-sm btn-outline-gold btn-ripple" ng-click="vm.nextTestimonial()">
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTACT SECTION
+       ============================================ -->
+  <section class="section bg-light" id="contact">
+    <div class="container">
+      <h2 class="section-title">Contact Us</h2>
+      <p class="section-subtitle">We'd love to hear from you</p>
+      
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="contact-form">
+            <form ng-submit="vm.submitContact()">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Full Name *</label>
+                  <input type="text" class="form-control" ng-model="vm.contactForm.name" required>
+                  <small class="text-danger" ng-if="vm.contactErrors.name">{{vm.contactErrors.name}}</small>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label">Email *</label>
+                  <input type="email" class="form-control" ng-model="vm.contactForm.email" required>
+                  <small class="text-danger" ng-if="vm.contactErrors.email">{{vm.contactErrors.email}}</small>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-control" ng-model="vm.contactForm.phone">
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message *</label>
+                <textarea class="form-control" rows="5" ng-model="vm.contactForm.message" required></textarea>
+                <small class="text-danger" ng-if="vm.contactErrors.message">{{vm.contactErrors.message}}</small>
+              </div>
+              <button type="submit" class="btn btn-gold">
+                <i class="fas fa-paper-plane me-2"></i>Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="contact-info">
+            <h3>Get in Touch</h3>
+            <div class="contact-item">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <strong>Address</strong>
+                <p>123 Luxury Street, Makati City, Philippines</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-phone"></i>
+              <div>
+                <strong>Phone</strong>
+                <p>+63 2 1234 5678</p>
+              </div>
+              </div>
+            <div class="contact-item">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <strong>Email</strong>
+                <p>info@StayUp.com</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <i class="fas fa-clock"></i>
+              <div>
+                <strong>Front Desk</strong>
+                <p>24/7 Available</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+              </div>
+  </section>
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+  <footer class="footer-luxury">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4">
+          <h5>StayUp</h5>
+          <p>Experience luxury like never before. Your perfect stay awaits.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#" ng-click="vm.navigateTo('home')">Home</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('rooms')">Rooms</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('amenities')">Amenities</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('gallery')">Gallery</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-6 mb-4">
+          <h5>Services</h5>
+          <ul class="list-unstyled">
+            <li><a href="#">Spa & Wellness</a></li>
+            <li><a href="#">Fine Dining</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Concierge</a></li>
+          </ul>
+              </div>
+        <div class="col-lg-4 mb-4">
+          <h5>Newsletter</h5>
+          <p>Subscribe to get special offers and updates</p>
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Your email">
+            <button class="btn btn-gold" type="button">Subscribe</button>
+              </div>
+            </div>
+              </div>
+      <hr class="my-4" style="border-color: #333;">
+      <div class="text-center">
+        <p>&copy; {{vm.year}} StayUp. All rights reserved.</p>
+              </div>
+            </div>
+  </footer>
+
+  <!-- ============================================
+       FLOATING ACTION BUTTON
+       ============================================ -->
+  <div class="fab" ng-click="vm.toggleFABMenu()">
+    <i class="fas fa-plus"></i>
+    <div class="fab-menu" ng-class="{'show': vm.showFABMenu}">
+      <div class="fab-item" ng-click="vm.openBookingModal(); vm.showFABMenu = false" title="Book Now">
+        <i class="fas fa-calendar-check"></i>
+      </div>
+      <div class="fab-item" ng-click="vm.toggleChat(); vm.showFABMenu = false" title="Live Chat">
+        <i class="fas fa-comments"></i>
+      </div>
+      <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false" title="Contact">
+        <i class="fas fa-phone"></i>
+            </div>
+          </div>
+        </div>
+
+  <!-- ============================================
+       LIVE CHAT WIDGET
+       ============================================ -->
+  <div class="chat-widget" ng-class="{'show': vm.showChat}">
+    <div class="chat-header">
+      <div>
+        <h6 class="mb-0">{{vm.t('liveChatSupport')}}</h6>
+        <small>{{vm.t('weAreHere')}}</small>
+      </div>
+      <button class="btn btn-sm btn-light" ng-click="vm.toggleChat()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="chat-messages">
+      <div class="chat-message" ng-class="msg.type" ng-repeat="msg in vm.chatMessages">
+        {{msg.text}}
+      </div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" class="chat-input" ng-attr-placeholder="{{vm.t('typeMessage')}}" ng-model="vm.chatInput" ng-keyup="$event.keyCode === 13 && vm.sendChatMessage()">
+      <button class="btn btn-gold btn-sm" ng-click="vm.sendChatMessage()">
+        <i class="fas fa-paper-plane"></i>
+      </button>
+    </div>
+  </div>
+  <div class="chat-toggle" ng-if="!vm.showChat" ng-click="vm.toggleChat()">
+    <i class="fas fa-comments"></i>
+  </div>
+
+  <!-- ============================================
+       BACK TO TOP BUTTON
+       ============================================ -->
+  <div class="back-to-top" ng-class="{'show': vm.showBackToTop}" ng-click="vm.scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </div>
+
+  <!-- ============================================
+       ROOM DETAILS MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" id="roomDetailsModal" tabindex="-1" ng-class="{'show': vm.showRoomDetailsModal}" ng-style="{'display': vm.showRoomDetailsModal ? 'block' : 'none'}" ng-if="vm.showRoomDetailsModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.selectedRoom.name}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeRoomDetails()"></button>
+        </div>
+        <div class="modal-body" ng-if="vm.selectedRoom">
+          <div id="roomCarousel" class="carousel slide mb-4" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item" ng-class="{'active': $index === 0}" ng-repeat="img in vm.selectedRoom.images">
+                <img ng-src="{{img}}" class="d-block w-100" style="height:400px;object-fit:cover;">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#roomCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
+          <h4>{{vm.t('description')}}</h4>
+          <p>{{vm.selectedRoom.description}}</p>
+          <h4 class="mt-4">{{vm.t('amenities')}}</h4>
+          <div class="room-amenities">
+            <span class="amenity-badge" ng-repeat="amenity in vm.selectedRoom.amenities">{{amenity}}</span>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-6">
+              <p><strong>{{vm.t('size')}}:</strong> {{vm.selectedRoom.size}}</p>
+              <p><strong>{{vm.t('maxGuests')}}:</strong> {{vm.selectedRoom.maxGuests}}</p>
+            </div>
+            <div class="col-md-6 text-end">
+              <div class="room-price">₱{{vm.selectedRoom.price | number}}<span>{{vm.t('perNight')}}</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" ng-click="vm.closeRoomDetails()">{{vm.t('close')}}</button>
+          <button type="button" class="btn btn-gold" ng-click="vm.openBookingModal(vm.selectedRoom); vm.closeRoomDetails()">
+            <i class="fas fa-calendar-check me-2"></i>{{vm.t('proceedToBooking')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showRoomDetailsModal}" ng-if="vm.showRoomDetailsModal" ng-click="vm.closeRoomDetails()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       BOOKING MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" id="bookingModal" tabindex="-1" ng-class="{'show': vm.showBookingModal}" ng-style="{'display': vm.showBookingModal ? 'block' : 'none'}" ng-if="vm.showBookingModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('bookingForm')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeBookingModal()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="vm.submitBooking()">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">{{vm.t('fullName')}} *</label>
+                <input type="text" class="form-control" ng-class="{'is-invalid': vm.formErrors.fullName}" ng-model="vm.bookingForm.fullName" required>
+                <small class="text-danger" ng-if="vm.formErrors.fullName">{{vm.formErrors.fullName}}</small>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">{{vm.t('email')}} *</label>
+                <input type="email" class="form-control" ng-class="{'is-invalid': vm.formErrors.email}" ng-model="vm.bookingForm.email" required>
+                <small class="text-danger" ng-if="vm.formErrors.email">{{vm.formErrors.email}}</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">{{vm.t('phone')}} *</label>
+                <input type="tel" class="form-control" ng-class="{'is-invalid': vm.formErrors.phone}" ng-model="vm.bookingForm.phone" required>
+                <small class="text-danger" ng-if="vm.formErrors.phone">{{vm.formErrors.phone}}</small>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">{{vm.t('roomType')}} *</label>
+                <select class="form-select" ng-class="{'is-invalid': vm.formErrors.roomType}" ng-model="vm.bookingForm.roomType" ng-change="vm.calculatePrice()" required>
+                  <option value="">{{vm.t('roomType')}}</option>
+                  <option ng-repeat="room in vm.rooms" value="{{room.name}}">{{room.name}} - ₱{{room.price | number}}{{vm.t('perNight')}}</option>
+                </select>
+                <small class="text-danger" ng-if="vm.formErrors.roomType">{{vm.formErrors.roomType}}</small>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label class="form-label">{{vm.t('numberOfGuests')}} *</label>
+                <input type="number" class="form-control" min="1" max="10" ng-model="vm.bookingForm.guests" ng-change="vm.calculatePrice()" required>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">{{vm.t('checkIn')}} *</label>
+                <input type="date" class="form-control" ng-class="{'is-invalid': vm.formErrors.checkIn}" ng-model="vm.bookingForm.checkIn" ng-change="vm.calculatePrice()" min="{{vm.minCheckInDate}}" required>
+                <small class="text-danger" ng-if="vm.formErrors.checkIn">{{vm.formErrors.checkIn}}</small>
+              </div>
+              <div class="col-md-4 mb-3">
+                <label class="form-label">{{vm.t('checkOut')}} *</label>
+                <input type="date" class="form-control" ng-class="{'is-invalid': vm.formErrors.checkOut}" ng-model="vm.bookingForm.checkOut" ng-change="vm.calculatePrice()" min="{{vm.minCheckOutDate || vm.minCheckInDate}}" required>
+                <small class="text-danger" ng-if="vm.formErrors.checkOut">{{vm.formErrors.checkOut}}</small>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('specialRequests')}}</label>
+              <textarea class="form-control" rows="3" ng-model="vm.bookingForm.specialRequests" ng-attr-placeholder="{{vm.t('anySpecialRequests')}}"></textarea>
+            </div>
+            
+            <!-- Discount Code -->
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('discountCode')}}</label>
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="vm.discountCode" ng-attr-placeholder="{{vm.t('enterCode')}}">
+                <button class="btn btn-outline-gold" type="button" ng-click="vm.applyDiscount()">{{vm.t('apply')}}</button>
+              </div>
+              <small class="text-success" ng-if="vm.discountApplied">{{vm.t('discountApplied')}} ({{vm.discountAmount * 100}}% off)</small>
+            </div>
+
+            <div class="price-summary" ng-if="vm.totalPrice > 0">
+              <h5>{{vm.t('priceSummary')}}</h5>
+              <div class="price-row">
+                <span>{{vm.t('roomRate')}} ({{vm.totalNights}} {{vm.t('nights')}})</span>
+                <span>₱{{vm.totalPrice / (1 - (vm.discountApplied ? vm.discountAmount : 0)) | number}}</span>
+              </div>
+              <div class="price-row" ng-if="vm.discountApplied">
+                <span>{{vm.t('discount')}} ({{vm.discountAmount * 100}}%)</span>
+                <span class="text-success">-₱{{(vm.totalPrice / (1 - vm.discountAmount)) - vm.totalPrice | number}}</span>
+              </div>
+              <div class="price-row">
+                <span>{{vm.t('taxesFees')}}</span>
+                <span>{{vm.t('included')}}</span>
+              </div>
+              <div class="price-total">
+                <span>{{vm.t('total')}}</span>
+                <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+        </div>
+
+            <div class="modal-footer px-0">
+              <button type="button" class="btn btn-secondary" ng-click="vm.closeBookingModal()">{{vm.t('cancel')}}</button>
+              <button type="button" class="btn btn-outline-gold" ng-click="vm.showSummary()" ng-if="!vm.showBookingSummary">
+                <i class="fas fa-eye me-2"></i>{{vm.t('viewSummary')}}
+              </button>
+              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.showPaymentModal = true">
+                <i class="fas fa-check me-2"></i>{{vm.t('proceedToPayment')}}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showBookingModal}" ng-if="vm.showBookingModal" ng-click="vm.closeBookingModal()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       GALLERY LIGHTBOX MODAL
+       ============================================ -->
+  <div class="modal fade" id="galleryModal" tabindex="-1" ng-class="{'show': vm.showGalleryModal}" ng-style="{'display': vm.showGalleryModal ? 'block' : 'none'}" ng-if="vm.showGalleryModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content bg-dark">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close btn-close-white" ng-click="vm.closeGallery()"></button>
+        </div>
+        <div class="modal-body p-0">
+          <img ng-src="{{vm.selectedImage}}" class="img-fluid w-100" style="max-height:80vh;object-fit:contain;">
+              </div>
+            </div>
+            </div>
+          </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showGalleryModal}" ng-if="vm.showGalleryModal" ng-click="vm.closeGallery()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       BOOKING SUMMARY MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showBookingSummary}" ng-style="{'display': vm.showBookingSummary ? 'block' : 'none'}" ng-if="vm.showBookingSummary" style="z-index: 1060;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('bookingSummary')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.hideSummary()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="booking-summary">
+            <div class="summary-row">
+              <span>{{vm.t('room')}}:</span>
+              <span>{{vm.selectedRoom.name}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('checkIn')}}:</span>
+              <span>{{vm.bookingForm.checkIn}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('checkOut')}}:</span>
+              <span>{{vm.bookingForm.checkOut}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('guests')}}:</span>
+              <span>{{vm.bookingForm.guests}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('nights')}}:</span>
+              <span>{{vm.totalNights}}</span>
+            </div>
+            <div class="summary-row" ng-if="vm.discountApplied">
+              <span>{{vm.t('discount')}}:</span>
+              <span class="text-success">-{{vm.discountAmount * 100}}%</span>
+              </div>
+            <div class="summary-row">
+              <span>{{vm.t('totalPrice')}}:</span>
+              <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+            </div>
+            <div class="mt-3">
+            <button class="btn btn-outline-gold w-100 mb-2" ng-click="vm.hideSummary()">
+              <i class="fas fa-edit me-2"></i>{{vm.t('editBooking')}}
+            </button>
+            <button class="btn btn-gold w-100 btn-ripple btn-glow" ng-click="vm.showPaymentModal = true; vm.hideSummary()">
+              <i class="fas fa-credit-card me-2"></i>{{vm.t('proceedToPayment')}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showBookingSummary}" ng-if="vm.showBookingSummary" ng-click="vm.hideSummary()" style="z-index: 1055;"></div>
+
+  <!-- ============================================
+       PAYMENT MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showPaymentModal}" ng-style="{'display': vm.showPaymentModal ? 'block' : 'none'}" ng-if="vm.showPaymentModal" style="z-index: 1060;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('payment')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.showPaymentModal = false"></button>
+        </div>
+        <div class="modal-body">
+          <div class="payment-methods">
+            <div class="payment-method" ng-class="{'selected': vm.selectedPaymentMethod === method}" ng-repeat="method in vm.paymentMethods" ng-click="vm.selectPaymentMethod(method)">
+              <i class="fas fa-2x mb-2" ng-class="{'fa-credit-card': method === 'Card', 'fa-mobile-alt': method === 'GCash' || method === 'Maya', 'fa-paypal': method === 'PayPal'}"></i>
+              <div>{{method}}</div>
+            </div>
+          </div>
+
+          <div ng-if="vm.selectedPaymentMethod === 'Card'">
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('cardholderName')}}</label>
+              <input type="text" class="form-control" ng-model="vm.paymentForm.cardName" placeholder="John Doe">
+            </div>
+            <div class="card-input-group">
+              <div>
+                <label class="form-label">{{vm.t('cardNumber')}}</label>
+                <input type="text" class="card-input" ng-model="vm.paymentForm.cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+              </div>
+              <div>
+                <label class="form-label">{{vm.t('expiry')}}</label>
+                <input type="text" class="card-input" ng-model="vm.paymentForm.expiryDate" placeholder="MM/YY" maxlength="5">
+              </div>
+              <div>
+                <label class="form-label">{{vm.t('cvv')}}</label>
+                <input type="text" class="card-input" ng-model="vm.paymentForm.cvv" placeholder="123" maxlength="4">
+            </div>
+          </div>
+        </div>
+
+          <div ng-if="vm.selectedPaymentMethod && vm.selectedPaymentMethod !== 'Card'">
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              {{vm.tReplace('redirectMessage', {method: vm.selectedPaymentMethod})}}
+            </div>
+          </div>
+
+          <div class="price-summary mt-3">
+            <div class="summary-row">
+              <span>{{vm.t('total')}}:</span>
+              <span class="price-total">₱{{vm.totalPrice | number}}</span>
+    </div>
+  </div>
+
+          <div class="modal-footer px-0 mt-3">
+            <button type="button" class="btn btn-secondary" ng-click="vm.showPaymentModal = false">{{vm.t('cancel')}}</button>
+            <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-click="vm.processPayment()" ng-disabled="!vm.selectedPaymentMethod">
+              <i class="fas fa-lock me-2"></i>{{vm.t('payNow')}}
         </button>
         </div>
     </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentModal}" ng-if="vm.showPaymentModal" ng-click="vm.showPaymentModal = false" style="z-index: 1055;"></div>
 
-    <div class="popular-scroll d-flex flex-nowrap overflow-auto pb-2" id="popularScroll">
-        <div
-        class="popular-card me-3 flex-shrink-0 bg-white shadow-sm rounded-4"
-        style="width: 270px;"
-        ng-repeat="stay in vm.rooms | limitTo:8"
-        >
-        <div class="position-relative">
-            <img
-            ng-src="{{stay.image}}"
-            alt="{{stay.name}}"
-            class="w-100 rounded-4"
-            />
+  <!-- ============================================
+       PAYMENT SUCCESS MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showPaymentSuccess}" ng-style="{'display': vm.showPaymentSuccess ? 'block' : 'none'}" ng-if="vm.showPaymentSuccess" style="z-index: 1070;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="payment-success">
+            <div class="payment-success-icon">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3>{{vm.t('paymentSuccessful')}}</h3>
+            <p class="text-muted">{{vm.t('bookingConfirmed')}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentSuccess}" ng-if="vm.showPaymentSuccess" style="z-index: 1065;"></div>
 
-            <div
-            class="badge bg-white text-dark position-absolute top-0 start-0 m-2 px-2 py-1 small fw-semibold shadow-sm"
-            ng-if="stay.fav"
-            >
-            Guest favorite
+  <!-- ============================================
+       ROOM COMPARISON MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showComparison}" ng-style="{'display': vm.showComparison ? 'block' : 'none'}" ng-if="vm.showComparison" style="z-index: 1055;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('compareRooms')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.showComparison = false"></button>
+        </div>
+        <div class="modal-body">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>{{vm.t('feature')}}</th>
+                <th ng-repeat="room in vm.compareRooms">{{room.name}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>{{vm.t('price')}}</strong></td>
+                <td ng-repeat="room in vm.compareRooms">₱{{room.price | number}}{{vm.t('perNight')}}</td>
+              </tr>
+              <tr>
+                <td><strong>{{vm.t('size')}}</strong></td>
+                <td ng-repeat="room in vm.compareRooms">{{room.size}}</td>
+              </tr>
+              <tr>
+                <td><strong>{{vm.t('maxGuests')}}</strong></td>
+                <td ng-repeat="room in vm.compareRooms">{{room.maxGuests}}</td>
+              </tr>
+              <tr>
+                <td><strong>{{vm.t('amenities')}}</strong></td>
+                <td ng-repeat="room in vm.compareRooms">
+                  <span class="amenity-badge" ng-repeat="amenity in room.amenities">{{amenity}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>{{vm.t('action')}}</strong></td>
+                <td ng-repeat="room in vm.compareRooms">
+                  <button class="btn btn-gold btn-sm" ng-click="vm.openBookingModal(room); vm.showComparison = false">{{vm.t('bookNow')}}</button>
+                  <button class="btn btn-outline-secondary btn-sm" ng-click="vm.removeFromCompare(room)">{{vm.t('remove')}}</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+            </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showComparison}" ng-if="vm.showComparison" ng-click="vm.showComparison = false" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       LOGIN MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showLoginModal}" ng-style="{'display': vm.showLoginModal ? 'block' : 'none'}" ng-if="vm.showLoginModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('login')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeLogin()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="vm.submitLogin()">
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('email')}}</label>
+              <input type="email" class="form-control" ng-model="vm.loginForm.email" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('password')}}</label>
+              <input type="password" class="form-control" ng-model="vm.loginForm.password" required>
+            </div>
+            <button type="submit" class="btn btn-gold w-100 btn-ripple btn-glow">{{vm.t('login')}}</button>
+            <div class="text-center mt-3">
+              <p>{{vm.t('dontHaveAccount')}} <a href="#" ng-click="vm.openRegister()">{{vm.t('register')}}</a></p>
+        </div>
+          </form>
+            </div>
+        </div>
+        </div>
+    </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showLoginModal}" ng-if="vm.showLoginModal" ng-click="vm.closeLogin()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       REGISTER MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showRegisterModal}" ng-style="{'display': vm.showRegisterModal ? 'block' : 'none'}" ng-if="vm.showRegisterModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('register')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeRegister()"></button>
+        </div>
+        <div class="modal-body">
+          <form ng-submit="vm.submitRegister()">
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('fullName')}}</label>
+              <input type="text" class="form-control" ng-model="vm.registerForm.name" ng-attr-placeholder="{{vm.t('fullNamePlaceholder')}}" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('email')}}</label>
+              <input type="email" class="form-control" ng-model="vm.registerForm.email" ng-attr-placeholder="{{vm.t('emailPlaceholder')}}" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('password')}}</label>
+              <input type="password" class="form-control" ng-model="vm.registerForm.password" required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">{{vm.t('confirmPassword')}}</label>
+              <input type="password" class="form-control" ng-model="vm.registerForm.confirmPassword" required>
+            </div>
+            <button type="submit" class="btn btn-gold w-100 btn-ripple btn-glow">{{vm.t('register')}}</button>
+            <div class="text-center mt-3">
+              <p>{{vm.t('alreadyHaveAccount')}} <a href="#" ng-click="vm.openLogin(); vm.closeRegister()">{{vm.t('login')}}</a></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showRegisterModal}" ng-if="vm.showRegisterModal" ng-click="vm.closeRegister()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       USER DASHBOARD MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showDashboard}" ng-style="{'display': vm.showDashboard ? 'block' : 'none'}" ng-if="vm.showDashboard" style="z-index: 1055;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('myBookings')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeDashboard()"></button>
+        </div>
+        <div class="modal-body">
+          <div ng-if="vm.userBookings.length === 0" class="text-center py-5">
+            <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+            <p class="text-muted">{{vm.t('noBookings')}}</p>
+            <button class="btn btn-gold" ng-click="vm.openBookingModal(); vm.closeDashboard()">{{vm.t('bookNow')}}</button>
+          </div>
+          <div ng-if="vm.userBookings.length > 0">
+            <div class="dashboard-card" ng-repeat="booking in vm.userBookings">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <h5>{{booking.room.name}}</h5>
+                  <p class="text-muted mb-2">
+                    <i class="fas fa-calendar me-2"></i>{{booking.checkIn}} to {{booking.checkOut}}
+                  </p>
+                  <p class="text-muted mb-2">
+                    <i class="fas fa-users me-2"></i>{{booking.guests}} {{vm.t('guests')}}
+                  </p>
+                  <p class="mb-0">
+                    <strong>{{vm.t('bookingReferenceLabel')}}:</strong> {{booking.reference}}
+                  </p>
+                </div>
+                <div class="text-end">
+                  <span class="booking-status confirmed">{{vm.t('confirmed')}}</span>
+                  <div class="mt-2">
+                    <strong class="text-gold">₱{{booking.totalPrice | number}}</strong>
+                  </div>
+                  <button class="btn btn-sm btn-outline-danger mt-2" ng-click="vm.cancelBooking(booking)">
+                    <i class="fas fa-times me-1"></i>{{vm.t('cancelBooking')}}
+        </button>
+        </div>
+    </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showDashboard}" ng-if="vm.showDashboard" ng-click="vm.closeDashboard()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       WISHLIST MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showWishlist}" ng-style="{'display': vm.showWishlist ? 'block' : 'none'}" ng-if="vm.showWishlist" style="z-index: 1055;">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            <i class="fas fa-heart me-2"></i>{{vm.t('wishlist')}}
+          </h5>
+          <button type="button" class="btn-close" ng-click="vm.closeWishlist()"></button>
+        </div>
+        <div class="modal-body">
+          <div ng-if="!vm.wishlist || vm.wishlist.length === 0" class="text-center py-5">
+            <i class="fas fa-heart fa-3x text-muted mb-3" style="opacity: 0.3;"></i>
+            <p class="text-muted">{{vm.t('noWishlistItems')}}</p>
+            <button class="btn btn-gold" ng-click="vm.navigateTo('rooms'); vm.closeWishlist()">
+              <i class="fas fa-bed me-2"></i>{{vm.t('viewRooms')}}
+            </button>
+          </div>
+          <div ng-if="vm.wishlist && vm.wishlist.length > 0">
+            <div class="row">
+              <div class="col-lg-4 col-md-6 mb-4" ng-repeat="room in vm.wishlist">
+                <div class="room-card position-relative">
+                  <button class="wishlist-btn active" ng-click="vm.toggleWishlist(room); $event.stopPropagation()">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                  <img ng-src="{{room.image}}" alt="{{room.name}}" class="room-image">
+                  <div class="room-content">
+                    <h3 class="room-title">{{room.name}}</h3>
+                    <div class="room-amenities">
+                      <span class="amenity-badge" ng-repeat="amenity in room.amenities">{{amenity}}</span>
+                    </div>
+                    <p class="room-description">{{room.description}}</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <div>
+                        <div class="room-price">₱{{room.price | number}}<span>{{vm.t('perNight')}}</span></div>
+                        <small class="text-muted">{{room.size}} · {{vm.t('upTo')}} {{room.maxGuests}} {{vm.t('guests')}}</small>
+                      </div>
+                    </div>
+                    <div class="d-flex gap-2 mb-2">
+                      <button class="btn btn-outline-gold flex-fill btn-ripple btn-glow" ng-click="vm.openRoomDetails(room)">
+                        <i class="fas fa-info-circle me-2"></i>{{vm.t('viewDetails')}}
+                      </button>
+                      <button class="btn btn-gold flex-fill btn-ripple btn-glow" ng-click="vm.openBookingModal(room)">
+                        <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookNow')}}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showWishlist}" ng-if="vm.showWishlist" ng-click="vm.closeWishlist()" style="z-index: 1050;"></div>
+
+  <!-- ============================================
+       PROFILE MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showProfileModal}" ng-style="{'display': vm.showProfileModal ? 'block' : 'none'}" ng-if="vm.showProfileModal" style="z-index: 1055;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fas fa-user me-2"></i>{{vm.t('profile')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeProfile()"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Profile Tabs -->
+          <ul class="nav nav-tabs mb-4" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-pane" type="button" role="tab">
+                <i class="fas fa-user-edit me-2"></i>Edit Profile
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="password-tab" data-bs-toggle="tab" data-bs-target="#password-pane" type="button" role="tab">
+                <i class="fas fa-lock me-2"></i>Change Password
+              </button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="bookings-tab" data-bs-toggle="tab" data-bs-target="#bookings-pane" type="button" role="tab" ng-click="vm.refreshBookings()">
+                <i class="fas fa-calendar-check me-2"></i>{{vm.t('myBookings')}}
+              </button>
+            </li>
+          </ul>
+          
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <!-- Edit Profile Tab -->
+            <div class="tab-pane fade show active" id="profile-pane" role="tabpanel">
+              <form ng-submit="vm.updateProfile()">
+                <div class="mb-3">
+                  <label class="form-label">{{vm.t('fullName')}} *</label>
+                  <input type="text" class="form-control" ng-model="vm.profileForm.name" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">{{vm.t('email')}} *</label>
+                  <input type="email" class="form-control" ng-model="vm.profileForm.email" required>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-secondary" ng-click="vm.closeProfile()">Cancel</button>
+                  <button type="submit" class="btn btn-gold">Save Changes</button>
+                </div>
+              </form>
+            </div>
+            
+            <!-- Change Password Tab -->
+            <div class="tab-pane fade" id="password-pane" role="tabpanel">
+              <form ng-submit="vm.changePassword()">
+                <div class="mb-3">
+                  <label class="form-label">Current Password *</label>
+                  <input type="password" class="form-control" ng-model="vm.profileForm.currentPassword" required>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">New Password *</label>
+                  <input type="password" class="form-control" ng-model="vm.profileForm.newPassword" required minlength="6">
+                  <small class="text-muted">Password must be at least 6 characters</small>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">{{vm.t('confirmPassword')}} *</label>
+                  <input type="password" class="form-control" ng-model="vm.profileForm.confirmPassword" required>
+                </div>
+                <div class="d-flex justify-content-end gap-2">
+                  <button type="button" class="btn btn-secondary" ng-click="vm.closeProfile()">Cancel</button>
+                  <button type="submit" class="btn btn-gold">Change Password</button>
+                </div>
+              </form>
             </div>
 
-            <button
-            class="heart-btn border-0 bg-transparent position-absolute top-0 end-0 m-2"
-            ng-click="vm.toggleFav(stay); $event.stopPropagation();"
-            >
-            <i
-                class="fa-heart fa-lg"
-                ng-class="{'fa-solid text-danger': stay.fav, 'fa-regular': !stay.fav}"
-            ></i>
+            <!-- Bookings Tab -->
+            <div class="tab-pane fade" id="bookings-pane" role="tabpanel">
+              <div ng-if="!vm.userBookings || vm.userBookings.length === 0" class="text-center py-5">
+                <i class="fas fa-calendar-times fa-3x text-muted mb-3"></i>
+                <p class="text-muted">{{vm.t('noBookings')}}</p>
+                <button class="btn btn-gold" ng-click="vm.closeProfile(); vm.openBookingModal()">{{vm.t('bookNow')}}</button>
+              </div>
+              <div ng-if="vm.userBookings && vm.userBookings.length > 0">
+                <div class="dashboard-card mb-3" ng-repeat="booking in vm.userBookings">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <h5>{{booking.room.name}}</h5>
+                      <p class="text-muted mb-2">
+                        <i class="fas fa-calendar me-2"></i>{{booking.checkIn}} to {{booking.checkOut}}
+                      </p>
+                      <p class="text-muted mb-2">
+                        <i class="fas fa-users me-2"></i>{{booking.guests}} {{vm.t('guests')}}
+                      </p>
+                      <p class="mb-0">
+                        <strong>{{vm.t('bookingReferenceLabel')}}:</strong> {{booking.reference}}
+                      </p>
+                    </div>
+                    <div class="text-end">
+                      <span class="booking-status confirmed">{{vm.t('confirmed')}}</span>
+                      <div class="mt-2">
+                        <strong class="text-gold">₱{{booking.totalPrice | number}}</strong>
+                      </div>
+                      <button class="btn btn-sm btn-outline-danger mt-2" ng-click="vm.cancelBooking(booking); vm.refreshBookings()">
+                        <i class="fas fa-times me-1"></i>{{vm.t('cancelBooking')}}
             </button>
         </div>
-
-        <div class="p-2">
-            <div class="fw-semibold">{{stay.name}}</div>
-            <div class="text-muted small">
-            ₱{{stay.price | number:0}} for 2 nights · ★ 5.0
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
-    </main>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showProfileModal}" ng-if="vm.showProfileModal" ng-click="vm.closeProfile()" style="z-index: 1050;"></div>
 
-    <!-- Guess Favorite -->
- 
-    <section class="container mt-5" ng-controller="MainCtrl as vm">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h3 class="fw-bold mb-0">Guest favorites</h3>
-        <div class="scroll-buttons">
-        <button class="btn btn-light btn-sm me-2" ng-click="vm.scrollLeftFav()">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="btn btn-light btn-sm" ng-click="vm.scrollRightFav()">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-        </div>
-    </div>
-
-    <div class="popular-scroll d-flex flex-nowrap overflow-auto pb-2" id="favoriteScroll">
-        <div
-        class="popular-card me-3 flex-shrink-0 bg-white shadow-sm rounded-4"
-        style="width: 270px;"
-        ng-repeat="fav in vm.rooms | filter:{fav:true} | limitTo:8"
-        >
-        <div class="position-relative">
-            <img
-            ng-src="{{fav.image}}"
-            alt="{{fav.name}}"
-            class="w-100 rounded-4"
-            />
-
-            <div
-            class="badge bg-white text-dark position-absolute top-0 start-0 m-2 px-2 py-1 small fw-semibold shadow-sm"
-            >
-            Guest favorite
+  <!-- ============================================
+       NEARBY ATTRACTIONS
+       ============================================ -->
+  <section class="section" id="nearby" ng-if="vm.currentPage === 'home'">
+    <div class="container">
+      <h2 class="section-title">{{vm.t('nearbyAttractions')}}</h2>
+      <p class="section-subtitle">{{vm.t('exploreAround')}}</p>
+      
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4" ng-repeat="attraction in [
+          {name: 'Shopping Mall', distance: '0.5 km', rating: 4.8, icon: 'fa-shopping-bag'},
+          {name: 'Beach', distance: '2 km', rating: 4.9, icon: 'fa-umbrella-beach'},
+          {name: 'Restaurant', distance: '0.3 km', rating: 4.7, icon: 'fa-utensils'},
+          {name: 'Museum', distance: '1.2 km', rating: 4.6, icon: 'fa-landmark'}
+        ]">
+          <div class="amenity-item">
+            <i class="fas {{attraction.icon}} amenity-icon"></i>
+            <h5 class="amenity-title">{{attraction.name}}</h5>
+            <p class="amenity-description">{{attraction.distance}} away</p>
+            <div>
+              <i class="fas fa-star text-warning"></i>
+              <span>{{attraction.rating}}</span>
             </div>
-
-            <button
-            class="heart-btn border-0 bg-transparent position-absolute top-0 end-0 m-2"
-            ng-click="vm.toggleFav(fav); $event.stopPropagation();"
-            >
-            <i
-                class="fa-heart fa-lg"
-                ng-class="{'fa-solid text-danger': fav.fav, 'fa-regular': !fav.fav}"
-            ></i>
-            </button>
-        </div>
-
-        <div class="p-2">
-            <div class="fw-semibold">{{fav.name}}</div>
-            <div class="text-muted small">
-            ₱{{fav.price | number:0}} for 2 nights · ★ 5.0
             </div>
         </div>
         </div>
     </div>
     </section>
 
-    
-
-
-  <footer class="py-5 mt-5">
-    <div class="container text-center text-muted">
-      © {{vm.year}} Azure Haven — Built with ❤️
+  <!-- ============================================
+       EMAIL CONFIRMATION PREVIEW
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showEmailConfirmation}" ng-style="{'display': vm.showEmailConfirmation ? 'block' : 'none'}" ng-if="vm.showEmailConfirmation" style="z-index: 1070;">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('bookingConfirmedTitle')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeEmailConfirmation()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center mb-4">
+            <div class="payment-success-icon" style="background: var(--gold);">
+              <i class="fas fa-check"></i>
+            </div>
+            <h3 class="mt-3">{{vm.t('bookingConfirmedText')}}</h3>
+            <p class="text-muted">{{vm.t('bookingReference')}}: <strong>{{vm.bookingReference}}</strong></p>
+          </div>
+          
+          <div class="booking-summary">
+            <h5>{{vm.t('bookingDetails')}}</h5>
+            <div class="summary-row">
+              <span>{{vm.t('room')}}:</span>
+              <span>{{vm.selectedRoom.name}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('checkIn')}}:</span>
+              <span>{{vm.bookingForm.checkIn}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('checkOut')}}:</span>
+              <span>{{vm.bookingForm.checkOut}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('guests')}}:</span>
+              <span>{{vm.bookingForm.guests}}</span>
+            </div>
+            <div class="summary-row">
+              <span>{{vm.t('total')}}:</span>
+              <span class="price-total">₱{{vm.totalPrice | number}}</span>
+            </div>
+          </div>
+          
+          <div class="alert alert-info mt-3">
+            <i class="fas fa-envelope me-2"></i>
+            {{vm.t('confirmationEmailSent')}} <strong>{{vm.bookingForm.email}}</strong>
+          </div>
+          
+          <div class="text-center mt-3">
+            <button class="btn btn-gold btn-ripple btn-glow" ng-click="vm.closeEmailConfirmation()">
+              <i class="fas fa-check me-2"></i>{{vm.t('done')}}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-  </footer>
+    </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showEmailConfirmation}" ng-if="vm.showEmailConfirmation" ng-click="vm.closeEmailConfirmation()" style="z-index: 1065;"></div>
 
+  <!-- ============================================
+       SCRIPTS
+       ============================================ -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="app.js"></script>
+  
+  <!-- Close language dropdown when clicking outside -->
   <script>
-    function toggleUserMenu() {
-      const menu = document.getElementById('userDropdownMenu');
-      const isVisible = menu.style.display === 'block';
-      menu.style.display = isVisible ? 'none' : 'block';
-    }
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(event) {
-      const menu = document.getElementById('userDropdownMenu');
-      const button = document.getElementById('profileMenu');
-      if (menu && button && !button.contains(event.target) && !menu.contains(event.target)) {
-        menu.style.display = 'none';
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.elegant-selector')) {
+        const scope = angular.element(document.querySelector('[ng-controller]')).scope();
+        if (scope && scope.vm) {
+          scope.$apply(function() {
+            scope.vm.showLanguageDropdown = false;
+          });
+        }
       }
     });
   </script>
-  <script src="script.js"></script>
-  <!-- Bootstrap JS (Offline) -->
-  <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
