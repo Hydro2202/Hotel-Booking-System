@@ -627,34 +627,56 @@
   </div>
 
   <!-- ============================================
+       FLOATING CHAT ICON (when minimized)
+       ============================================ -->
+  <div class="chat-floating-icon" ng-class="{'show': vm.chatMinimized && vm.showChat}" ng-click="vm.minimizeChat()" title="Open Chat">
+    <i class="fas fa-comments"></i>
+    <span class="chat-notification-badge" ng-if="vm.unreadMessages > 0">{{vm.unreadMessages}}</span>
+  </div>
+
+  <!-- ============================================
        LIVE CHAT WIDGET
        ============================================ -->
-  <div class="chat-widget" ng-class="{'show': vm.showChat}">
-    <div class="chat-messages">
-      <div class="chat-header-close">
-        <button class="btn-close-chat" ng-click="vm.toggleChat()" aria-label="Close chat">
+  <div class="chat-widget" ng-class="{'show': vm.showChat && !vm.chatMinimized, 'minimized': vm.chatMinimized, 'maximized': vm.chatMaximized}">
+    <div class="chat-window-header">
+      <div class="chat-window-title">
+        <i class="fas fa-comments me-2"></i>
+        <span>Live Chat</span>
+      </div>
+      <div class="chat-window-controls">
+        <button class="chat-window-btn chat-minimize-btn" ng-click="vm.minimizeChat()" aria-label="Minimize" title="Minimize">
+          <i class="fas fa-minus"></i>
+        </button>
+        <button class="chat-window-btn chat-maximize-btn" ng-click="vm.maximizeChat()" aria-label="Maximize" title="Maximize">
+          <i class="fas" ng-class="{'fa-square': !vm.chatMaximized, 'fa-window-restore': vm.chatMaximized}"></i>
+        </button>
+        <button class="chat-window-btn chat-close-btn" ng-click="vm.toggleChat()" aria-label="Close" title="Close">
           <i class="fas fa-times"></i>
         </button>
       </div>
-      <div class="chat-message" ng-class="msg.type" ng-repeat="msg in vm.chatMessages">
-        <div class="chat-message-content">
-          <div class="chat-message-avatar" ng-if="msg.type === 'bot'">
-            <i class="fas fa-headset"></i>
-          </div>
-          <div class="chat-message-text">
-            {{msg.text}}
-          </div>
-          <div class="chat-message-avatar" ng-if="msg.type === 'user'">
-            <i class="fas fa-user"></i>
+    </div>
+    <div class="chat-widget-content" ng-if="!vm.chatMinimized">
+      <div class="chat-messages">
+        <div class="chat-message" ng-class="msg.type" ng-repeat="msg in vm.chatMessages">
+          <div class="chat-message-content">
+            <div class="chat-message-avatar" ng-if="msg.type === 'bot'">
+              <i class="fas fa-headset"></i>
+            </div>
+            <div class="chat-message-text">
+              {{msg.text}}
+            </div>
+            <div class="chat-message-avatar" ng-if="msg.type === 'user'">
+              <i class="fas fa-user"></i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="chat-input-area">
-      <input type="text" class="chat-input" ng-attr-placeholder="{{vm.t('typeMessage')}}" ng-model="vm.chatInput" ng-keyup="$event.keyCode === 13 && vm.sendChatMessage()">
-      <button class="btn btn-gold btn-sm" ng-click="vm.sendChatMessage()">
-        <i class="fas fa-paper-plane"></i>
-      </button>
+      <div class="chat-input-area">
+        <input type="text" class="chat-input" ng-attr-placeholder="{{vm.t('typeMessage')}}" ng-model="vm.chatInput" ng-keyup="$event.keyCode === 13 && vm.sendChatMessage()">
+        <button class="btn btn-gold btn-sm" ng-click="vm.sendChatMessage()">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
     </div>
   </div>
 

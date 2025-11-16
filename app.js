@@ -1883,13 +1883,39 @@ angular.module('hotelApp', [])
     // LIVE CHAT
     // ============================================
     vm.showChat = false;
-    vm.chatMessages = [
-      { type: 'bot', text: 'Hello! Welcome to StayUp. How can I assist you today?' }
-    ];
+    vm.chatMessages = [];
     vm.chatInput = '';
+    vm.chatInitialized = false;
+    vm.chatMinimized = false;
+    vm.chatMaximized = false;
+    vm.unreadMessages = 0;
 
     vm.toggleChat = function() {
       vm.showChat = !vm.showChat;
+      // Reset minimize/maximize when closing
+      if (!vm.showChat) {
+        vm.chatMinimized = false;
+        vm.chatMaximized = false;
+      }
+      // Add welcome message only when chat is opened for the first time
+      if (vm.showChat && !vm.chatInitialized && vm.chatMessages.length === 0) {
+        vm.chatMessages.push({ type: 'bot', text: 'Hello! Welcome to StayUp. How can I assist you today?' });
+        vm.chatInitialized = true;
+      }
+    };
+
+    vm.minimizeChat = function() {
+      vm.chatMinimized = !vm.chatMinimized;
+      if (vm.chatMinimized) {
+        vm.chatMaximized = false;
+      }
+    };
+
+    vm.maximizeChat = function() {
+      vm.chatMaximized = !vm.chatMaximized;
+      if (vm.chatMaximized) {
+        vm.chatMinimized = false;
+      }
     };
 
     vm.sendChatMessage = function() {
@@ -2197,6 +2223,25 @@ angular.module('hotelApp', [])
         vm.initScrollAnimations();
       }, 500);
     };
+
+    // Close chat when clicking outside
+    document.addEventListener('click', function(e) {
+      $timeout(function() {
+        // Check if click is outside chat widget and not on FAB menu items
+        // Don't close if clicking on window controls (they handle their own actions)
+        if (vm.showChat && 
+            !vm.chatMinimized &&
+            !e.target.closest('.chat-widget') && 
+            !e.target.closest('.fab-item') && 
+            !e.target.closest('.fab') &&
+            !e.target.closest('.chat-window-controls')) {
+          vm.showChat = false;
+          vm.chatMinimized = false;
+          vm.chatMaximized = false;
+          $scope.$apply();
+        }
+      }, 10);
+    });
 
     vm.init();
 
