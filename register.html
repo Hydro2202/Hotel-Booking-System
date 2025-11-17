@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - HOTEL NI YUAN</title>
+  <title>Register - HOTEL NI YUAN</title>
   
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -915,7 +915,7 @@
     }
   </style>
 </head>
-<body class="login-page theme-black-gold" ng-controller="LoginCtrl as vm" ng-class="{'dark-mode': vm.darkMode, 'theme-black-gold': vm.currentTheme === 'black-gold', 'theme-emerald': vm.currentTheme === 'emerald', 'theme-royal': vm.currentTheme === 'royal'}">
+<body class="login-page theme-black-gold" ng-controller="RegisterCtrl as vm" ng-class="{'dark-mode': vm.darkMode, 'theme-black-gold': vm.currentTheme === 'black-gold', 'theme-emerald': vm.currentTheme === 'emerald', 'theme-royal': vm.currentTheme === 'royal'}">
   
   <!-- Particles Container -->
   <div class="particles-container" id="particlesContainer"></div>
@@ -956,7 +956,7 @@
           <i class="fas fa-hotel"></i>
         </div>
         <h1 class="login-title" id="hotelTitle">HOTEL NI YUAN</h1>
-        <p class="login-subtitle">Sign in to continue your luxury experience</p>
+        <p class="login-subtitle">Create your account to enjoy exclusive experiences</p>
       </div>
       
       <!-- Floating Icons -->
@@ -964,93 +964,120 @@
       <i class="fas fa-gem floating-icon" style="top: 20%; right: 8%; animation-delay: 1s;"></i>
       <i class="fas fa-crown floating-icon" style="bottom: 15%; left: 10%; animation-delay: 2s;"></i>
       
-      <!-- Login Form -->
-      <form name="loginForm" ng-submit="vm.submitLogin($event)" novalidate>
-        
-        <!-- Email Field -->
+      <!-- Register Form -->
+      <form name="registerForm" ng-submit="vm.submitRegister($event)" novalidate>
+        <div class="alert alert-danger py-2" ng-if="vm.errorMessage">
+          <i class="fas fa-exclamation-circle me-2"></i>{{vm.errorMessage}}
+        </div>
+        <div class="alert alert-success py-2" ng-if="vm.successMessage">
+          <i class="fas fa-check-circle me-2"></i>{{vm.successMessage}}
+        </div>
+
         <div class="form-group">
-          <input 
-            type="email" 
-            class="form-control" 
+          <input
+            type="text"
+            class="form-control"
+            id="fullName"
+            name="fullName"
+            placeholder=" "
+            ng-model="vm.form.fullName"
+            ng-class="{'has-value': vm.form.fullName, 'is-invalid': registerForm.fullName.$invalid && registerForm.fullName.$touched}"
+            ng-focus="vm.onInputFocus($event)"
+            required>
+          <i class="fas fa-user input-icon"></i>
+          <label for="fullName" class="form-label">Full Name</label>
+          <div class="error-message" ng-if="registerForm.fullName.$touched && registerForm.fullName.$error.required">
+            <i class="fas fa-exclamation-circle me-1"></i>Full name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input
+            type="email"
+            class="form-control"
             id="email"
             name="email"
-            ng-model="vm.loginForm.email"
-            ng-class="{'has-value': vm.loginForm.email, 'is-invalid': loginForm.email.$invalid && loginForm.email.$touched}"
             placeholder=" "
-            ng-keyup="vm.validateForm()"
-            ng-blur="vm.validateField('email')"
+            ng-model="vm.form.email"
+            ng-class="{'has-value': vm.form.email, 'is-invalid': (registerForm.email.$invalid && registerForm.email.$touched) || registerForm.email.$error.duplicate}"
             ng-focus="vm.onInputFocus($event)"
             required>
           <i class="fas fa-envelope input-icon"></i>
           <label for="email" class="form-label">Email Address</label>
-          <div class="error-message" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$error.email">
-            <i class="fas fa-exclamation-circle me-1"></i>Please enter a valid email address
-          </div>
-          <div class="error-message" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$error.required">
+          <div class="error-message" ng-if="registerForm.email.$touched && registerForm.email.$error.required">
             <i class="fas fa-exclamation-circle me-1"></i>Email is required
           </div>
+          <div class="error-message" ng-if="registerForm.email.$touched && registerForm.email.$error.email">
+            <i class="fas fa-exclamation-circle me-1"></i>Please enter a valid email
+          </div>
+          <div class="error-message" ng-if="registerForm.email.$error.duplicate">
+            <i class="fas fa-exclamation-circle me-1"></i>This email is already registered
+          </div>
         </div>
-        
-        <!-- Password Field -->
+
         <div class="form-group">
-          <input 
-            type="{{vm.showPassword ? 'text' : 'password'}}" 
-            class="form-control" 
+          <input
+            type="{{vm.showPassword ? 'text' : 'password'}}"
+            class="form-control"
             id="password"
             name="password"
-            ng-model="vm.loginForm.password"
-            ng-class="{'has-value': vm.loginForm.password, 'is-invalid': loginForm.password.$invalid && loginForm.password.$touched}"
             placeholder=" "
-            ng-keyup="vm.validateForm(); $event.key === 'Enter' && loginForm.$valid && vm.submitLogin()"
-            ng-blur="vm.validateField('password')"
+            ng-model="vm.form.password"
+            ng-class="{'has-value': vm.form.password, 'is-invalid': registerForm.password.$invalid && registerForm.password.$touched}"
             ng-focus="vm.onInputFocus($event)"
-            required
-            minlength="6">
+            minlength="6"
+            required>
           <i class="fas fa-lock input-icon"></i>
           <label for="password" class="form-label">Password</label>
-          <button type="button" class="password-toggle" ng-class="{'active': vm.showPassword}" ng-click="vm.togglePassword()" title="Toggle password visibility">
+          <button type="button" class="password-toggle" ng-class="{'active': vm.showPassword}" ng-click="vm.togglePassword('password')" title="Toggle password visibility">
             <i class="fas" ng-class="vm.showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
           </button>
-          <div class="error-message" ng-show="loginForm.password.$invalid && loginForm.password.$touched && loginForm.password.$error.minlength">
-            <i class="fas fa-exclamation-circle me-1"></i>Password must be at least 6 characters
-          </div>
-          <div class="error-message" ng-show="loginForm.password.$invalid && loginForm.password.$touched && loginForm.password.$error.required">
+          <div class="error-message" ng-if="registerForm.password.$touched && registerForm.password.$error.required">
             <i class="fas fa-exclamation-circle me-1"></i>Password is required
           </div>
+          <div class="error-message" ng-if="registerForm.password.$touched && registerForm.password.$error.minlength">
+            <i class="fas fa-exclamation-circle me-1"></i>Password must be at least 6 characters
+          </div>
         </div>
-        
-        <!-- Remember Me -->
-        <div class="form-check">
-          <input 
-            type="checkbox" 
-            class="form-check-input" 
-            id="rememberMe"
-            ng-model="vm.loginForm.rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember Me</label>
+
+        <div class="form-group">
+          <input
+            type="{{vm.showConfirmPassword ? 'text' : 'password'}}"
+            class="form-control"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder=" "
+            ng-model="vm.form.confirmPassword"
+            ng-class="{'has-value': vm.form.confirmPassword, 'is-invalid': (registerForm.confirmPassword.$invalid && registerForm.confirmPassword.$touched) || registerForm.confirmPassword.$error.mismatch}"
+            ng-focus="vm.onInputFocus($event)"
+            required>
+          <i class="fas fa-lock input-icon"></i>
+          <label for="confirmPassword" class="form-label">Confirm Password</label>
+          <button type="button" class="password-toggle" ng-class="{'active': vm.showConfirmPassword}" ng-click="vm.togglePassword('confirm')" title="Toggle password visibility">
+            <i class="fas" ng-class="vm.showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+          <div class="error-message" ng-if="registerForm.confirmPassword.$touched && registerForm.confirmPassword.$error.required">
+            <i class="fas fa-exclamation-circle me-1"></i>Please confirm your password
+          </div>
+          <div class="error-message" ng-if="registerForm.confirmPassword.$error.mismatch">
+            <i class="fas fa-exclamation-circle me-1"></i>Passwords do not match
+          </div>
         </div>
-        
-        <!-- Error Message -->
-        <div class="error-message show" ng-if="vm.errorMessage" style="text-align: center; margin-bottom: 1rem; padding-left: 0;">
-          <i class="fas fa-exclamation-circle me-2"></i>{{vm.errorMessage}}
-        </div>
-        
-        <!-- Login Button -->
-        <button 
-          type="submit" 
-          class="btn-login" 
-          ng-class="{'loading': vm.isLoading}"
-          ng-disabled="!vm.isFormValid || vm.isLoading"
+
+        <button
+          type="submit"
+          class="btn-login"
+          ng-class="{'loading': vm.isSubmitting}"
+          ng-disabled="vm.isSubmitting"
           ng-click="vm.createRipple($event)">
-          <span class="spinner" ng-if="vm.isLoading"></span>
-          <span ng-if="!vm.isLoading">Sign In</span>
-          <span ng-if="vm.isLoading">Signing In...</span>
+          <span class="spinner" ng-if="vm.isSubmitting"></span>
+          <span ng-if="!vm.isSubmitting">Create Account</span>
+          <span ng-if="vm.isSubmitting">Creating...</span>
         </button>
-        
-        <!-- Register Link -->
+
         <div class="login-footer">
-          <p>Don't have an account? <a href="register.html">Register Now</a></p>
+          <p>Already have an account? <a href="login.html">Sign In</a></p>
         </div>
-        
       </form>
     </div>
   </div>
@@ -1064,8 +1091,8 @@
           <div class="success-icon">
             <i class="fas fa-check"></i>
           </div>
-          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">Welcome back, {{vm.userName}}!</h3>
-          <p class="text-muted mb-4">You have successfully logged in. Redirecting to homepage...</p>
+          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">Welcome, {{vm.successName || 'Guest'}}!</h3>
+          <p class="text-muted mb-4">Your account has been created. Redirecting to the login page...</p>
           <div style="display: inline-block; width: 2rem; height: 2rem; border: 3px solid var(--deep-gold); border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
         </div>
       </div>
@@ -1073,389 +1100,157 @@
   </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showSuccessModal}" ng-if="vm.showSuccessModal" style="z-index: 9998; background: rgba(0,0,0,0.5);"></div>
   
-  <!-- Register Modal -->
-  <div class="modal fade modal-luxury" ng-class="{'show': vm.showRegisterModal}" ng-style="{'display': vm.showRegisterModal ? 'block' : 'none'}" ng-if="vm.showRegisterModal" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create Account</h5>
-          <button type="button" class="btn-close" ng-click="vm.closeRegister()">&times;</button>
-        </div>
-        <div class="modal-body">
-          <form name="registerForm" ng-submit="vm.submitRegister($event)" novalidate>
-            <div class="form-group">
-              <input 
-                type="text" 
-                class="form-control" 
-                ng-model="vm.registerForm.name"
-                placeholder="Full Name"
-                required>
-              <i class="fas fa-user input-icon"></i>
-            </div>
-            <div class="form-group">
-              <input 
-                type="email" 
-                class="form-control" 
-                ng-model="vm.registerForm.email"
-                placeholder="Email Address"
-                required>
-              <i class="fas fa-envelope input-icon"></i>
-            </div>
-            <div class="form-group">
-              <input 
-                type="password" 
-                class="form-control" 
-                ng-model="vm.registerForm.password"
-                placeholder="Password (min. 6 characters)"
-                required
-                minlength="6">
-              <i class="fas fa-lock input-icon"></i>
-            </div>
-            <div class="form-group">
-              <input 
-                type="password" 
-                class="form-control" 
-                ng-model="vm.registerForm.confirmPassword"
-                placeholder="Confirm Password"
-                required>
-              <i class="fas fa-lock input-icon"></i>
-            </div>
-            <div class="error-message show" ng-if="vm.registerError" style="text-align: center; margin-bottom: 1rem; padding-left: 0;">
-              {{vm.registerError}}
-            </div>
-            <button type="submit" class="btn-login" ng-disabled="vm.isRegistering" ng-click="vm.createRipple($event)">
-              <span ng-if="!vm.isRegistering">Create Account</span>
-              <span ng-if="vm.isRegistering">Creating Account...</span>
-            </button>
-            <div class="text-center mt-3">
-              <p>Already have an account? <a href="login.html" style="color: var(--deep-gold); text-decoration: none; font-weight: 600;">Sign In</a></p>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-backdrop fade" ng-class="{'show': vm.showRegisterModal}" ng-if="vm.showRegisterModal" ng-click="vm.closeRegister()" style="z-index: 9998;"></div>
-  
   <!-- Scripts -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="app.js"></script>
   <script>
-    // Login Controller
-    angular.module('hotelApp').controller('LoginCtrl', ['$scope', '$timeout', '$location', function($scope, $timeout, $location) {
+    angular.module('hotelApp').controller('RegisterCtrl', ['$scope', '$timeout', function($scope, $timeout) {
       const vm = this;
-      
-      // Initialize
-      vm.loginForm = {
-        email: '',
-        password: '',
-        rememberMe: false
-      };
-      
-      vm.registerForm = {
-        name: '',
+      vm.form = {
+        fullName: '',
         email: '',
         password: '',
         confirmPassword: ''
       };
-      
       vm.showPassword = false;
-      vm.isLoading = false;
-      vm.isFormValid = false;
-      vm.errorMessage = '';
-      vm.registerError = '';
-      vm.showError = false;
-      vm.showSuccessModal = false;
-      vm.showRegisterModal = false;
-      vm.isRegistering = false;
-      vm.userName = '';
-      vm.currentTheme = localStorage.getItem('loginTheme') || 'black-gold';
-      
-      // Dark Mode
+      vm.showConfirmPassword = false;
       vm.darkMode = localStorage.getItem('darkMode') === 'true';
-      
+      vm.currentTheme = localStorage.getItem('loginTheme') || 'black-gold';
+      vm.errorMessage = '';
+      vm.successMessage = '';
+      vm.successName = '';
+      vm.showSuccessModal = false;
+      vm.isSubmitting = false;
+
       vm.toggleDarkMode = function() {
         vm.darkMode = !vm.darkMode;
         localStorage.setItem('darkMode', vm.darkMode);
-        $scope.$apply();
+        $scope.$applyAsync();
       };
-      
-      // Theme Switcher
+
       vm.setTheme = function(theme) {
         vm.currentTheme = theme;
         localStorage.setItem('loginTheme', theme);
         document.body.className = document.body.className.replace(/theme-\w+/g, '');
         document.body.classList.add('theme-' + theme);
-        $scope.$apply();
+        $scope.$applyAsync();
       };
-      
-      // Password Toggle
-      vm.togglePassword = function() {
-        vm.showPassword = !vm.showPassword;
-        $timeout(function() {
-          const toggle = document.querySelector('.password-toggle');
-          if (toggle) {
-            toggle.classList.add('active');
-            $timeout(function() {
-              toggle.classList.remove('active');
-            }, 500);
-          }
-        }, 0);
+
+      vm.togglePassword = function(field) {
+        if (field === 'password') {
+          vm.showPassword = !vm.showPassword;
+        } else {
+          vm.showConfirmPassword = !vm.showConfirmPassword;
+        }
       };
-      
-      // Input Focus Animation
+
       vm.onInputFocus = function($event) {
         const input = $event.target;
         input.classList.add('has-value');
       };
-      
-      // Form Validation
-      vm.validateField = function(field) {
-        vm.validateForm();
+
+      vm.markAllTouched = function(form) {
+        if (!form) return;
+        angular.forEach(form, function(control, name) {
+          if (name[0] === '$') return;
+          control.$setTouched();
+        });
       };
-      
-      vm.validateForm = function() {
-        $timeout(function() {
-          const form = $scope.loginForm;
-          if (form) {
-            vm.isFormValid = form.$valid && form.email.$valid && form.password.$valid;
-          }
-        }, 0);
+
+      vm.checkPasswordMatch = function(form) {
+        if (!form || !form.confirmPassword) return;
+        const match = !vm.form.confirmPassword || vm.form.password === vm.form.confirmPassword;
+        form.confirmPassword.$setValidity('mismatch', match);
       };
-      
-      // Watch form changes for validation
-      $scope.$watch(function() {
-        return $scope.loginForm;
-      }, function(form) {
-        if (form) {
-          vm.isFormValid = form.$valid;
-        }
-      }, true);
-      
-      // Ripple Effect
+
       vm.createRipple = function($event) {
         const button = $event.currentTarget;
         const ripple = document.createElement('span');
         ripple.classList.add('ripple');
-        
         const rect = button.getBoundingClientRect();
         const size = Math.max(rect.width, rect.height);
         const x = $event.clientX - rect.left - size / 2;
         const y = $event.clientY - rect.top - size / 2;
-        
         ripple.style.width = ripple.style.height = size + 'px';
         ripple.style.left = x + 'px';
         ripple.style.top = y + 'px';
-        
         button.appendChild(ripple);
-        
-        setTimeout(function() {
-          ripple.remove();
-        }, 600);
+        setTimeout(function() { ripple.remove(); }, 600);
       };
-      
-      // Load Remembered Email
-      $timeout(function() {
-        const rememberedEmail = localStorage.getItem('rememberedEmail');
-        if (rememberedEmail) {
-          vm.loginForm.email = rememberedEmail;
-          vm.loginForm.rememberMe = true;
-        }
-        vm.validateForm();
-      }, 100);
-      
-      // Submit Login
-      vm.submitLogin = function($event) {
-        if ($event) {
-          $event.preventDefault();
-        }
-        
-        if (!$scope.loginForm.$valid) {
-          vm.errorMessage = 'Please fill in all fields correctly';
-          vm.showErrorAnimation();
-          return;
-        }
-        
-        vm.isLoading = true;
-        vm.errorMessage = '';
-        
-        // Simulate API call
-        $timeout(function() {
-          const users = JSON.parse(localStorage.getItem('users') || '[]');
-          const user = users.find(function(u) {
-            return u.email === vm.loginForm.email && u.password === vm.loginForm.password;
-          });
-          
-          if (user) {
-            // Save user session
-            localStorage.setItem('userName', user.name);
-            localStorage.setItem('userEmail', user.email);
-            
-            // Remember email if checkbox is checked
-            if (vm.loginForm.rememberMe) {
-              localStorage.setItem('rememberedEmail', vm.loginForm.email);
-            } else {
-              localStorage.removeItem('rememberedEmail');
-            }
-            
-            vm.errorMessage = '';
-            vm.isLoading = false;
-            vm.userName = user.name;
-            vm.showSuccessModal = true;
-            document.body.classList.add('modal-open');
-            
-            // Page transition effect
-            document.body.style.transition = 'opacity 0.5s ease';
-            document.body.style.opacity = '0.8';
-            
-            $timeout(function() {
-              vm.showSuccessModal = false;
-              document.body.classList.remove('modal-open');
-              window.location.replace('index.html');
-            }, 1500);
-          } else {
-            vm.errorMessage = 'Incorrect email or password';
-            vm.showErrorAnimation();
-            vm.isLoading = false;
-          }
-        }, 800);
-      };
-      
-      // Error Animation
-      vm.showErrorAnimation = function() {
-        vm.showError = true;
-        $timeout(function() {
-          vm.showError = false;
-        }, 500);
-      };
-      
-      // Register
-      vm.openRegister = function($event) {
-        if ($event) $event.preventDefault();
-        vm.showRegisterModal = true;
-        $timeout(function() {
-          document.body.classList.add('modal-open');
-        }, 0);
-      };
-      
-      vm.closeRegister = function() {
-        vm.showRegisterModal = false;
-        vm.registerForm = {
-          name: '',
-          email: '',
-          password: '',
-          confirmPassword: ''
-        };
-        vm.registerError = '';
-        $timeout(function() {
-          document.body.classList.remove('modal-open');
-        }, 300);
-        if (window.location.hash === '#register') {
-          history.replaceState(null, '', window.location.pathname);
-        }
-      };
-      
+
       vm.submitRegister = function($event) {
-        if ($event) {
-          $event.preventDefault();
-        }
-        
-        vm.registerError = '';
-        
-        if (!vm.registerForm.name || !vm.registerForm.name.trim()) {
-          vm.registerError = 'Please enter your name';
+        if ($event) $event.preventDefault();
+        const form = $scope.registerForm;
+        vm.checkPasswordMatch(form);
+        if (!form || form.$invalid || (form.confirmPassword && form.confirmPassword.$error.mismatch)) {
+          vm.errorMessage = 'Please fill in all fields correctly';
+          vm.successMessage = '';
+          vm.markAllTouched(form);
           return;
         }
-        
-        if (!vm.registerForm.email || !vm.registerForm.email.trim()) {
-          vm.registerError = 'Please enter your email';
-          return;
-        }
-        
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(vm.registerForm.email)) {
-          vm.registerError = 'Please enter a valid email address';
-          return;
-        }
-        
-        if (!vm.registerForm.password || vm.registerForm.password.length < 6) {
-          vm.registerError = 'Password must be at least 6 characters';
-          return;
-        }
-        
-        if (vm.registerForm.password !== vm.registerForm.confirmPassword) {
-          vm.registerError = 'Passwords do not match';
-          return;
-        }
-        
-        vm.isRegistering = true;
-        vm.registerError = '';
-        
+
+        vm.errorMessage = '';
+        vm.successMessage = '';
+        vm.isSubmitting = true;
+
         $timeout(function() {
           const users = JSON.parse(localStorage.getItem('users') || '[]');
-          
-          if (users.find(function(u) { return u.email === vm.registerForm.email.trim(); })) {
-            vm.registerError = 'Email already registered';
-            vm.isRegistering = false;
+          const email = (vm.form.email || '').trim().toLowerCase();
+          const existingUser = users.find(function(u) {
+            return (u.email || '').toLowerCase() === email;
+          });
+
+          if (existingUser) {
+            if (form && form.email) {
+              form.email.$setValidity('duplicate', false);
+            }
+            vm.errorMessage = 'This email is already registered';
+            vm.isSubmitting = false;
             return;
           }
-          
+
+          if (form && form.email) {
+            form.email.$setValidity('duplicate', true);
+          }
+
           const newUser = {
-            name: vm.registerForm.name.trim(),
-            email: vm.registerForm.email.trim(),
-            password: vm.registerForm.password
+            name: (vm.form.fullName || '').trim(),
+            email: email,
+            password: vm.form.password
           };
-          
+
           users.push(newUser);
           localStorage.setItem('users', JSON.stringify(users));
-          localStorage.setItem('userName', newUser.name);
-          localStorage.setItem('userEmail', newUser.email);
-          
-          vm.isRegistering = false;
-          vm.closeRegister();
-          vm.userName = newUser.name;
+
+          vm.successName = newUser.name;
+          vm.successMessage = 'Registration successful! Redirecting to login...';
+          vm.isSubmitting = false;
           vm.showSuccessModal = true;
           document.body.classList.add('modal-open');
-          
+
           $timeout(function() {
             vm.showSuccessModal = false;
             document.body.classList.remove('modal-open');
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
           }, 1500);
-        }, 500);
+        }, 800);
       };
-      
+
       // Initialize sample users if none exist
       $timeout(function() {
         const users = JSON.parse(localStorage.getItem('users') || '[]');
         if (users.length === 0) {
           const sampleUsers = [
-            {
-              name: 'John Doe',
-              email: 'john@example.com',
-              password: 'password123'
-            },
-            {
-              name: 'Jane Smith',
-              email: 'jane@example.com',
-              password: 'password123'
-            }
+            { name: 'John Doe', email: 'john@example.com', password: 'password123' },
+            { name: 'Jane Smith', email: 'jane@example.com', password: 'password123' }
           ];
           localStorage.setItem('users', JSON.stringify(sampleUsers));
         }
       }, 0);
-
-      // Open register modal automatically if requested via hash
-      $timeout(function() {
-        if (window.location.hash === '#register') {
-          vm.openRegister();
-          $scope.$applyAsync();
-        }
-      }, 0);
     }]);
-    
-    // 3D Tilt Effect for Login Card
+
+    // 3D Tilt and Particles
     document.addEventListener('DOMContentLoaded', function() {
       const loginCard = document.getElementById('loginCard');
       if (loginCard) {
@@ -1463,22 +1258,18 @@
           const rect = loginCard.getBoundingClientRect();
           const x = e.clientX - rect.left;
           const y = e.clientY - rect.top;
-          
           const centerX = rect.width / 2;
           const centerY = rect.height / 2;
-          
           const rotateX = (y - centerY) / 20;
           const rotateY = (centerX - x) / 20;
-          
           loginCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1, 1, 1)`;
         });
-        
+
         loginCard.addEventListener('mouseleave', function() {
           loginCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
         });
       }
-      
-      // Create Floating Particles
+
       const particlesContainer = document.getElementById('particlesContainer');
       if (particlesContainer) {
         for (let i = 0; i < 30; i++) {
@@ -1490,8 +1281,7 @@
           particlesContainer.appendChild(particle);
         }
       }
-      
-      // Letter-by-letter animation for title
+
       const title = document.getElementById('hotelTitle');
       if (title) {
         const text = title.textContent;
