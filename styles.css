@@ -2096,9 +2096,23 @@ html {
   }
 
   body.dark-mode .modal-content {
-    background: #1a1a1a;
+    background: #1a1a1a !important;
     color: #e0e0e0;
   }
+
+body.dark-mode .modal-luxury .modal-content {
+  background: #1a1a1a !important;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-luxury .modal-body {
+  background: #1a1a1a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-luxury .form-label {
+  color: #e0e0e0 !important;
+}
 
   body.dark-mode .form-control,
   body.dark-mode .form-select {
@@ -2162,6 +2176,34 @@ body.dark-mode .testimonial-text {
   color: #b0b0b0;
 }
 
+body.dark-mode .room-title {
+  color: #ffffff;
+}
+
+body.dark-mode .room-price {
+  color: var(--gold-light);
+}
+
+body.dark-mode .room-price span {
+  color: #b0b0b0;
+}
+
+body.dark-mode .testimonial-name {
+  color: #ffffff;
+}
+
+body.dark-mode .testimonial-location {
+  color: #b0b0b0;
+}
+
+body.dark-mode .hero-title {
+  color: var(--white) !important;
+}
+
+body.dark-mode .hero-subtitle {
+  color: var(--white) !important;
+}
+
 body.dark-mode .form-control,
 body.dark-mode .form-select {
   background: #2a2a2a;
@@ -2183,6 +2225,16 @@ body.dark-mode .text-muted {
 body.dark-mode .amenity-badge {
   background: #2a2a2a;
   color: #e0e0e0;
+}
+
+body.dark-mode .room-amenities {
+  color: #e0e0e0;
+}
+
+body.dark-mode .room-amenities .amenity-badge {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
 }
 
 body.dark-mode .comparison-table {
@@ -2207,8 +2259,245 @@ body.dark-mode .faq-item {
   border-color: #333;
 }
 
+body.dark-mode .faq-question {
+  color: #e0e0e0;
+}
+
 body.dark-mode .faq-question:hover {
   background: #2a2a2a;
+  color: #ffffff;
+}
+
+body.dark-mode .faq-answer {
+  color: #b0b0b0;
+}
+
+body.dark-mode .faq-icon {
+  color: #e0e0e0;
+}
+
+body.dark-mode .section-title {
+  color: #ffffff;
+}
+
+body.dark-mode .section-subtitle {
+  color: #b0b0b0;
+}
+
+body.dark-mode p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .bg-light {
+  background: #1a1a1a !important;
+}
+
+body.dark-mode .bg-light * {
+  color: #e0e0e0;
+}
+
+body.dark-mode span {
+  color: inherit;
+}
+
+body.dark-mode li {
+  color: #e0e0e0;
+}
+
+body.dark-mode a {
+  color: #e0e0e0;
+}
+
+body.dark-mode a:hover {
+  color: var(--gold-light);
+}
+
+body.dark-mode .footer-luxury p {
+  color: #b0b0b0;
+}
+
+body.dark-mode .developers-section h6 {
+  color: var(--gold-light);
+}
+
+body.dark-mode .developers-section li {
+  color: #e0e0e0;
+}
+
+body.dark-mode .amenity-title {
+  color: #ffffff;
+}
+
+body.dark-mode .amenity-item {
+  color: #e0e0e0;
+}
+
+body.dark-mode .contact-form label {
+  color: #e0e0e0;
+}
+
+body.dark-mode .summary-row {
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark-mode .summary-row:last-child {
+  color: var(--gold-light);
+}
+
+body.dark-mode .modal-body {
+  color: #e0e0e0;
+}
+
+body.dark-mode .modal-body p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .testimonial-author {
+  color: #ffffff;
+}
+
+body.dark-mode .form-label {
+  color: #e0e0e0;
+}
+
+body.dark-mode .price-summary {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .price-total {
+  color: var(--gold-light);
+}
+
+body.dark-mode .alert {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .alert-info {
+  background: rgba(13, 202, 240, 0.1);
+  color: #81d4fa;
+  border-color: rgba(13, 202, 240, 0.3);
+}
+
+body.dark-mode .alert-success {
+  background: rgba(25, 135, 84, 0.1);
+  color: #75b798;
+  border-color: rgba(25, 135, 84, 0.3);
+}
+
+body.dark-mode .alert-danger {
+  background: rgba(220, 53, 69, 0.1);
+  color: #f5c2c7;
+  border-color: rgba(220, 53, 69, 0.3);
+}
+
+body.dark-mode .alert-warning {
+  background: rgba(255, 193, 7, 0.1);
+  color: #ffda6a;
+  border-color: rgba(255, 193, 7, 0.3);
+}
+
+body.dark-mode .badge {
+  background: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .btn-secondary {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .btn-secondary:hover {
+  background: #3a3a3a;
+  color: #ffffff;
+  border-color: #555;
+}
+
+body.dark-mode .input-group-text {
+  background: #2a2a2a;
+  color: #e0e0e0;
+  border-color: #444;
+}
+
+body.dark-mode .card {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark-mode .card-body {
+  color: #e0e0e0;
+}
+
+body.dark-mode .card-title {
+  color: #ffffff;
+}
+
+body.dark-mode .card-text {
+  color: #b0b0b0;
+}
+
+body.dark-mode .list-group-item {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border-color: #333;
+}
+
+body.dark-mode .table {
+  color: #e0e0e0;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+  border-color: #333;
+}
+
+body.dark-mode .dropdown-menu {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+body.dark-mode .dropdown-item {
+  color: #e0e0e0;
+}
+
+body.dark-mode .dropdown-item:hover {
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+/* Catch-all: Override inline white backgrounds and black text in dark mode */
+body.dark-mode [style*="background: white"],
+body.dark-mode [style*="background: #fff"],
+body.dark-mode [style*="background: #ffffff"],
+body.dark-mode [style*="background-color: white"],
+body.dark-mode [style*="background-color: #fff"],
+body.dark-mode [style*="background-color: #ffffff"] {
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode [style*="color: black"],
+body.dark-mode [style*="color: #000"],
+body.dark-mode [style*="color: #000000"] {
+  color: #e0e0e0 !important;
+}
+
+/* Ensure text in light gray backgrounds is dark in light mode, but light in dark mode */
+body.dark-mode .bg-light,
+body.dark-mode [class*="bg-light"],
+body.dark-mode [class*="bg-white"] {
+  background: #1a1a1a !important;
+}
+
+body.dark-mode .bg-light *,
+body.dark-mode [class*="bg-light"] *,
+body.dark-mode [class*="bg-white"] * {
+  color: #e0e0e0 !important;
 }
 
 body.dark-mode .chat-widget {

@@ -2,8 +2,1037 @@
 // HOTEL NI YUAN - MAIN APPLICATION
 // ============================================
 
-angular.module('hotelApp', [])
-  .controller('MainCtrl', ['$scope', '$timeout', function($scope, $timeout) {
+const APP_LANGUAGES = {
+  en: {
+    // Navigation
+    home: 'Home',
+    rooms: 'Rooms',
+    amenities: 'Amenities',
+    gallery: 'Gallery',
+    testimonials: 'Testimonials',
+    contact: 'Contact',
+    bookNow: 'Book Now',
+    login: 'Login',
+    logout: 'Logout',
+    logoutConfirm: 'Are you sure you want to logout?',
+    myBookings: 'My Bookings',
+    profile: 'Profile',
+    backToHome: 'Back to Home',
+    wishlist: 'Wishlist',
+    
+    // Hero Section
+    welcomeTo: 'Welcome to',
+    experienceLuxury: 'Experience Luxury Like Never Before',
+    bookYourStay: 'Book Your Stay',
+    viewRooms: 'View Rooms',
+    
+    // Sections
+    featuredRooms: 'Featured Rooms',
+    hotelHighlights: 'Hotel Highlights',
+    aboutHotel: 'About the Hotel',
+    ourRooms: 'Our Rooms',
+    ourAmenities: 'Our Amenities',
+    roomsSectionTitle: 'Our Luxurious Rooms',
+    roomsSectionSubtitle: 'Choose from our exquisite collection of rooms and suites',
+    amenitiesSectionTitle: 'World-Class Amenities',
+    amenitiesSectionSubtitle: 'Everything you need for a perfect stay',
+    gallerySectionTitle: 'Photo Gallery',
+    gallerySectionSubtitle: 'Take a glimpse of our beautiful hotel',
+    whatGuestsSay: 'What Our Guests Say',
+    realExperiences: 'Real experiences from our valued guests',
+    frequentlyAsked: 'Frequently Asked Questions',
+    everythingYouNeed: 'Everything you need to know',
+    nearbyAttractions: 'Nearby Attractions',
+    exploreAround: 'Explore what\'s around us',
+    
+    // Highlights
+    luxuryPoolTitle: 'Luxury Pool',
+    luxuryPoolDescription: 'Relax by our stunning infinity pool',
+    fineDiningTitle: 'Fine Dining',
+    fineDiningDescription: 'Award-winning restaurants',
+    spaWellnessTitle: 'Spa & Wellness',
+    spaWellnessDescription: 'Rejuvenate your body and mind',
+    service247Title: '24/7 Service',
+    service247Description: 'Round-the-clock concierge',
+    
+    // About
+    aboutStayUpTitle: 'About StayUp',
+    aboutStayUpLead: 'Where Luxury Meets Tradition',
+    aboutStayUpBody1: 'Nestled in the heart of the city, StayUp offers an unparalleled experience of luxury and comfort. Our elegant rooms, world-class amenities, and exceptional service create memories that last a lifetime.',
+    aboutStayUpBody2: 'With over 20 years of excellence in hospitality, we combine traditional elegance with modern sophistication to provide our guests with an unforgettable stay.',
+    aboutStayUpButton: 'Learn More',
+    
+    // Room Cards
+    viewDetails: 'View Details',
+    viewButton: 'View',
+    compare: 'Compare',
+    perNight: '/night',
+    upTo: 'Up to',
+    guests: 'guests',
+    recentlyViewed: 'Recently Viewed',
+    
+    // Booking
+    bookingForm: 'Booking Form',
+    fullName: 'Full Name',
+    email: 'Email',
+    phone: 'Phone',
+    roomType: 'Room Type',
+    numberOfGuests: 'Number of Guests',
+    checkIn: 'Check-in Date',
+    checkOut: 'Check-out Date',
+    specialRequests: 'Special Requests',
+    discountCode: 'Discount Code (Optional)',
+    enterCode: 'Enter code',
+    apply: 'Apply',
+    discountApplied: 'Discount applied!',
+    discountSuccess: 'Discount code applied!',
+    discountInvalid: 'Invalid discount code',
+    priceSummary: 'Price Summary',
+    roomRate: 'Room Rate',
+    night: 'night',
+    nights: 'nights',
+    subtotal: 'Subtotal',
+    taxesFees: 'Taxes & Fees',
+    included: 'Included',
+    total: 'Total',
+    cancel: 'Cancel',
+    confirmBooking: 'Confirm Booking',
+    proceedToPayment: 'Proceed to Payment',
+    viewSummary: 'View Summary',
+    editBooking: 'Edit Booking',
+    
+    // Payment
+    payment: 'Payment',
+    selectPaymentMethod: 'Select Payment Method',
+    cardholderName: 'Cardholder Name',
+    cardNumber: 'Card Number',
+    expiry: 'Expiry',
+    cvv: 'CVV',
+    payNow: 'Pay Now',
+    cardDetailsInvalid: 'Please fill in all card details correctly',
+    accountNumberRequired: 'Account number is required',
+    accountNumberInvalid: 'Invalid account number. Please enter a valid mobile number (09XX XXX XXXX)',
+    paypalEmailRequired: 'PayPal email is required',
+    paypalEmailInvalid: 'Invalid PayPal email address',
+    paymentDetailsInvalid: 'Please fill in all payment details correctly',
+    enterAccountNumber: 'Enter your mobile number',
+    enterPayPalEmail: 'Enter your PayPal email address',
+    accountNumber: 'Account Number',
+    paymentSuccessful: 'Payment Successful!',
+    bookingConfirmed: 'Your booking has been confirmed.',
+    redirectMessage: 'You will be redirected to {method} payment gateway to complete your transaction.',
+    
+    // Booking Summary
+    bookingSummary: 'Booking Summary',
+    room: 'Room',
+    discount: 'Discount',
+    totalPrice: 'Total Price',
+    
+    // Booking Confirmation
+    bookingConfirmedTitle: 'Booking Confirmation',
+    bookingConfirmedText: 'Booking Confirmed!',
+    bookingReference: 'Your booking reference',
+    bookingDetails: 'Booking Details',
+    confirmationEmailSent: 'A confirmation email has been sent to',
+    done: 'Done',
+    
+    // Room Details
+    description: 'Description',
+    size: 'Size',
+    maxGuests: 'Max Guests',
+    proceedToBooking: 'Proceed to Booking',
+    close: 'Close',
+    
+    // Comparison
+    compareRooms: 'Compare Rooms',
+    feature: 'Feature',
+    price: 'Price',
+    action: 'Action',
+    remove: 'Remove',
+    compareLimit: 'You can only compare up to {max} rooms',
+    compareDuplicate: 'Room already in comparison',
+    compareMinimum: 'Please select at least 2 rooms to compare',
+    
+    // User
+    register: 'Register',
+    dontHaveAccount: 'Don\'t have an account?',
+    alreadyHaveAccount: 'Already have an account?',
+    password: 'Password',
+    confirmPassword: 'Confirm Password',
+    fullNamePlaceholder: 'Enter your full name',
+    emailPlaceholder: 'Enter your email',
+    loginSuccessful: 'Login successful!',
+    loginRequired: 'Login Required',
+    pleaseLoginFirst: 'Please login first to book a room',
+    loginToBookMessage: 'You need to be logged in to make a booking. Please login or create an account to continue.',
+    loginNow: 'Login Now',
+    createAccount: 'Create Account',
+    registrationSuccessful: 'Registration successful!',
+    invalidCredentials: 'Invalid email or password',
+    passwordsNotMatch: 'Passwords do not match',
+    emailExists: 'Email already registered',
+    profileEmailExists: 'Email already exists. Please use a different email.',
+    profileUpdateSuccess: 'Profile updated successfully!',
+    profileFillRequired: 'Please fill in all required fields',
+    passwordFieldsRequired: 'Please fill in all password fields',
+    passwordMismatch: 'New passwords do not match',
+    passwordShort: 'New password must be at least 6 characters',
+    passwordIncorrect: 'Current password is incorrect',
+    passwordChangeSuccess: 'Password changed successfully!',
+    
+    // Auth Screens
+    loginTitle: 'Sign In',
+    loginSubtitle: 'Sign in to continue your luxury experience',
+    rememberMe: 'Remember Me',
+    forgotPassword: 'Forgot Password?',
+    loginButton: 'Sign In',
+    loginSigningIn: 'Signing In...',
+    registerPrompt: 'Don\'t have an account?',
+    registerLink: 'Register',
+    registerTitle: 'Create Your Account',
+    registerSubtitle: 'Join our luxury community for personalized stays',
+    registerFullName: 'Full Name',
+    registerEmail: 'Email Address',
+    registerPassword: 'Password',
+    registerConfirmPassword: 'Confirm Password',
+    registerButton: 'Create Account',
+    registerCreating: 'Creating...',
+    registerExistingPrompt: 'Already have an account?',
+    registerSignIn: 'Sign In',
+    guest: 'Guest',
+    loginFormError: 'Please fill in all fields correctly',
+    registerErrorName: 'Please enter your name',
+    registerErrorEmail: 'Please enter your email',
+    registerErrorEmailInvalid: 'Please enter a valid email address',
+    registerErrorPasswordLength: 'Password must be at least 6 characters',
+    registerErrorMismatch: 'Passwords do not match',
+    loginSuccessHeading: 'Welcome back, {name}!',
+    loginSuccessMessage: 'You have successfully logged in. Redirecting to homepage...',
+    registerSuccessHeading: 'Welcome, {name}!',
+    registerSuccessMessage: 'Your account has been created. Redirecting to the login page...',
+    
+    // Dashboard
+    noBookings: 'No bookings yet. Start booking your stay!',
+    confirmed: 'Confirmed',
+    bookingReferenceLabel: 'Booking Reference',
+    cancelBooking: 'Cancel',
+    cancelBookingConfirm: 'Are you sure you want to cancel this booking?',
+    bookingCancelled: 'Booking cancelled successfully',
+    
+    // Chat
+    liveChatSupport: 'Live Chat Support',
+    weAreHere: 'We\'re here to help',
+    typeMessage: 'Type your message...',
+    chatWelcome: 'Hello! Welcome to StayUp. How can I assist you today?',
+    chatResponseFriendly: 'Thank you for your message! Our team will get back to you shortly.',
+    chatResponseHelp: 'I can help you with room bookings, amenities, or any questions about our hotel.',
+    chatResponseOffers: 'Would you like to know more about our special offers?',
+    chatResponseDesk: 'Our front desk is available 24/7 to assist you.',
+    
+    // FAQ
+    checkInOut: 'What are your check-in and check-out times?',
+    checkInOutAnswer: 'Check-in is from 3:00 PM onwards, and check-out is until 12:00 PM. Early check-in and late check-out may be available upon request.',
+    freeWifi: 'Do you offer free WiFi?',
+    freeWifiAnswer: 'Yes, we provide complimentary high-speed WiFi throughout the hotel for all our guests.',
+    parking: 'Is parking available?',
+    parkingAnswer: 'Yes, we offer complimentary valet parking for all guests. Self-parking is also available.',
+    swimmingPool: 'Do you have a swimming pool?',
+    swimmingPoolAnswer: 'Yes, we have a luxurious outdoor infinity pool with poolside bar and cabanas available for our guests.',
+    petsAllowed: 'Are pets allowed?',
+    petsAllowedAnswer: 'We welcome pets in designated pet-friendly rooms. Please inform us in advance and additional charges may apply.',
+    cancellationPolicy: 'What is your cancellation policy?',
+    cancellationPolicyAnswer: 'Free cancellation is available up to 24 hours before check-in. After that, cancellation fees may apply based on the rate type selected.',
+    
+    // Contact
+    getInTouch: 'Get in Touch',
+    sendMessage: 'Send Message',
+    name: 'Name',
+    message: 'Message',
+    thankYouMessage: 'Thank you for your message! We will get back to you soon.',
+    contactNameRequired: 'Full name is required',
+    contactEmailRequired: 'Email is required',
+    contactEmailInvalid: 'Please enter a valid email address',
+    contactMessageRequired: 'Message is required',
+    fullNameRequired: 'Full name is required',
+    emailRequired: 'Email is required',
+    emailInvalid: 'Invalid email format',
+    phoneRequired: 'Phone number is required',
+    roomTypeRequired: 'Please select a room type',
+    checkInRequired: 'Check-in date is required',
+    checkOutRequired: 'Check-out date is required',
+    checkOutAfterCheckIn: 'Check-out must be after check-in',
+    pleaseFillRequiredFields: 'Please fill in all required fields before proceeding to payment.',
+    contactSectionTitle: 'Contact Us',
+    contactSectionSubtitle: 'We\'d love to hear from you',
+    contactFullName: 'Full Name *',
+    contactEmail: 'Email *',
+    contactPhone: 'Phone',
+    contactMessage: 'Message *',
+    contactSendMessage: 'Send Message',
+    contactInfoTitle: 'Get in Touch',
+    contactAddress: 'Address',
+    contactPhoneLabel: 'Phone',
+    contactEmailLabel: 'Email',
+    contactDeskLabel: 'Front Desk',
+    contactDeskHours: '24/7 Available',
+    
+    // Filters / Sort
+    sortBy: 'Sort by',
+    mostPopular: 'Most Popular',
+    priceLowHigh: 'Price: Low to High',
+    priceHighLow: 'Price: High to Low',
+    newestFirst: 'Newest First',
+    filterPriceRange: 'Price Range',
+    filterRoomType: 'Room Type',
+    filterAllTypes: 'All Types',
+    filterStandard: 'Standard',
+    filterSuite: 'Suite',
+    filterFamily: 'Family',
+    filterMaxGuests: 'Max Guests',
+    filterAnyGuests: 'Any',
+    filterGuestsTwo: '2 Guests',
+    filterGuestsFour: '4 Guests',
+    filterClear: 'Clear Filters',
+    filterMinPlaceholder: 'Min',
+    filterMaxPlaceholder: 'Max',
+    
+    // Footer
+    quickLinks: 'Quick Links',
+    followUs: 'Follow Us',
+    allRightsReserved: 'All rights reserved',
+    footerDescription: 'Experience luxury like never before. Your perfect stay awaits.',
+    servicesHeading: 'Services',
+    servicesSpa: 'Spa & Wellness',
+    servicesDining: 'Fine Dining',
+    servicesEvents: 'Events',
+    servicesConcierge: 'Concierge',
+    newsletterHeading: 'Newsletter',
+    newsletterText: 'Subscribe to get special offers and updates',
+    newsletterPlaceholder: 'Your email',
+    newsletterButton: 'Subscribe',
+    newsletterThankYou: 'Thank you for subscribing!',
+    newsletterThankYouMessage: 'You have been successfully subscribed to our newsletter. We will keep you updated with our latest offers and news.',
+    
+    // Floating Actions & Chat
+    fabBookTitle: 'Book Now',
+    fabChatTitle: 'Live Chat',
+    fabContactTitle: 'Contact',
+    chatIconTooltip: 'Open Chat',
+    liveChatTitle: 'Live Chat',
+    chatMinimize: 'Minimize',
+    chatMaximize: 'Maximize',
+    chatClose: 'Close',
+    
+    // General
+    searchPlaceholder: 'Search rooms, amenities...',
+    anySpecialRequests: 'Any special requests or requirements...',
+    themeBlackGold: 'Black & Gold',
+    themeEmerald: 'Emerald Luxury',
+    themeRoyal: 'Royal White & Gold',
+    togglePassword: 'Toggle password visibility'
+  },
+  ph: {
+    // Navigation
+    home: 'Tahanan',
+    rooms: 'Mga Silid',
+    amenities: 'Mga Kaginhawaan',
+    gallery: 'Gallery',
+    testimonials: 'Mga Testimonial',
+    contact: 'Makipag-ugnayan',
+    bookNow: 'Mag-book Ngayon',
+    login: 'Mag-login',
+    logout: 'Mag-logout',
+    logoutConfirm: 'Sigurado ka bang gusto mong mag-logout?',
+    myBookings: 'Aking Mga Booking',
+    profile: 'Profile',
+    wishlist: 'Nais',
+    backToHome: 'Bumalik sa Home',
+    
+    // Hero Section
+    welcomeTo: 'Maligayang pagdating sa',
+    experienceLuxury: 'Makaranas ng Luho na Hindi Pa Nararanasan',
+    bookYourStay: 'Mag-book ng Inyong Pananatili',
+    viewRooms: 'Tingnan ang mga Silid',
+    
+    // Sections
+    featuredRooms: 'Mga Featured na Silid',
+    hotelHighlights: 'Mga Highlight ng Hotel',
+    aboutHotel: 'Tungkol sa Hotel',
+    ourRooms: 'Ang Aming Mga Silid',
+    ourAmenities: 'Ang Aming Mga Kaginhawaan',
+    roomsSectionTitle: 'Ang Aming Mararangyang Silid',
+    roomsSectionSubtitle: 'Pumili mula sa aming piling koleksyon ng mga silid at suite',
+    amenitiesSectionTitle: 'Mga Pandaigdigang Amenidad',
+    amenitiesSectionSubtitle: 'Lahat ng kailangan ninyo para sa perpektong pananatili',
+    gallerySectionTitle: 'Photo Gallery',
+    gallerySectionSubtitle: 'Silipin ang aming napakagandang hotel',
+    whatGuestsSay: 'Ano ang Sinasabi ng Aming mga Bisita',
+    realExperiences: 'Tunay na karanasan mula sa aming mga minamahal na bisita',
+    frequentlyAsked: 'Mga Madalas Itanong',
+    everythingYouNeed: 'Lahat ng kailangan mong malaman',
+    nearbyAttractions: 'Mga Kalapit na Atraksyon',
+    exploreAround: 'Tuklasin kung ano ang nasa paligid namin',
+    
+    // Highlights
+    luxuryPoolTitle: 'Marangyang Pool',
+    luxuryPoolDescription: 'Magpahinga sa aming kahanga-hangang infinity pool',
+    fineDiningTitle: 'Marangyang Kainan',
+    fineDiningDescription: 'Mga parangal na restawran',
+    spaWellnessTitle: 'Spa at Wellness',
+    spaWellnessDescription: 'Pawiin ang katawan at isipan',
+    service247Title: 'Serbisyo 24/7',
+    service247Description: 'Concierge na bukás sa lahat ng oras',
+    
+    // About
+    aboutStayUpTitle: 'Tungkol sa StayUp',
+    aboutStayUpLead: 'Kung saan nagsasalubong ang Luho at Tradisyon',
+    aboutStayUpBody1: 'Matatagpuan sa puso ng siyudad, nag-aalok ang StayUp ng walang kaparis na karanasan ng luho at kaginhawaan. Ang aming mga eleganteng silid, world-class amenities, at natatanging serbisyo ay lumilikha ng mga alaalang panghabang-buhay.',
+    aboutStayUpBody2: 'Mahigit dalawang dekada na kaming nagbibigay ng pinakamahusay na hospitality gamit ang pagsasanib ng tradisyonal na karangyaan at modernong sopistikasyon para sa hindi malilimutang pananatili.',
+    aboutStayUpButton: 'Alamin Pa',
+    
+    // Room Cards
+    viewDetails: 'Tingnan ang Detalye',
+    viewButton: 'Tingnan',
+    compare: 'Ikumpara',
+    perNight: '/gabi',
+    upTo: 'Hanggang',
+    guests: 'mga bisita',
+    recentlyViewed: 'Kamakailang Tiningnan',
+    
+    // Booking
+    bookingForm: 'Booking Form',
+    fullName: 'Buong Pangalan',
+    email: 'Email',
+    phone: 'Telepono',
+    roomType: 'Uri ng Silid',
+    numberOfGuests: 'Bilang ng mga Bisita',
+    checkIn: 'Petsa ng Check-in',
+    checkOut: 'Petsa ng Check-out',
+    specialRequests: 'Mga Espesyal na Kahilingan',
+    discountCode: 'Discount Code (Opsyonal)',
+    enterCode: 'Ilagay ang code',
+    apply: 'Ilapat',
+    discountApplied: 'Na-apply ang discount!',
+    discountSuccess: 'Matagumpay na na-apply ang discount code!',
+    discountInvalid: 'Di-wastong discount code',
+    priceSummary: 'Buod ng Presyo',
+    roomRate: 'Rate ng Silid',
+    night: 'gabi',
+    nights: 'gabi',
+    subtotal: 'Subtotal',
+    taxesFees: 'Mga Buwis at Bayad',
+    included: 'Kasama',
+    total: 'Kabuuan',
+    cancel: 'Kanselahin',
+    confirmBooking: 'Kumpirmahin ang Booking',
+    proceedToPayment: 'Magpatuloy sa Pagbabayad',
+    viewSummary: 'Tingnan ang Buod',
+    editBooking: 'I-edit ang Booking',
+    
+    // Payment
+    payment: 'Pagbabayad',
+    selectPaymentMethod: 'Pumili ng Paraan ng Pagbabayad',
+    cardholderName: 'Pangalan ng Cardholder',
+    cardNumber: 'Numero ng Card',
+    expiry: 'Expiry',
+    cvv: 'CVV',
+    payNow: 'Magbayad Ngayon',
+    cardDetailsInvalid: 'Pakikompleto ang lahat ng detalye ng card',
+    accountNumberRequired: 'Kinakailangan ang account number',
+    accountNumberInvalid: 'Hindi wasto ang account number. Pakilagay ang wastong mobile number (09XX XXX XXXX)',
+    paypalEmailRequired: 'Kinakailangan ang PayPal email',
+    paypalEmailInvalid: 'Hindi wasto ang PayPal email address',
+    paymentDetailsInvalid: 'Pakikompleto ang lahat ng detalye ng pagbabayad',
+    enterAccountNumber: 'Ilagay ang inyong mobile number',
+    enterPayPalEmail: 'Ilagay ang inyong PayPal email address',
+    accountNumber: 'Account Number',
+    paymentSuccessful: 'Matagumpay ang Pagbabayad!',
+    bookingConfirmed: 'Nakumpirma na ang inyong booking.',
+    redirectMessage: 'Makakapunta kayo sa {method} payment gateway upang makumpleto ang inyong transaksyon.',
+    
+    // Booking Summary
+    bookingSummary: 'Buod ng Booking',
+    room: 'Silid',
+    discount: 'Discount',
+    totalPrice: 'Kabuuang Presyo',
+    
+    // Booking Confirmation
+    bookingConfirmedTitle: 'Kumpirmasyon ng Booking',
+    bookingConfirmedText: 'Nakumpirma na ang Booking!',
+    bookingReference: 'Ang inyong booking reference',
+    bookingDetails: 'Mga Detalye ng Booking',
+    confirmationEmailSent: 'Ang confirmation email ay ipinadala sa',
+    done: 'Tapos',
+    
+    // Room Details
+    description: 'Paglalarawan',
+    size: 'Laki',
+    maxGuests: 'Max na mga Bisita',
+    proceedToBooking: 'Magpatuloy sa Booking',
+    close: 'Isara',
+    
+    // Comparison
+    compareRooms: 'Ikumpara ang mga Silid',
+    feature: 'Feature',
+    price: 'Presyo',
+    action: 'Aksyon',
+    remove: 'Tanggalin',
+    compareLimit: 'Hanggang {max} silid lang ang maaaring ikumpara',
+    compareDuplicate: 'Nasa listahan na ang silid',
+    compareMinimum: 'Pumili ng hindi bababa sa 2 silid para ikumpara',
+    
+    // User
+    register: 'Magrehistro',
+    dontHaveAccount: 'Walang account?',
+    alreadyHaveAccount: 'May account na?',
+    password: 'Password',
+    confirmPassword: 'Kumpirmahin ang Password',
+    fullNamePlaceholder: 'Ilagay ang inyong buong pangalan',
+    emailPlaceholder: 'Ilagay ang inyong email',
+    loginSuccessful: 'Matagumpay ang login!',
+    loginRequired: 'Kinakailangan ang Login',
+    pleaseLoginFirst: 'Pakilagay muna ang login upang mag-book ng silid',
+    loginToBookMessage: 'Kailangan mong mag-login upang makagawa ng booking. Pakilagay ang login o gumawa ng account upang magpatuloy.',
+    loginNow: 'Mag-login Ngayon',
+    createAccount: 'Gumawa ng Account',
+    registrationSuccessful: 'Matagumpay ang pagrehistro!',
+    invalidCredentials: 'Hindi wasto ang email o password',
+    passwordsNotMatch: 'Hindi magkatugma ang mga password',
+    emailExists: 'Nakarehistro na ang email',
+    profileEmailExists: 'Nakarehistro na ang email. Gumamit ng ibang email.',
+    profileUpdateSuccess: 'Matagumpay na na-update ang profile!',
+    profileFillRequired: 'Pakisagutan ang lahat ng kinakailangang field',
+    passwordFieldsRequired: 'Pakisagutan ang lahat ng password field',
+    passwordMismatch: 'Hindi magkatugma ang bagong password',
+    passwordShort: 'Dapat hindi bababa sa 6 na karakter ang bagong password',
+    passwordIncorrect: 'Mali ang kasalukuyang password',
+    passwordChangeSuccess: 'Matagumpay na napalitan ang password!',
+    
+    // Auth Screens
+    loginTitle: 'Mag-sign In',
+    loginSubtitle: 'Mag-sign in upang ipagpatuloy ang marangyang karanasan',
+    rememberMe: 'Tandaan Ako',
+    forgotPassword: 'Nakalimutan ang password?',
+    loginButton: 'Mag-sign In',
+    loginSigningIn: 'Nagla-log in...',
+    registerPrompt: 'Wala ka pang account?',
+    registerLink: 'Magparehistro',
+    registerTitle: 'Gumawa ng Iyong Account',
+    registerSubtitle: 'Sumali sa aming luxury community para sa personalisadong pananatili',
+    registerFullName: 'Buong Pangalan',
+    registerEmail: 'Email Address',
+    registerPassword: 'Password',
+    registerConfirmPassword: 'Kumpirmahin ang Password',
+    registerButton: 'Lumikha ng Account',
+    registerCreating: 'Lumilikha...',
+    registerExistingPrompt: 'May account ka na?',
+    registerSignIn: 'Mag-sign In',
+    guest: 'Bisita',
+    loginFormError: 'Pakisagutan nang tama ang lahat ng field',
+    registerErrorName: 'Pakilagay ang iyong pangalan',
+    registerErrorEmail: 'Pakilagay ang iyong email',
+    registerErrorEmailInvalid: 'Pakilagay ang wastong email address',
+    registerErrorPasswordLength: 'Dapat hindi bababa sa 6 na letra ang password',
+    registerErrorMismatch: 'Hindi magkatugma ang mga password',
+    loginSuccessHeading: 'Maligayang pagbabalik, {name}!',
+    loginSuccessMessage: 'Matagumpay kang naka-login. Papa-redirect sa homepage...',
+    registerSuccessHeading: 'Maligayang pagdating, {name}!',
+    registerSuccessMessage: 'Nagawa na ang iyong account. Papa-redirect sa login page...',
+    
+    // Dashboard
+    noBookings: 'Wala pang bookings. Magsimula na sa pag-book ng inyong pananatili!',
+    confirmed: 'Nakumpirma',
+    bookingReferenceLabel: 'Booking Reference',
+    cancelBooking: 'Kanselahin',
+    cancelBookingConfirm: 'Sigurado ba kayo na gusto ninyong kanselahin ang booking na ito?',
+    bookingCancelled: 'Matagumpay na nakansela ang booking',
+    
+    // Chat
+    liveChatSupport: 'Live Chat Support',
+    weAreHere: 'Nandito kami para tumulong',
+    typeMessage: 'I-type ang inyong mensahe...',
+    chatWelcome: 'Kumusta! Maligayang pagdating sa StayUp. Paano kami makakatulong sa inyo ngayon?',
+    chatResponseFriendly: 'Salamat sa inyong mensahe! Magpapadala kami ng tugon sa lalong madaling panahon.',
+    chatResponseHelp: 'Maaari ko kayong tulungan sa booking, amenities, o anumang tanong tungkol sa hotel.',
+    chatResponseOffers: 'Nais ba ninyong malaman ang aming mga espesyal na alok?',
+    chatResponseDesk: 'Ang aming front desk ay bukás 24/7 para tumulong sa inyo.',
+    
+    // FAQ
+    checkInOut: 'Ano ang inyong check-in at check-out times?',
+    checkInOutAnswer: 'Ang check-in ay mula 3:00 PM pataas, at ang check-out ay hanggang 12:00 PM. Maaaring available ang early check-in at late check-out kapag hiniling.',
+    freeWifi: 'Nag-aalok ba kayo ng libreng WiFi?',
+    freeWifiAnswer: 'Oo, nagbibigay kami ng libreng high-speed WiFi sa buong hotel para sa lahat ng aming mga bisita.',
+    parking: 'Available ba ang parking?',
+    parkingAnswer: 'Oo, nag-aalok kami ng libreng valet parking para sa lahat ng mga bisita. Available din ang self-parking.',
+    swimmingPool: 'Mayroon ba kayong swimming pool?',
+    swimmingPoolAnswer: 'Oo, mayroon kaming luxurious outdoor infinity pool na may poolside bar at cabanas para sa aming mga bisita.',
+    petsAllowed: 'Pinapayagan ba ang mga alaga?',
+    petsAllowedAnswer: 'Tinatanggap namin ang mga alaga sa mga designated pet-friendly rooms. Pakisabi sa amin nang maaga at maaaring may karagdagang bayad.',
+    cancellationPolicy: 'Ano ang inyong cancellation policy?',
+    cancellationPolicyAnswer: 'Libreng cancellation ay available hanggang 24 oras bago ang check-in. Pagkatapos nito, maaaring may cancellation fees depende sa uri ng rate na napili.',
+    
+    // Contact
+    getInTouch: 'Makipag-ugnayan',
+    sendMessage: 'Magpadala ng Mensahe',
+    name: 'Pangalan',
+    message: 'Mensahe',
+    thankYouMessage: 'Salamat sa inyong mensahe! Makikipag-ugnayan kami sa inyo sa lalong madaling panahon.',
+    contactNameRequired: 'Kinakailangan ang buong pangalan',
+    contactEmailRequired: 'Kinakailangan ang email',
+    contactEmailInvalid: 'Pakilagay ang wastong email address',
+    contactMessageRequired: 'Kinakailangan ang mensahe',
+    fullNameRequired: 'Kinakailangan ang buong pangalan',
+    emailRequired: 'Kinakailangan ang email',
+    emailInvalid: 'Hindi wasto ang email format',
+    phoneRequired: 'Kinakailangan ang numero ng telepono',
+    roomTypeRequired: 'Pakipili ang uri ng silid',
+    checkInRequired: 'Kinakailangan ang check-in date',
+    checkOutRequired: 'Kinakailangan ang check-out date',
+    checkOutAfterCheckIn: 'Ang check-out ay dapat na pagkatapos ng check-in',
+    pleaseFillRequiredFields: 'Pakikompleto ang lahat ng kinakailangang field bago magpatuloy sa pagbabayad.',
+    contactSectionTitle: 'Makipag-ugnayan sa Amin',
+    contactSectionSubtitle: 'Ikinagagalak naming marinig kayo',
+    contactFullName: 'Buong Pangalan *',
+    contactEmail: 'Email *',
+    contactPhone: 'Telepono',
+    contactMessage: 'Mensahe *',
+    contactSendMessage: 'Ipadala ang Mensahe',
+    contactInfoTitle: 'Makipag-ugnayan',
+    contactAddress: 'Address',
+    contactPhoneLabel: 'Telepono',
+    contactEmailLabel: 'Email',
+    contactDeskLabel: 'Front Desk',
+    contactDeskHours: 'Bukás 24/7',
+    
+    // Sort / Filters
+    sortBy: 'Ayusin ayon sa',
+    mostPopular: 'Pinakasikat',
+    priceLowHigh: 'Presyo: Mababa hanggang Mataas',
+    priceHighLow: 'Presyo: Mataas hanggang Mababa',
+    newestFirst: 'Pinakabago Muna',
+    filterPriceRange: 'Saklaw ng Presyo',
+    filterRoomType: 'Uri ng Silid',
+    filterAllTypes: 'Lahat ng Uri',
+    filterStandard: 'Standard',
+    filterSuite: 'Suite',
+    filterFamily: 'Pamilya',
+    filterMaxGuests: 'Pinakamaraming Bisita',
+    filterAnyGuests: 'Anumang bilang',
+    filterGuestsTwo: '2 Bisita',
+    filterGuestsFour: '4 na Bisita',
+    filterClear: 'I-clear ang Mga Filter',
+    filterMinPlaceholder: 'Mababa',
+    filterMaxPlaceholder: 'Mataas',
+    
+    // Footer
+    quickLinks: 'Mabilis na Links',
+    followUs: 'Sundan Kami',
+    allRightsReserved: 'Lahat ng karapatan ay nakalaan',
+    footerDescription: 'Danasin ang luho na hindi pa nararanasan. Naghihintay ang perpektong pananatili.',
+    servicesHeading: 'Mga Serbisyo',
+    servicesSpa: 'Spa at Wellness',
+    servicesDining: 'Marangyang Kainan',
+    servicesEvents: 'Mga Kaganapan',
+    servicesConcierge: 'Concierge',
+    newsletterHeading: 'Newsletter',
+    newsletterText: 'Mag-subscribe para sa mga espesyal na alok at balita',
+    newsletterPlaceholder: 'Iyong email',
+    newsletterButton: 'Mag-subscribe',
+    newsletterThankYou: 'Salamat sa pag-subscribe!',
+    newsletterThankYouMessage: 'Matagumpay kang na-subscribe sa aming newsletter. Ipaaalam namin sa inyo ang aming pinakabagong alok at balita.',
+    
+    // Floating / Chat
+    fabBookTitle: 'Mag-book Ngayon',
+    fabChatTitle: 'Live Chat',
+    fabContactTitle: 'Makipag-ugnayan',
+    chatIconTooltip: 'Buksan ang Chat',
+    liveChatTitle: 'Live Chat',
+    chatMinimize: 'I-minimize',
+    chatMaximize: 'I-maximize',
+    chatClose: 'Isara',
+    
+    // General
+    searchPlaceholder: 'Maghanap ng mga silid, kaginhawaan...',
+    anySpecialRequests: 'Anumang espesyal na kahilingan o pangangailangan...',
+    themeBlackGold: 'Black & Gold',
+    themeEmerald: 'Emerald Luxury',
+    themeRoyal: 'Royal White & Gold',
+    togglePassword: 'Ipakita/itago ang password'
+  },
+  kr: {
+    // Navigation
+    home: '홈',
+    rooms: '객실',
+    amenities: '편의시설',
+    gallery: '갤러리',
+    testimonials: '후기',
+    contact: '연락처',
+    bookNow: '지금 예약',
+    login: '로그인',
+    logout: '로그아웃',
+    logoutConfirm: '로그아웃하시겠습니까?',
+    myBookings: '내 예약',
+    profile: '프로필',
+    backToHome: '홈으로 돌아가기',
+    wishlist: '위시리스트',
+    
+    // Hero Section
+    welcomeTo: '에 오신 것을 환영합니다',
+    experienceLuxury: '전례 없는 럭셔리를 경험하세요',
+    bookYourStay: '숙박 예약',
+    viewRooms: '객실 보기',
+    
+    // Sections
+    featuredRooms: '추천 객실',
+    hotelHighlights: '호텔 하이라이트',
+    aboutHotel: '호텔 소개',
+    ourRooms: '우리 객실',
+    ourAmenities: '우리 편의시설',
+    roomsSectionTitle: '럭셔리 객실',
+    roomsSectionSubtitle: '엄선된 객실과 스위트 중에서 선택하세요',
+    amenitiesSectionTitle: '월드 클래스 편의시설',
+    amenitiesSectionSubtitle: '완벽한 투숙을 위한 모든 것',
+    gallerySectionTitle: '포토 갤러리',
+    gallerySectionSubtitle: '아름다운 호텔을 미리 만나보세요',
+    whatGuestsSay: '고객 후기',
+    realExperiences: '소중한 고객들의 실제 경험',
+    frequentlyAsked: '자주 묻는 질문',
+    everythingYouNeed: '필요한 모든 정보',
+    nearbyAttractions: '주변 명소',
+    exploreAround: '주변을 탐험하세요',
+    
+    // Highlights
+    luxuryPoolTitle: '럭셔리 풀',
+    luxuryPoolDescription: '멋진 인피니티 풀에서 휴식하세요',
+    fineDiningTitle: '파인 다이닝',
+    fineDiningDescription: '수상 경력의 레스토랑',
+    spaWellnessTitle: '스파 & 웰니스',
+    spaWellnessDescription: '몸과 마음을 재충전하세요',
+    service247Title: '24/7 서비스',
+    service247Description: '연중무휴 컨시어지',
+    
+    // About
+    aboutStayUpTitle: 'StayUp 소개',
+    aboutStayUpLead: '럭셔리와 전통의 만남',
+    aboutStayUpBody1: '도심 한가운데 위치한 StayUp은 비교할 수 없는 럭셔리와 편안함을 제공합니다. 우아한 객실과 세계적 수준의 편의시설, 탁월한 서비스가 잊지 못할 추억을 만들어 드립니다.',
+    aboutStayUpBody2: '20년 이상의 호스피탈리티 경험으로 전통적인 우아함과 현대적인 세련미를 결합해 잊지 못할 경험을 선사합니다.',
+    aboutStayUpButton: '자세히 보기',
+    
+    // Room Cards
+    viewDetails: '상세 보기',
+    viewButton: '보기',
+    compare: '비교',
+    perNight: '/박',
+    upTo: '최대',
+    guests: '명',
+    recentlyViewed: '최근 본 객실',
+    
+    // Booking
+    bookingForm: '예약 양식',
+    fullName: '성명',
+    email: '이메일',
+    phone: '전화번호',
+    roomType: '객실 유형',
+    numberOfGuests: '인원 수',
+    checkIn: '체크인 날짜',
+    checkOut: '체크아웃 날짜',
+    specialRequests: '특별 요청사항',
+    discountCode: '할인 코드 (선택사항)',
+    enterCode: '코드 입력',
+    apply: '적용',
+    discountApplied: '할인이 적용되었습니다!',
+    discountSuccess: '할인 코드가 적용되었습니다!',
+    discountInvalid: '유효하지 않은 할인 코드입니다',
+    priceSummary: '요금 요약',
+    roomRate: '객실 요금',
+    night: '박',
+    nights: '박',
+    subtotal: '소계',
+    taxesFees: '세금 및 수수료',
+    included: '포함',
+    total: '총액',
+    cancel: '취소',
+    confirmBooking: '예약 확인',
+    proceedToPayment: '결제 진행',
+    viewSummary: '요약 보기',
+    editBooking: '예약 수정',
+    
+    // Payment
+    payment: '결제',
+    selectPaymentMethod: '결제 방법 선택',
+    cardholderName: '카드 소유자 이름',
+    cardNumber: '카드 번호',
+    expiry: '만료일',
+    cvv: 'CVV',
+    payNow: '지금 결제',
+    cardDetailsInvalid: '카드 정보를 모두 입력하세요',
+    accountNumberRequired: '계좌번호가 필요합니다',
+    accountNumberInvalid: '잘못된 계좌번호입니다. 유효한 휴대폰 번호를 입력하세요 (09XX XXX XXXX)',
+    paypalEmailRequired: 'PayPal 이메일이 필요합니다',
+    paypalEmailInvalid: '잘못된 PayPal 이메일 주소입니다',
+    paymentDetailsInvalid: '결제 정보를 모두 입력하세요',
+    enterAccountNumber: '휴대폰 번호를 입력하세요',
+    enterPayPalEmail: 'PayPal 이메일 주소를 입력하세요',
+    accountNumber: '계좌번호',
+    paymentSuccessful: '결제 성공!',
+    bookingConfirmed: '예약이 확인되었습니다.',
+    redirectMessage: '{method} 결제 게이트웨이로 리디렉션됩니다.',
+    
+    // Booking Summary
+    bookingSummary: '예약 요약',
+    room: '객실',
+    discount: '할인',
+    totalPrice: '총 요금',
+    
+    // Booking Confirmation
+    bookingConfirmedTitle: '예약 확인',
+    bookingConfirmedText: '예약이 확인되었습니다!',
+    bookingReference: '예약 참조 번호',
+    bookingDetails: '예약 세부사항',
+    confirmationEmailSent: '확인 이메일이 다음으로 전송되었습니다',
+    done: '완료',
+    
+    // Room Details
+    description: '설명',
+    size: '크기',
+    maxGuests: '최대 인원',
+    proceedToBooking: '예약 진행',
+    close: '닫기',
+    
+    // Comparison
+    compareRooms: '객실 비교',
+    feature: '기능',
+    price: '가격',
+    action: '작업',
+    remove: '제거',
+    compareLimit: '{max}개까지 비교할 수 있습니다',
+    compareDuplicate: '이미 비교 목록에 있는 객실입니다',
+    compareMinimum: '비교하려면 최소 2개의 객실을 선택하세요',
+    
+    // User
+    register: '회원가입',
+    dontHaveAccount: '계정이 없으신가요?',
+    alreadyHaveAccount: '이미 계정이 있으신가요?',
+    password: '비밀번호',
+    confirmPassword: '비밀번호 확인',
+    fullNamePlaceholder: '성명을 입력하세요',
+    emailPlaceholder: '이메일을 입력하세요',
+    loginSuccessful: '로그인 성공!',
+    loginRequired: '로그인 필요',
+    pleaseLoginFirst: '객실을 예약하려면 먼저 로그인하세요',
+    loginToBookMessage: '예약을 하려면 로그인이 필요합니다. 계속하려면 로그인하거나 계정을 만드세요.',
+    loginNow: '지금 로그인',
+    createAccount: '계정 만들기',
+    registrationSuccessful: '회원가입 성공!',
+    invalidCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
+    passwordsNotMatch: '비밀번호가 일치하지 않습니다',
+    emailExists: '이미 등록된 이메일입니다',
+    profileEmailExists: '이미 사용 중인 이메일입니다. 다른 이메일을 사용하세요.',
+    profileUpdateSuccess: '프로필이 성공적으로 업데이트되었습니다!',
+    profileFillRequired: '필수 항목을 모두 입력하세요',
+    passwordFieldsRequired: '비밀번호 필드를 모두 입력하세요',
+    passwordMismatch: '새 비밀번호가 일치하지 않습니다',
+    passwordShort: '새 비밀번호는 최소 6자 이상이어야 합니다',
+    passwordIncorrect: '현재 비밀번호가 일치하지 않습니다',
+    passwordChangeSuccess: '비밀번호가 변경되었습니다!',
+    
+    // Auth Screens
+    loginTitle: '로그인',
+    loginSubtitle: '럭셔리 경험을 계속하려면 로그인하세요',
+    rememberMe: '기억하기',
+    forgotPassword: '비밀번호를 잊으셨나요?',
+    loginButton: '로그인',
+    loginSigningIn: '로그인 중...',
+    registerPrompt: '계정이 없으신가요?',
+    registerLink: '회원가입',
+    registerTitle: '계정 만들기',
+    registerSubtitle: '럭셔리 커뮤니티에 가입하세요',
+    registerFullName: '성명',
+    registerEmail: '이메일 주소',
+    registerPassword: '비밀번호',
+    registerConfirmPassword: '비밀번호 확인',
+    registerButton: '계정 만들기',
+    registerCreating: '생성 중...',
+    registerExistingPrompt: '이미 계정이 있으신가요?',
+    registerSignIn: '로그인',
+    guest: '게스트',
+    loginFormError: '모든 항목을 정확히 입력하세요',
+    registerErrorName: '이름을 입력하세요',
+    registerErrorEmail: '이메일을 입력하세요',
+    registerErrorEmailInvalid: '유효한 이메일 주소를 입력하세요',
+    registerErrorPasswordLength: '비밀번호는 최소 6자 이상이어야 합니다',
+    registerErrorMismatch: '비밀번호가 일치하지 않습니다',
+    loginSuccessHeading: '{name}님, 환영합니다!',
+    loginSuccessMessage: '성공적으로 로그인되었습니다. 홈페이지로 이동합니다...',
+    registerSuccessHeading: '{name}님, 환영합니다!',
+    registerSuccessMessage: '계정이 생성되었습니다. 로그인 페이지로 이동합니다...',
+    
+    // Dashboard
+    noBookings: '아직 예약이 없습니다. 지금 예약을 시작하세요!',
+    confirmed: '확인됨',
+    bookingReferenceLabel: '예약 참조',
+    cancelBooking: '취소',
+    cancelBookingConfirm: '이 예약을 취소하시겠습니까?',
+    bookingCancelled: '예약이 성공적으로 취소되었습니다',
+    
+    // Chat
+    liveChatSupport: '실시간 채팅 지원',
+    weAreHere: '도와드리겠습니다',
+    typeMessage: '메시지를 입력하세요...',
+    chatWelcome: '안녕하세요! StayUp에 오신 것을 환영합니다. 무엇을 도와드릴까요?',
+    chatResponseFriendly: '메시지를 보내주셔서 감사합니다! 곧 답변드리겠습니다.',
+    chatResponseHelp: '객실 예약, 편의시설 또는 호텔 관련 문의를 도와드릴 수 있습니다.',
+    chatResponseOffers: '특별 프로모션에 대해 더 알고 싶으신가요?',
+    chatResponseDesk: '프런트 데스크는 24시간 내내 도움을 드립니다.',
+    
+    // FAQ
+    checkInOut: '체크인 및 체크아웃 시간은 언제인가요?',
+    checkInOutAnswer: '체크인은 오후 3시부터 가능하며, 체크아웃은 오후 12시까지입니다. 요청 시 조기 체크인 및 늦은 체크아웃이 가능할 수 있습니다.',
+    freeWifi: '무료 WiFi를 제공하나요?',
+    freeWifiAnswer: '네, 모든 고객을 위해 호텔 전역에 무료 고속 WiFi를 제공합니다.',
+    parking: '주차가 가능한가요?',
+    parkingAnswer: '네, 모든 고객을 위해 무료 발렛 주차를 제공합니다. 셀프 주차도 가능합니다.',
+    swimmingPool: '수영장이 있나요?',
+    swimmingPoolAnswer: '네, 고객을 위한 럭셔리 야외 인피니티 풀과 풀사이드 바 및 카바나가 있습니다.',
+    petsAllowed: '반려동물이 허용되나요?',
+    petsAllowedAnswer: '지정된 반려동물 친화적 객실에서 반려동물을 환영합니다. 사전에 알려주시면 추가 요금이 적용될 수 있습니다.',
+    cancellationPolicy: '취소 정책은 무엇인가요?',
+    cancellationPolicyAnswer: '체크인 24시간 전까지 무료 취소가 가능합니다. 그 이후에는 선택한 요금 유형에 따라 취소 수수료가 적용될 수 있습니다.',
+    
+    // Contact
+    getInTouch: '연락하기',
+    sendMessage: '메시지 보내기',
+    name: '이름',
+    message: '메시지',
+    thankYouMessage: '메시지를 보내주셔서 감사합니다! 곧 연락드리겠습니다.',
+    contactNameRequired: '성명을 입력하세요',
+    contactEmailRequired: '이메일을 입력하세요',
+    contactEmailInvalid: '유효한 이메일 주소를 입력하세요',
+    contactMessageRequired: '메시지를 입력하세요',
+    fullNameRequired: '성명을 입력하세요',
+    emailRequired: '이메일을 입력하세요',
+    emailInvalid: '잘못된 이메일 형식입니다',
+    phoneRequired: '전화번호를 입력하세요',
+    roomTypeRequired: '객실 유형을 선택하세요',
+    checkInRequired: '체크인 날짜를 입력하세요',
+    checkOutRequired: '체크아웃 날짜를 입력하세요',
+    checkOutAfterCheckIn: '체크아웃은 체크인 이후여야 합니다',
+    pleaseFillRequiredFields: '결제를 진행하기 전에 모든 필수 필드를 입력하세요.',
+    contactSectionTitle: '문의하기',
+    contactSectionSubtitle: '여러분의 목소리를 기다립니다',
+    contactFullName: '성명 *',
+    contactEmail: '이메일 *',
+    contactPhone: '전화번호',
+    contactMessage: '메시지 *',
+    contactSendMessage: '메시지 보내기',
+    contactInfoTitle: '연락처',
+    contactAddress: '주소',
+    contactPhoneLabel: '전화',
+    contactEmailLabel: '이메일',
+    contactDeskLabel: '프런트 데스크',
+    contactDeskHours: '연중무휴 24시간',
+    
+    // Sort / Filters
+    sortBy: '정렬 기준',
+    mostPopular: '인기순',
+    priceLowHigh: '가격: 낮은 순',
+    priceHighLow: '가격: 높은 순',
+    newestFirst: '최신순',
+    filterPriceRange: '가격 범위',
+    filterRoomType: '객실 유형',
+    filterAllTypes: '전체',
+    filterStandard: '스탠다드',
+    filterSuite: '스위트',
+    filterFamily: '패밀리',
+    filterMaxGuests: '최대 인원',
+    filterAnyGuests: '제한 없음',
+    filterGuestsTwo: '2명',
+    filterGuestsFour: '4명',
+    filterClear: '필터 초기화',
+    filterMinPlaceholder: '최소',
+    filterMaxPlaceholder: '최대',
+    
+    // Footer
+    quickLinks: '빠른 링크',
+    followUs: '팔로우하기',
+    allRightsReserved: '모든 권리 보유',
+    footerDescription: '한 번도 경험하지 못한 럭셔리를 느껴보세요. 완벽한 여정이 기다립니다.',
+    servicesHeading: '서비스',
+    servicesSpa: '스파 & 웰니스',
+    servicesDining: '파인 다이닝',
+    servicesEvents: '이벤트',
+    servicesConcierge: '컨시어지',
+    newsletterHeading: '뉴스레터',
+    newsletterText: '특별한 혜택과 소식을 받아보세요',
+    newsletterPlaceholder: '이메일 주소',
+    newsletterButton: '구독하기',
+    newsletterThankYou: '구독해 주셔서 감사합니다!',
+    newsletterThankYouMessage: '뉴스레터 구독이 성공적으로 완료되었습니다. 최신 혜택과 소식을 계속 업데이트해 드리겠습니다.',
+    
+    // Floating / Chat
+    fabBookTitle: '지금 예약',
+    fabChatTitle: '라이브 채팅',
+    fabContactTitle: '연락하기',
+    chatIconTooltip: '채팅 열기',
+    liveChatTitle: '라이브 채팅',
+    chatMinimize: '최소화',
+    chatMaximize: '최대화',
+    chatClose: '닫기',
+    
+    // General
+    searchPlaceholder: '객실, 편의시설 검색...',
+    anySpecialRequests: '특별 요청사항이나 요구사항...',
+    themeBlackGold: '블랙 & 골드',
+    themeEmerald: '에메랄드 럭셔리',
+    themeRoyal: '로얄 화이트 & 골드',
+    togglePassword: '비밀번호 보기/숨기기'
+  }
+};
+
+const app = angular.module('hotelApp', []);
+
+app.factory('LanguageService', ['$rootScope', function($rootScope) {
+  const languages = APP_LANGUAGES;
+  let currentLanguage = localStorage.getItem('language') || 'en';
+
+  function setLangAttribute() {
+    document.documentElement.setAttribute('lang', currentLanguage);
+  }
+  setLangAttribute();
+
+  function translate(key) {
+    if (!key) return '';
+    return (languages[currentLanguage] && languages[currentLanguage][key]) || languages.en[key] || key;
+  }
+
+  function translateWithReplacements(key, replacements) {
+    let text = translate(key);
+    if (replacements) {
+      Object.keys(replacements).forEach(function(placeholder) {
+        text = text.replace('{' + placeholder + '}', replacements[placeholder]);
+      });
+    }
+    return text;
+  }
+
+  return {
+    getLanguages: function() { return languages; },
+    getCurrentLanguage: function() { return currentLanguage; },
+    setLanguage: function(lang) {
+      if (!languages[lang]) {
+        lang = 'en';
+      }
+      currentLanguage = lang;
+      localStorage.setItem('language', lang);
+      setLangAttribute();
+      $rootScope.$broadcast('languageChanged', lang);
+    },
+    t: translate,
+    tReplace: translateWithReplacements
+  };
+}]);
+
+app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($scope, $timeout, LanguageService) {
     const vm = this;
     vm.year = new Date().getFullYear();
     vm.currentPage = 'home';
@@ -17,7 +1046,7 @@ angular.module('hotelApp', [])
     };
 
     vm.logout = function() {
-      if (confirm('Are you sure you want to logout?')) {
+      if (confirm(vm.t('logoutConfirm'))) {
         localStorage.removeItem('userName');
         localStorage.removeItem('userAvatar');
         localStorage.removeItem('userEmail');
@@ -89,7 +1118,7 @@ angular.module('hotelApp', [])
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(vm.profileForm.email)) {
-          alert('Please enter a valid email address');
+          alert(vm.t('contactEmailInvalid'));
           return;
         }
         
@@ -109,7 +1138,7 @@ angular.module('hotelApp', [])
           });
           
           if (emailExists) {
-            alert('Email already exists. Please use a different email.');
+            alert(vm.t('profileEmailExists'));
             // Revert email in form
             vm.profileForm.email = oldEmail;
             return;
@@ -140,10 +1169,10 @@ angular.module('hotelApp', [])
         vm.profile.name = vm.profileForm.name;
         vm.profile.email = vm.profileForm.email;
         
-        alert('Profile updated successfully!');
+        alert(vm.t('profileUpdateSuccess'));
         vm.closeProfile();
       } else {
-        alert('Please fill in all required fields');
+        alert(vm.t('profileFillRequired'));
       }
     };
     
@@ -153,17 +1182,17 @@ angular.module('hotelApp', [])
       }
       
       if (!vm.profileForm.currentPassword || !vm.profileForm.newPassword || !vm.profileForm.confirmPassword) {
-        alert('Please fill in all password fields');
+        alert(vm.t('passwordFieldsRequired'));
         return;
       }
       
       if (vm.profileForm.newPassword !== vm.profileForm.confirmPassword) {
-        alert('New passwords do not match');
+        alert(vm.t('passwordMismatch'));
         return;
       }
       
       if (vm.profileForm.newPassword.length < 6) {
-        alert('New password must be at least 6 characters');
+        alert(vm.t('passwordShort'));
         return;
       }
       
@@ -174,7 +1203,7 @@ angular.module('hotelApp', [])
       });
       
       if (!user || user.password !== vm.profileForm.currentPassword) {
-        alert('Current password is incorrect');
+        alert(vm.t('passwordIncorrect'));
         return;
       }
       
@@ -182,7 +1211,7 @@ angular.module('hotelApp', [])
       user.password = vm.profileForm.newPassword;
       localStorage.setItem('users', JSON.stringify(users));
       
-      alert('Password changed successfully!');
+      alert(vm.t('passwordChangeSuccess'));
       vm.profileForm.currentPassword = '';
       vm.profileForm.newPassword = '';
       vm.profileForm.confirmPassword = '';
@@ -201,20 +1230,12 @@ angular.module('hotelApp', [])
         images: [
           'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&h=600&fit=crop',
           'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&h=600&fit=crop'
+          'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop'
         ],
-        description: 'Spacious suite with elegant furnishings, premium amenities, and stunning city views. This beautifully designed suite features a comfortable king-size bed, modern bathroom, and a private balcony overlooking the vibrant cityscape. Perfect for couples seeking luxury and comfort.',
-        fullDescription: 'Experience unparalleled luxury in our Deluxe Suite, where modern elegance meets timeless comfort. The suite features a spacious bedroom with a plush king-size bed, premium linens, and blackout curtains for a restful night\'s sleep. The modern bathroom includes a rain shower and premium toiletries. Step out onto your private balcony to enjoy breathtaking city views, especially stunning at sunset. The suite is equipped with high-speed WiFi, a 55-inch smart TV, and a well-stocked mini-bar. Located in the heart of Makati, you\'re just steps away from shopping, dining, and entertainment.',
-        amenities: ['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony', 'City View', 'Room Service', 'Safe'],
+        description: 'Spacious suite with elegant furnishings, premium amenities, and stunning city views.',
+        amenities: ['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony'],
         maxGuests: 2,
-        size: '45 sqm',
-        location: 'Makati City, Philippines',
-        rating: 4.9,
-        reviewCount: 127,
-        beds: 1,
-        baths: 1
+        size: '45 sqm'
       },
       {
         id: 2,
@@ -225,19 +1246,12 @@ angular.module('hotelApp', [])
         images: [
           'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop',
           'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop'
+          'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop'
         ],
-        description: 'Comfortable executive room perfect for business travelers with modern amenities and a dedicated workspace.',
-        fullDescription: 'Designed with the business traveler in mind, our Executive Room offers a perfect blend of comfort and functionality. The room features a comfortable queen-size bed, an ergonomic work desk with high-speed internet, and a modern bathroom. The workspace is well-lit and includes multiple power outlets and USB ports. Enjoy complimentary WiFi, a 43-inch smart TV, and 24-hour room service. Located in the business district, you\'re close to major corporate offices and conference centers.',
-        amenities: ['WiFi', 'TV', 'AC', 'Work Desk', 'Express Check-in', 'Business Center Access', 'Newspaper'],
+        description: 'Comfortable executive room perfect for business travelers with modern amenities.',
+        amenities: ['WiFi', 'TV', 'AC', 'Work Desk'],
         maxGuests: 2,
-        size: '35 sqm',
-        location: 'Makati City, Philippines',
-        rating: 4.7,
-        reviewCount: 89,
-        beds: 1,
-        baths: 1
+        size: '35 sqm'
       },
       {
         id: 3,
@@ -248,20 +1262,12 @@ angular.module('hotelApp', [])
         images: [
           'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800&h=600&fit=crop',
           'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=800&h=600&fit=crop',
-          'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=800&h=600&fit=crop'
+          'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&h=600&fit=crop'
         ],
         description: 'Luxurious presidential suite with premium furnishings, private balcony, and exclusive services.',
-        fullDescription: 'The epitome of luxury, our Presidential Suite offers an unparalleled experience. This expansive suite features a separate living area, a master bedroom with a king-size bed, and a luxurious bathroom with a jacuzzi tub. The private balcony offers panoramic city views. Enjoy exclusive butler service, premium amenities, and access to our executive lounge. The suite includes a dining area, a fully stocked bar, and a private study. Perfect for VIP guests, celebrities, or anyone seeking the ultimate in luxury accommodation.',
-        amenities: ['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony', 'Jacuzzi', 'Butler Service', 'Private Elevator', 'Dining Area', 'Study', 'Premium Toiletries'],
+        amenities: ['WiFi', 'TV', 'AC', 'Mini Bar', 'Balcony', 'Jacuzzi', 'Butler Service'],
         maxGuests: 4,
         size: '80 sqm',
-        location: 'Makati City, Philippines',
-        rating: 5.0,
-        reviewCount: 45,
-        beds: 2,
-        baths: 2,
         fav: true
       },
       {
@@ -503,13 +1509,26 @@ angular.module('hotelApp', [])
     vm.selectedImage = null;
 
     vm.openBookingModal = function(room) {
+      // Check if user is logged in
+      const userName = localStorage.getItem('userName');
+      const userEmail = localStorage.getItem('userEmail');
+      
+      if (!userName || !userEmail || userName === 'Guest') {
+        // User is not logged in - show login prompt
+        vm.showLoginPromptModal = true;
+        vm.pendingBookingRoom = room; // Store room for after login
+        document.body.classList.add('modal-open');
+        return;
+      }
+      
+      // User is logged in - proceed with booking
       if (room) vm.selectedRoom = angular.copy(room);
       vm.showBookingModal = true;
       document.body.classList.add('modal-open');
       const today = new Date().toISOString().split('T')[0];
       vm.bookingForm = {
-        fullName: '',
-        email: '',
+        fullName: userName,
+        email: userEmail,
         phone: '',
         roomType: room ? room.name : '',
         guests: 1,
@@ -536,78 +1555,21 @@ angular.module('hotelApp', [])
 
     vm.openRoomDetails = function(room) {
       vm.selectedRoom = angular.copy(room);
-      // Set default values if not present
-      if (!vm.selectedRoom.location) vm.selectedRoom.location = 'Makati City, Philippines';
-      if (!vm.selectedRoom.rating) vm.selectedRoom.rating = 4.8;
-      if (!vm.selectedRoom.reviewCount) vm.selectedRoom.reviewCount = 0;
-      if (!vm.selectedRoom.beds) vm.selectedRoom.beds = 1;
-      if (!vm.selectedRoom.baths) vm.selectedRoom.baths = 1;
-      if (!vm.selectedRoom.fullDescription) vm.selectedRoom.fullDescription = vm.selectedRoom.description;
-      
-      // Initialize quick booking
-      vm.quickCheckIn = '';
-      vm.quickCheckOut = '';
-      vm.quickGuests = vm.selectedRoom.maxGuests || 2;
-      
       vm.showRoomDetailsModal = true;
       document.body.classList.add('modal-open');
-      document.body.style.overflow = 'hidden';
+      $timeout(function() {
+        // Initialize carousel after modal opens
+        const carousel = document.querySelector('#roomCarousel');
+        if (carousel) {
+          const bsCarousel = new bootstrap.Carousel(carousel);
+        }
+      }, 300);
     };
 
     vm.closeRoomDetails = function() {
       vm.showRoomDetailsModal = false;
       vm.selectedRoom = null;
       document.body.classList.remove('modal-open');
-      document.body.style.overflow = '';
-    };
-
-    vm.reserveRoom = function() {
-      if (!vm.quickCheckIn || !vm.quickCheckOut) {
-        alert('Please select check-in and check-out dates');
-        return;
-      }
-      if (!vm.quickGuests) {
-        alert('Please select number of guests');
-        return;
-      }
-      // Set booking form values and open booking modal
-      vm.bookingForm.roomType = vm.selectedRoom.name;
-      vm.bookingForm.checkIn = vm.quickCheckIn;
-      vm.bookingForm.checkOut = vm.quickCheckOut;
-      vm.bookingForm.guests = vm.quickGuests;
-      vm.selectedRoom = vm.selectedRoom; // Keep selected room
-      vm.closeRoomDetails();
-      vm.openBookingModal(vm.selectedRoom);
-    };
-
-    vm.openGalleryImage = function(image, index) {
-      vm.selectedImage = image;
-      vm.showGalleryModal = true;
-      document.body.classList.add('modal-open');
-    };
-
-    vm.showAllImages = function() {
-      // Open gallery modal with all images
-      vm.selectedImage = vm.selectedRoom.images[0];
-      vm.showGalleryModal = true;
-      document.body.classList.add('modal-open');
-    };
-
-    vm.getGuestOptions = function(max) {
-      var options = [];
-      for (var i = 1; i <= (max || 4); i++) {
-        options.push(i);
-      }
-      return options;
-    };
-
-    vm.getQuickNights = function() {
-      if (!vm.quickCheckIn || !vm.quickCheckOut) return 1;
-      var checkIn = new Date(vm.quickCheckIn);
-      var checkOut = new Date(vm.quickCheckOut);
-      var diffTime = Math.abs(checkOut - checkIn);
-      var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays || 1;
     };
 
     vm.openGallery = function(image) {
@@ -642,36 +1604,36 @@ angular.module('hotelApp', [])
       vm.formErrors = {};
       let isValid = true;
 
-      if (!vm.bookingForm.fullName) {
-        vm.formErrors.fullName = 'Full name is required';
+      if (!vm.bookingForm.fullName || !vm.bookingForm.fullName.trim()) {
+        vm.formErrors.fullName = vm.t('fullNameRequired') || 'Full name is required';
         isValid = false;
       }
 
-      if (!vm.bookingForm.email) {
-        vm.formErrors.email = 'Email is required';
+      if (!vm.bookingForm.email || !vm.bookingForm.email.trim()) {
+        vm.formErrors.email = vm.t('emailRequired') || 'Email is required';
         isValid = false;
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vm.bookingForm.email)) {
-        vm.formErrors.email = 'Invalid email format';
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vm.bookingForm.email.trim())) {
+        vm.formErrors.email = vm.t('emailInvalid') || 'Invalid email format';
         isValid = false;
       }
 
-      if (!vm.bookingForm.phone) {
-        vm.formErrors.phone = 'Phone number is required';
+      if (!vm.bookingForm.phone || !vm.bookingForm.phone.trim()) {
+        vm.formErrors.phone = vm.t('phoneRequired') || 'Phone number is required';
         isValid = false;
       }
 
       if (!vm.bookingForm.roomType) {
-        vm.formErrors.roomType = 'Please select a room';
+        vm.formErrors.roomType = vm.t('roomTypeRequired') || 'Please select a room type';
         isValid = false;
       }
 
       if (!vm.bookingForm.checkIn) {
-        vm.formErrors.checkIn = 'Check-in date is required';
+        vm.formErrors.checkIn = vm.t('checkInRequired') || 'Check-in date is required';
         isValid = false;
       }
 
       if (!vm.bookingForm.checkOut) {
-        vm.formErrors.checkOut = 'Check-out date is required';
+        vm.formErrors.checkOut = vm.t('checkOutRequired') || 'Check-out date is required';
         isValid = false;
       }
 
@@ -679,7 +1641,7 @@ angular.module('hotelApp', [])
         const checkIn = new Date(vm.bookingForm.checkIn);
         const checkOut = new Date(vm.bookingForm.checkOut);
         if (checkOut <= checkIn) {
-          vm.formErrors.checkOut = 'Check-out must be after check-in';
+          vm.formErrors.checkOut = vm.t('checkOutAfterCheckIn') || 'Check-out must be after check-in';
           isValid = false;
         }
       }
@@ -935,20 +1897,20 @@ angular.module('hotelApp', [])
       let isValid = true;
 
       if (!vm.contactForm.name) {
-        vm.contactErrors.name = 'Name is required';
+        vm.contactErrors.name = vm.t('contactNameRequired');
         isValid = false;
       }
 
       if (!vm.contactForm.email) {
-        vm.contactErrors.email = 'Email is required';
+        vm.contactErrors.email = vm.t('contactEmailRequired');
         isValid = false;
       } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vm.contactForm.email)) {
-        vm.contactErrors.email = 'Invalid email format';
+        vm.contactErrors.email = vm.t('contactEmailInvalid');
         isValid = false;
       }
 
       if (!vm.contactForm.message) {
-        vm.contactErrors.message = 'Message is required';
+        vm.contactErrors.message = vm.t('contactMessageRequired');
         isValid = false;
       }
 
@@ -960,8 +1922,54 @@ angular.module('hotelApp', [])
         return;
       }
 
-      alert('Thank you for your message! We will get back to you soon.');
+      alert(vm.t('thankYouMessage'));
       vm.contactForm = { name: '', email: '', phone: '', message: '' };
+    };
+
+    // ============================================
+    // NEWSLETTER SUBSCRIPTION
+    // ============================================
+    vm.newsletterEmail = '';
+    vm.showNewsletterThankYou = false;
+
+    vm.subscribeNewsletter = function() {
+      if (!vm.newsletterEmail || !vm.newsletterEmail.trim()) {
+        return;
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(vm.newsletterEmail.trim())) {
+        return;
+      }
+
+      // Save subscription (in real app, send to server)
+      let subscriptions = JSON.parse(localStorage.getItem('newsletterSubscriptions') || '[]');
+      const email = vm.newsletterEmail.trim().toLowerCase();
+      
+      // Check if already subscribed
+      if (subscriptions.indexOf(email) === -1) {
+        subscriptions.push(email);
+        localStorage.setItem('newsletterSubscriptions', JSON.stringify(subscriptions));
+      }
+
+      // Show thank you modal
+      vm.showNewsletterThankYou = true;
+      document.body.classList.add('modal-open');
+
+      // Clear email input
+      vm.newsletterEmail = '';
+
+      // Auto close modal after 3 seconds
+      $timeout(function() {
+        vm.showNewsletterThankYou = false;
+        document.body.classList.remove('modal-open');
+      }, 3000);
+    };
+
+    vm.closeNewsletterThankYou = function() {
+      vm.showNewsletterThankYou = false;
+      document.body.classList.remove('modal-open');
     };
 
     // ============================================
@@ -996,552 +2004,26 @@ angular.module('hotelApp', [])
     // ============================================
     // LANGUAGE SUPPORT
     // ============================================
-    vm.currentLanguage = localStorage.getItem('language') || 'en';
-    vm.languages = {
-      en: {
-        // Navigation
-        home: 'Home',
-        rooms: 'Rooms',
-        amenities: 'Amenities',
-        gallery: 'Gallery',
-        testimonials: 'Testimonials',
-        contact: 'Contact',
-        bookNow: 'Book Now',
-        login: 'Login',
-        logout: 'Logout',
-        myBookings: 'My Bookings',
-        profile: 'Profile',
-        wishlist: 'Wishlist',
-        
-        // Hero Section
-        welcomeTo: 'Welcome to',
-        experienceLuxury: 'Experience Luxury Like Never Before',
-        bookYourStay: 'Book Your Stay',
-        viewRooms: 'View Rooms',
-        
-        // Sections
-        featuredRooms: 'Featured Rooms',
-        hotelHighlights: 'Hotel Highlights',
-        aboutHotel: 'About the Hotel',
-        ourRooms: 'Our Rooms',
-        ourAmenities: 'Our Amenities',
-        whatGuestsSay: 'What Our Guests Say',
-        realExperiences: 'Real experiences from our valued guests',
-        frequentlyAsked: 'Frequently Asked Questions',
-        everythingYouNeed: 'Everything you need to know',
-        nearbyAttractions: 'Nearby Attractions',
-        exploreAround: 'Explore what\'s around us',
-        
-        // Room Cards
-        viewDetails: 'View Details',
-        compare: 'Compare',
-        perNight: '/night',
-        upTo: 'Up to',
-        guests: 'guests',
-        recentlyViewed: 'Recently Viewed',
-        
-        // Booking
-        bookingForm: 'Booking Form',
-        fullName: 'Full Name',
-        email: 'Email',
-        phone: 'Phone',
-        roomType: 'Room Type',
-        numberOfGuests: 'Number of Guests',
-        checkIn: 'Check-in Date',
-        checkOut: 'Check-out Date',
-        specialRequests: 'Special Requests',
-        discountCode: 'Discount Code (Optional)',
-        enterCode: 'Enter code',
-        apply: 'Apply',
-        discountApplied: 'Discount applied!',
-        priceSummary: 'Price Summary',
-        roomRate: 'Room Rate',
-        nights: 'nights',
-        taxesFees: 'Taxes & Fees',
-        included: 'Included',
-        total: 'Total',
-        cancel: 'Cancel',
-        confirmBooking: 'Confirm Booking',
-        proceedToPayment: 'Proceed to Payment',
-        viewSummary: 'View Summary',
-        editBooking: 'Edit Booking',
-        
-        // Payment
-        payment: 'Payment',
-        selectPaymentMethod: 'Select Payment Method',
-        cardholderName: 'Cardholder Name',
-        cardNumber: 'Card Number',
-        expiry: 'Expiry',
-        cvv: 'CVV',
-        payNow: 'Pay Now',
-        paymentSuccessful: 'Payment Successful!',
-        bookingConfirmed: 'Your booking has been confirmed.',
-        redirectMessage: 'You will be redirected to {method} payment gateway to complete your transaction.',
-        
-        // Booking Summary
-        bookingSummary: 'Booking Summary',
-        room: 'Room',
-        discount: 'Discount',
-        totalPrice: 'Total Price',
-        
-        // Booking Confirmation
-        bookingConfirmedTitle: 'Booking Confirmation',
-        bookingConfirmedText: 'Booking Confirmed!',
-        bookingReference: 'Your booking reference',
-        bookingDetails: 'Booking Details',
-        confirmationEmailSent: 'A confirmation email has been sent to',
-        done: 'Done',
-        
-        // Room Details
-        description: 'Description',
-        size: 'Size',
-        maxGuests: 'Max Guests',
-        proceedToBooking: 'Proceed to Booking',
-        close: 'Close',
-        
-        // Comparison
-        compareRooms: 'Compare Rooms',
-        feature: 'Feature',
-        price: 'Price',
-        action: 'Action',
-        remove: 'Remove',
-        
-        // User
-        register: 'Register',
-        dontHaveAccount: 'Don\'t have an account?',
-        alreadyHaveAccount: 'Already have an account?',
-        password: 'Password',
-        confirmPassword: 'Confirm Password',
-        fullNamePlaceholder: 'Enter your full name',
-        emailPlaceholder: 'Enter your email',
-        loginSuccessful: 'Login successful!',
-        registrationSuccessful: 'Registration successful!',
-        invalidCredentials: 'Invalid email or password',
-        passwordsNotMatch: 'Passwords do not match',
-        emailExists: 'Email already registered',
-        
-        // Dashboard
-        noBookings: 'No bookings yet. Start booking your stay!',
-        noWishlistItems: 'Your wishlist is empty. Start adding rooms you love!',
-        confirmed: 'Confirmed',
-        bookingReferenceLabel: 'Booking Reference',
-        cancelBooking: 'Cancel',
-        cancelBookingConfirm: 'Are you sure you want to cancel this booking?',
-        bookingCancelled: 'Booking cancelled successfully',
-        
-        // Chat
-        liveChatSupport: 'Live Chat Support',
-        weAreHere: 'We\'re here to help',
-        typeMessage: 'Type your message...',
-        
-        // FAQ
-        checkInOut: 'What are your check-in and check-out times?',
-        checkInOutAnswer: 'Check-in is from 3:00 PM onwards, and check-out is until 12:00 PM. Early check-in and late check-out may be available upon request.',
-        freeWifi: 'Do you offer free WiFi?',
-        freeWifiAnswer: 'Yes, we provide complimentary high-speed WiFi throughout the hotel for all our guests.',
-        parking: 'Is parking available?',
-        parkingAnswer: 'Yes, we offer complimentary valet parking for all guests. Self-parking is also available.',
-        swimmingPool: 'Do you have a swimming pool?',
-        swimmingPoolAnswer: 'Yes, we have a luxurious outdoor infinity pool with poolside bar and cabanas available for our guests.',
-        petsAllowed: 'Are pets allowed?',
-        petsAllowedAnswer: 'We welcome pets in designated pet-friendly rooms. Please inform us in advance and additional charges may apply.',
-        cancellationPolicy: 'What is your cancellation policy?',
-        cancellationPolicyAnswer: 'Free cancellation is available up to 24 hours before check-in. After that, cancellation fees may apply based on the rate type selected.',
-        
-        // Contact
-        getInTouch: 'Get in Touch',
-        sendMessage: 'Send Message',
-        name: 'Name',
-        message: 'Message',
-        thankYouMessage: 'Thank you for your message! We will get back to you soon.',
-        
-        // Sort
-        sortBy: 'Sort by',
-        mostPopular: 'Most Popular',
-        priceLowHigh: 'Price: Low to High',
-        priceHighLow: 'Price: High to Low',
-        newestFirst: 'Newest First',
-        
-        // Footer
-        quickLinks: 'Quick Links',
-        followUs: 'Follow Us',
-        allRightsReserved: 'All rights reserved',
-        
-        // General
-        searchPlaceholder: 'Search rooms, amenities...',
-        anySpecialRequests: 'Any special requests or requirements...'
-      },
-      ph: {
-        // Navigation
-        home: 'Tahanan',
-        rooms: 'Mga Silid',
-        amenities: 'Mga Kaginhawaan',
-        gallery: 'Gallery',
-        testimonials: 'Mga Testimonial',
-        contact: 'Makipag-ugnayan',
-        bookNow: 'Mag-book Ngayon',
-        login: 'Mag-login',
-        logout: 'Mag-logout',
-        myBookings: 'Aking Mga Booking',
-        profile: 'Profile',
-        wishlist: 'Wishlist',
-        
-        // Hero Section
-        welcomeTo: 'Maligayang pagdating sa',
-        experienceLuxury: 'Makaranas ng Luho na Hindi Pa Nararanasan',
-        bookYourStay: 'Mag-book ng Inyong Pananatili',
-        viewRooms: 'Tingnan ang mga Silid',
-        
-        // Sections
-        featuredRooms: 'Mga Featured na Silid',
-        hotelHighlights: 'Mga Highlight ng Hotel',
-        aboutHotel: 'Tungkol sa Hotel',
-        ourRooms: 'Ang Aming Mga Silid',
-        ourAmenities: 'Ang Aming Mga Kaginhawaan',
-        whatGuestsSay: 'Ano ang Sinasabi ng Aming mga Bisita',
-        realExperiences: 'Tunay na karanasan mula sa aming mga minamahal na bisita',
-        frequentlyAsked: 'Mga Madalas Itanong',
-        everythingYouNeed: 'Lahat ng kailangan mong malaman',
-        nearbyAttractions: 'Mga Kalapit na Atraksyon',
-        exploreAround: 'Tuklasin kung ano ang nasa paligid namin',
-        
-        // Room Cards
-        viewDetails: 'Tingnan ang Detalye',
-        compare: 'Ikumpara',
-        perNight: '/gabi',
-        upTo: 'Hanggang',
-        guests: 'mga bisita',
-        recentlyViewed: 'Kamakailang Tiningnan',
-        
-        // Booking
-        bookingForm: 'Booking Form',
-        fullName: 'Buong Pangalan',
-        email: 'Email',
-        phone: 'Telepono',
-        roomType: 'Uri ng Silid',
-        numberOfGuests: 'Bilang ng mga Bisita',
-        checkIn: 'Petsa ng Check-in',
-        checkOut: 'Petsa ng Check-out',
-        specialRequests: 'Mga Espesyal na Kahilingan',
-        discountCode: 'Discount Code (Opsyonal)',
-        enterCode: 'Ilagay ang code',
-        apply: 'Ilapat',
-        discountApplied: 'Na-apply ang discount!',
-        priceSummary: 'Buod ng Presyo',
-        roomRate: 'Rate ng Silid',
-        nights: 'gabi',
-        taxesFees: 'Mga Buwis at Bayad',
-        included: 'Kasama',
-        total: 'Kabuuan',
-        cancel: 'Kanselahin',
-        confirmBooking: 'Kumpirmahin ang Booking',
-        proceedToPayment: 'Magpatuloy sa Pagbabayad',
-        viewSummary: 'Tingnan ang Buod',
-        editBooking: 'I-edit ang Booking',
-        
-        // Payment
-        payment: 'Pagbabayad',
-        selectPaymentMethod: 'Pumili ng Paraan ng Pagbabayad',
-        cardholderName: 'Pangalan ng Cardholder',
-        cardNumber: 'Numero ng Card',
-        expiry: 'Expiry',
-        cvv: 'CVV',
-        payNow: 'Magbayad Ngayon',
-        paymentSuccessful: 'Matagumpay ang Pagbabayad!',
-        bookingConfirmed: 'Nakumpirma na ang inyong booking.',
-        redirectMessage: 'Makakapunta kayo sa {method} payment gateway upang makumpleto ang inyong transaksyon.',
-        
-        // Booking Summary
-        bookingSummary: 'Buod ng Booking',
-        room: 'Silid',
-        discount: 'Discount',
-        totalPrice: 'Kabuuang Presyo',
-        
-        // Booking Confirmation
-        bookingConfirmedTitle: 'Kumpirmasyon ng Booking',
-        bookingConfirmedText: 'Nakumpirma na ang Booking!',
-        bookingReference: 'Ang inyong booking reference',
-        bookingDetails: 'Mga Detalye ng Booking',
-        confirmationEmailSent: 'Ang confirmation email ay ipinadala sa',
-        done: 'Tapos',
-        
-        // Room Details
-        description: 'Paglalarawan',
-        size: 'Laki',
-        maxGuests: 'Max na mga Bisita',
-        proceedToBooking: 'Magpatuloy sa Booking',
-        close: 'Isara',
-        
-        // Comparison
-        compareRooms: 'Ikumpara ang mga Silid',
-        feature: 'Feature',
-        price: 'Presyo',
-        action: 'Aksyon',
-        remove: 'Tanggalin',
-        
-        // User
-        register: 'Magrehistro',
-        dontHaveAccount: 'Walang account?',
-        alreadyHaveAccount: 'May account na?',
-        password: 'Password',
-        confirmPassword: 'Kumpirmahin ang Password',
-        fullNamePlaceholder: 'Ilagay ang inyong buong pangalan',
-        emailPlaceholder: 'Ilagay ang inyong email',
-        loginSuccessful: 'Matagumpay ang login!',
-        registrationSuccessful: 'Matagumpay ang pagrehistro!',
-        invalidCredentials: 'Hindi wasto ang email o password',
-        passwordsNotMatch: 'Hindi magkatugma ang mga password',
-        emailExists: 'Nakarehistro na ang email',
-        
-        // Dashboard
-        noBookings: 'Wala pang bookings. Magsimula na sa pag-book ng inyong pananatili!',
-        noWishlistItems: 'Walang laman ang inyong wishlist. Magsimula na sa pagdagdag ng mga silid na gusto ninyo!',
-        confirmed: 'Nakumpirma',
-        bookingReferenceLabel: 'Booking Reference',
-        cancelBooking: 'Kanselahin',
-        cancelBookingConfirm: 'Sigurado ba kayo na gusto ninyong kanselahin ang booking na ito?',
-        bookingCancelled: 'Matagumpay na nakansela ang booking',
-        
-        // Chat
-        liveChatSupport: 'Live Chat Support',
-        weAreHere: 'Nandito kami para tumulong',
-        typeMessage: 'I-type ang inyong mensahe...',
-        
-        // FAQ
-        checkInOut: 'Ano ang inyong check-in at check-out times?',
-        checkInOutAnswer: 'Ang check-in ay mula 3:00 PM pataas, at ang check-out ay hanggang 12:00 PM. Maaaring available ang early check-in at late check-out kapag hiniling.',
-        freeWifi: 'Nag-aalok ba kayo ng libreng WiFi?',
-        freeWifiAnswer: 'Oo, nagbibigay kami ng libreng high-speed WiFi sa buong hotel para sa lahat ng aming mga bisita.',
-        parking: 'Available ba ang parking?',
-        parkingAnswer: 'Oo, nag-aalok kami ng libreng valet parking para sa lahat ng mga bisita. Available din ang self-parking.',
-        swimmingPool: 'Mayroon ba kayong swimming pool?',
-        swimmingPoolAnswer: 'Oo, mayroon kaming luxurious outdoor infinity pool na may poolside bar at cabanas para sa aming mga bisita.',
-        petsAllowed: 'Pinapayagan ba ang mga alaga?',
-        petsAllowedAnswer: 'Tinatanggap namin ang mga alaga sa mga designated pet-friendly rooms. Pakisabi sa amin nang maaga at maaaring may karagdagang bayad.',
-        cancellationPolicy: 'Ano ang inyong cancellation policy?',
-        cancellationPolicyAnswer: 'Libreng cancellation ay available hanggang 24 oras bago ang check-in. Pagkatapos nito, maaaring may cancellation fees depende sa uri ng rate na napili.',
-        
-        // Contact
-        getInTouch: 'Makipag-ugnayan',
-        sendMessage: 'Magpadala ng Mensahe',
-        name: 'Pangalan',
-        message: 'Mensahe',
-        thankYouMessage: 'Salamat sa inyong mensahe! Makikipag-ugnayan kami sa inyo sa lalong madaling panahon.',
-        
-        // Sort
-        sortBy: 'Ayusin ayon sa',
-        mostPopular: 'Pinakasikat',
-        priceLowHigh: 'Presyo: Mababa hanggang Mataas',
-        priceHighLow: 'Presyo: Mataas hanggang Mababa',
-        newestFirst: 'Pinakabago Muna',
-        
-        // Footer
-        quickLinks: 'Mabilis na Links',
-        followUs: 'Sundan Kami',
-        allRightsReserved: 'Lahat ng karapatan ay nakalaan',
-        
-        // General
-        searchPlaceholder: 'Maghanap ng mga silid, kaginhawaan...',
-        anySpecialRequests: 'Anumang espesyal na kahilingan o pangangailangan...'
-      },
-      kr: {
-        // Navigation
-        home: '홈',
-        rooms: '객실',
-        amenities: '편의시설',
-        gallery: '갤러리',
-        testimonials: '후기',
-        contact: '연락처',
-        bookNow: '지금 예약',
-        login: '로그인',
-        logout: '로그아웃',
-        myBookings: '내 예약',
-        profile: '프로필',
-        wishlist: '위시리스트',
-        
-        // Hero Section
-        welcomeTo: '에 오신 것을 환영합니다',
-        experienceLuxury: '전례 없는 럭셔리를 경험하세요',
-        bookYourStay: '숙박 예약',
-        viewRooms: '객실 보기',
-        
-        // Sections
-        featuredRooms: '추천 객실',
-        hotelHighlights: '호텔 하이라이트',
-        aboutHotel: '호텔 소개',
-        ourRooms: '우리 객실',
-        ourAmenities: '우리 편의시설',
-        whatGuestsSay: '고객 후기',
-        realExperiences: '소중한 고객들의 실제 경험',
-        frequentlyAsked: '자주 묻는 질문',
-        everythingYouNeed: '필요한 모든 정보',
-        nearbyAttractions: '주변 명소',
-        exploreAround: '주변을 탐험하세요',
-        
-        // Room Cards
-        viewDetails: '상세 보기',
-        compare: '비교',
-        perNight: '/박',
-        upTo: '최대',
-        guests: '명',
-        recentlyViewed: '최근 본 객실',
-        
-        // Booking
-        bookingForm: '예약 양식',
-        fullName: '성명',
-        email: '이메일',
-        phone: '전화번호',
-        roomType: '객실 유형',
-        numberOfGuests: '인원 수',
-        checkIn: '체크인 날짜',
-        checkOut: '체크아웃 날짜',
-        specialRequests: '특별 요청사항',
-        discountCode: '할인 코드 (선택사항)',
-        enterCode: '코드 입력',
-        apply: '적용',
-        discountApplied: '할인이 적용되었습니다!',
-        priceSummary: '요금 요약',
-        roomRate: '객실 요금',
-        nights: '박',
-        taxesFees: '세금 및 수수료',
-        included: '포함',
-        total: '총액',
-        cancel: '취소',
-        confirmBooking: '예약 확인',
-        proceedToPayment: '결제 진행',
-        viewSummary: '요약 보기',
-        editBooking: '예약 수정',
-        
-        // Payment
-        payment: '결제',
-        selectPaymentMethod: '결제 방법 선택',
-        cardholderName: '카드 소유자 이름',
-        cardNumber: '카드 번호',
-        expiry: '만료일',
-        cvv: 'CVV',
-        payNow: '지금 결제',
-        paymentSuccessful: '결제 성공!',
-        bookingConfirmed: '예약이 확인되었습니다.',
-        redirectMessage: '{method} 결제 게이트웨이로 리디렉션됩니다.',
-        
-        // Booking Summary
-        bookingSummary: '예약 요약',
-        room: '객실',
-        discount: '할인',
-        totalPrice: '총 요금',
-        
-        // Booking Confirmation
-        bookingConfirmedTitle: '예약 확인',
-        bookingConfirmedText: '예약이 확인되었습니다!',
-        bookingReference: '예약 참조 번호',
-        bookingDetails: '예약 세부사항',
-        confirmationEmailSent: '확인 이메일이 다음으로 전송되었습니다',
-        done: '완료',
-        
-        // Room Details
-        description: '설명',
-        size: '크기',
-        maxGuests: '최대 인원',
-        proceedToBooking: '예약 진행',
-        close: '닫기',
-        
-        // Comparison
-        compareRooms: '객실 비교',
-        feature: '기능',
-        price: '가격',
-        action: '작업',
-        remove: '제거',
-        
-        // User
-        register: '회원가입',
-        dontHaveAccount: '계정이 없으신가요?',
-        alreadyHaveAccount: '이미 계정이 있으신가요?',
-        password: '비밀번호',
-        confirmPassword: '비밀번호 확인',
-        fullNamePlaceholder: '성명을 입력하세요',
-        emailPlaceholder: '이메일을 입력하세요',
-        loginSuccessful: '로그인 성공!',
-        registrationSuccessful: '회원가입 성공!',
-        invalidCredentials: '이메일 또는 비밀번호가 올바르지 않습니다',
-        passwordsNotMatch: '비밀번호가 일치하지 않습니다',
-        emailExists: '이미 등록된 이메일입니다',
-        
-        // Dashboard
-        noBookings: '아직 예약이 없습니다. 지금 예약을 시작하세요!',
-        noWishlistItems: '위시리스트가 비어 있습니다. 좋아하는 객실을 추가해보세요!',
-        confirmed: '확인됨',
-        bookingReferenceLabel: '예약 참조',
-        cancelBooking: '취소',
-        cancelBookingConfirm: '이 예약을 취소하시겠습니까?',
-        bookingCancelled: '예약이 성공적으로 취소되었습니다',
-        
-        // Chat
-        liveChatSupport: '실시간 채팅 지원',
-        weAreHere: '도와드리겠습니다',
-        typeMessage: '메시지를 입력하세요...',
-        
-        // FAQ
-        checkInOut: '체크인 및 체크아웃 시간은 언제인가요?',
-        checkInOutAnswer: '체크인은 오후 3시부터 가능하며, 체크아웃은 오후 12시까지입니다. 요청 시 조기 체크인 및 늦은 체크아웃이 가능할 수 있습니다.',
-        freeWifi: '무료 WiFi를 제공하나요?',
-        freeWifiAnswer: '네, 모든 고객을 위해 호텔 전역에 무료 고속 WiFi를 제공합니다.',
-        parking: '주차가 가능한가요?',
-        parkingAnswer: '네, 모든 고객을 위해 무료 발렛 주차를 제공합니다. 셀프 주차도 가능합니다.',
-        swimmingPool: '수영장이 있나요?',
-        swimmingPoolAnswer: '네, 고객을 위한 럭셔리 야외 인피니티 풀과 풀사이드 바 및 카바나가 있습니다.',
-        petsAllowed: '반려동물이 허용되나요?',
-        petsAllowedAnswer: '지정된 반려동물 친화적 객실에서 반려동물을 환영합니다. 사전에 알려주시면 추가 요금이 적용될 수 있습니다.',
-        cancellationPolicy: '취소 정책은 무엇인가요?',
-        cancellationPolicyAnswer: '체크인 24시간 전까지 무료 취소가 가능합니다. 그 이후에는 선택한 요금 유형에 따라 취소 수수료가 적용될 수 있습니다.',
-        
-        // Contact
-        getInTouch: '연락하기',
-        sendMessage: '메시지 보내기',
-        name: '이름',
-        message: '메시지',
-        thankYouMessage: '메시지를 보내주셔서 감사합니다! 곧 연락드리겠습니다.',
-        
-        // Sort
-        sortBy: '정렬 기준',
-        mostPopular: '인기순',
-        priceLowHigh: '가격: 낮은 순',
-        priceHighLow: '가격: 높은 순',
-        newestFirst: '최신순',
-        
-        // Footer
-        quickLinks: '빠른 링크',
-        followUs: '팔로우하기',
-        allRightsReserved: '모든 권리 보유',
-        
-        // General
-        searchPlaceholder: '객실, 편의시설 검색...',
-        anySpecialRequests: '특별 요청사항이나 요구사항...'
-      }
-    };
-
+    vm.languages = LanguageService.getLanguages();
+    vm.currentLanguage = LanguageService.getCurrentLanguage();
     vm.showLanguageDropdown = false;
     
     vm.setLanguage = function(lang) {
-      vm.currentLanguage = lang;
-      localStorage.setItem('language', lang);
-      vm.showLanguageDropdown = false;
+      LanguageService.setLanguage(lang);
     };
 
+    $scope.$on('languageChanged', function(_, lang) {
+      $scope.$applyAsync(function() {
+        vm.currentLanguage = lang;
+      });
+    });
+
     vm.t = function(key) {
-      if (!key) return '';
-      const translation = vm.languages[vm.currentLanguage] && vm.languages[vm.currentLanguage][key];
-      return translation || vm.languages['en'][key] || key;
+      return LanguageService.t(key);
     };
     
-    // Helper function to replace placeholders in translations
     vm.tReplace = function(key, replacements) {
-      let text = vm.t(key);
-      if (replacements) {
-        Object.keys(replacements).forEach(function(placeholder) {
-          text = text.replace('{' + placeholder + '}', replacements[placeholder]);
-        });
-      }
-      return text;
+      return LanguageService.tReplace(key, replacements);
     };
 
     // ============================================
@@ -1651,11 +2133,6 @@ angular.module('hotelApp', [])
         room.inWishlist = true;
       }
       localStorage.setItem('wishlist', JSON.stringify(vm.wishlist));
-      // If wishlist modal is open, refresh the display
-      if (vm.showWishlist) {
-        // Force Angular to update by reassigning the array
-        vm.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-      }
     };
 
     vm.isInWishlist = function(room) {
@@ -1783,11 +2260,11 @@ angular.module('hotelApp', [])
       if (codes[code]) {
         vm.discountApplied = true;
         vm.discountAmount = codes[code];
-        alert('Discount code applied!');
+        alert(vm.t('discountSuccess'));
       } else {
         vm.discountApplied = false;
         vm.discountAmount = 0;
-        alert('Invalid discount code');
+        alert(vm.t('discountInvalid'));
       }
       vm.calculatePrice();
     };
@@ -1822,11 +2299,11 @@ angular.module('hotelApp', [])
 
     vm.addToCompare = function(room) {
       if (vm.compareRooms.length >= vm.maxCompare) {
-        alert('You can only compare up to ' + vm.maxCompare + ' rooms');
+        alert(vm.tReplace('compareLimit', { max: vm.maxCompare }));
         return;
       }
       if (vm.compareRooms.find(function(r) { return r.id === room.id; })) {
-        alert('Room already in comparison');
+        alert(vm.t('compareDuplicate'));
         return;
       }
       vm.compareRooms.push(room);
@@ -1842,7 +2319,7 @@ angular.module('hotelApp', [])
     vm.showComparison = false;
     vm.openComparison = function() {
       if (vm.compareRooms.length < 2) {
-        alert('Please select at least 2 rooms to compare');
+        alert(vm.t('compareMinimum'));
         return;
       }
       vm.showComparison = true;
@@ -1883,39 +2360,14 @@ angular.module('hotelApp', [])
     // LIVE CHAT
     // ============================================
     vm.showChat = false;
-    vm.chatMessages = [];
+    const chatResponseKeys = ['chatResponseFriendly', 'chatResponseHelp', 'chatResponseOffers', 'chatResponseDesk'];
+    vm.chatMessages = [
+      { type: 'bot', text: vm.t('chatWelcome') }
+    ];
     vm.chatInput = '';
-    vm.chatInitialized = false;
-    vm.chatMinimized = false;
-    vm.chatMaximized = false;
-    vm.unreadMessages = 0;
 
     vm.toggleChat = function() {
       vm.showChat = !vm.showChat;
-      // Reset minimize/maximize when closing
-      if (!vm.showChat) {
-        vm.chatMinimized = false;
-        vm.chatMaximized = false;
-      }
-      // Add welcome message only when chat is opened for the first time
-      if (vm.showChat && !vm.chatInitialized && vm.chatMessages.length === 0) {
-        vm.chatMessages.push({ type: 'bot', text: 'Hello! Welcome to StayUp. How can I assist you today?' });
-        vm.chatInitialized = true;
-      }
-    };
-
-    vm.minimizeChat = function() {
-      vm.chatMinimized = !vm.chatMinimized;
-      if (vm.chatMinimized) {
-        vm.chatMaximized = false;
-      }
-    };
-
-    vm.maximizeChat = function() {
-      vm.chatMaximized = !vm.chatMaximized;
-      if (vm.chatMaximized) {
-        vm.chatMinimized = false;
-      }
     };
 
     vm.sendChatMessage = function() {
@@ -1926,14 +2378,8 @@ angular.module('hotelApp', [])
       
       // Simulate bot response
       $timeout(function() {
-        const responses = [
-          'Thank you for your message! Our team will get back to you shortly.',
-          'I can help you with room bookings, amenities, or any questions about our hotel.',
-          'Would you like to know more about our special offers?',
-          'Our front desk is available 24/7 to assist you.'
-        ];
-        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
-        vm.chatMessages.push({ type: 'bot', text: randomResponse });
+        const randomKey = chatResponseKeys[Math.floor(Math.random() * chatResponseKeys.length)];
+        vm.chatMessages.push({ type: 'bot', text: vm.t(randomKey) });
         $scope.$apply();
       }, 1000);
     };
@@ -1977,6 +2423,27 @@ angular.module('hotelApp', [])
     // ============================================
     vm.showBookingSummary = false;
 
+    vm.proceedToPayment = function() {
+      // Validate all required fields before proceeding
+      if (!vm.validateForm()) {
+        // Show alert message
+        alert(vm.t('pleaseFillRequiredFields') || 'Please fill in all required fields before proceeding to payment.');
+        
+        // Scroll to first error
+        $timeout(function() {
+          const firstError = document.querySelector('.is-invalid');
+          if (firstError) {
+            firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstError.focus();
+          }
+        }, 100);
+        return;
+      }
+      
+      // If validation passes, proceed to payment modal
+      vm.showPaymentModal = true;
+    };
+
     vm.showSummary = function() {
       if (!vm.validateForm()) {
         return;
@@ -1998,11 +2465,34 @@ angular.module('hotelApp', [])
       cardNumber: '',
       expiryDate: '',
       cvv: '',
-      cardName: ''
+      cardName: '',
+      accountNumber: '',
+      paypalEmail: ''
     };
+    
+    vm.paymentErrors = {};
 
     vm.selectPaymentMethod = function(method) {
       vm.selectedPaymentMethod = method;
+      // Clear payment errors when switching methods
+      vm.paymentErrors = {};
+    };
+    
+    vm.formatAccountNumber = function() {
+      if (vm.paymentForm.accountNumber) {
+        // Remove all non-digits
+        let numbers = vm.paymentForm.accountNumber.replace(/\D/g, '');
+        // Format as 09XX XXX XXXX
+        if (numbers.length > 0) {
+          if (numbers.length <= 4) {
+            vm.paymentForm.accountNumber = numbers;
+          } else if (numbers.length <= 7) {
+            vm.paymentForm.accountNumber = numbers.substring(0, 4) + ' ' + numbers.substring(4);
+          } else {
+            vm.paymentForm.accountNumber = numbers.substring(0, 4) + ' ' + numbers.substring(4, 7) + ' ' + numbers.substring(7, 11);
+          }
+        }
+      }
     };
 
     vm.validateCard = function() {
@@ -2018,9 +2508,57 @@ angular.module('hotelApp', [])
       return true;
     };
 
+    vm.validatePaymentDetails = function() {
+      vm.paymentErrors = {};
+      let isValid = true;
+      
+      if (vm.selectedPaymentMethod === 'Card') {
+        if (!vm.validateCard()) {
+          vm.paymentErrors.card = vm.t('cardDetailsInvalid');
+          isValid = false;
+        }
+      } else if (vm.selectedPaymentMethod === 'GCash' || vm.selectedPaymentMethod === 'Maya') {
+        if (!vm.paymentForm.accountNumber || vm.paymentForm.accountNumber.trim() === '') {
+          vm.paymentErrors.accountNumber = vm.t('accountNumberRequired');
+          isValid = false;
+        } else {
+          // Remove spaces and validate
+          const cleanNumber = vm.paymentForm.accountNumber.replace(/\s/g, '');
+          if (!/^09\d{9}$/.test(cleanNumber)) {
+            vm.paymentErrors.accountNumber = vm.t('accountNumberInvalid');
+            isValid = false;
+          }
+        }
+      } else if (vm.selectedPaymentMethod === 'PayPal') {
+        if (!vm.paymentForm.paypalEmail || vm.paymentForm.paypalEmail.trim() === '') {
+          vm.paymentErrors.paypalEmail = vm.t('paypalEmailRequired');
+          isValid = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vm.paymentForm.paypalEmail.trim())) {
+          vm.paymentErrors.paypalEmail = vm.t('paypalEmailInvalid');
+          isValid = false;
+        }
+      }
+      
+      return isValid;
+    };
+
     vm.processPayment = function() {
-      if (vm.selectedPaymentMethod === 'Card' && !vm.validateCard()) {
-        alert('Please fill in all card details correctly');
+      if (!vm.validatePaymentDetails()) {
+        // Show error message
+        let errorMessage = '';
+        if (vm.paymentErrors.card) {
+          errorMessage = vm.paymentErrors.card;
+        } else if (vm.paymentErrors.accountNumber) {
+          errorMessage = vm.paymentErrors.accountNumber;
+        } else if (vm.paymentErrors.paypalEmail) {
+          errorMessage = vm.paymentErrors.paypalEmail;
+        }
+        
+        if (errorMessage) {
+          alert(errorMessage);
+        } else {
+          alert(vm.t('paymentDetailsInvalid'));
+        }
         return;
       }
       
@@ -2071,12 +2609,26 @@ angular.module('hotelApp', [])
     vm.loginForm = { email: '', password: '' };
     vm.registerForm = { name: '', email: '', password: '', confirmPassword: '' };
 
+    vm.showLoginPromptModal = false;
+    vm.pendingBookingRoom = null;
+
     vm.openLogin = function() {
       vm.showLoginModal = true;
     };
 
     vm.closeLogin = function() {
       vm.showLoginModal = false;
+    };
+    
+    vm.closeLoginPrompt = function() {
+      vm.showLoginPromptModal = false;
+      vm.pendingBookingRoom = null;
+      document.body.classList.remove('modal-open');
+    };
+    
+    vm.goToLoginPage = function() {
+      vm.closeLoginPrompt();
+      window.location.href = 'login.html';
     };
 
     vm.openRegister = function() {
@@ -2100,6 +2652,17 @@ angular.module('hotelApp', [])
         localStorage.setItem('userName', user.name);
         localStorage.setItem('userEmail', user.email);
         vm.showLoginModal = false;
+        vm.showLoginPromptModal = false;
+        document.body.classList.remove('modal-open');
+        
+        // If there was a pending booking, open booking modal after login
+        if (vm.pendingBookingRoom) {
+          $timeout(function() {
+            vm.openBookingModal(vm.pendingBookingRoom);
+            vm.pendingBookingRoom = null;
+          }, 300);
+        }
+        
         alert(vm.t('loginSuccessful'));
       } else {
         alert(vm.t('invalidCredentials'));
@@ -2140,7 +2703,6 @@ angular.module('hotelApp', [])
     // USER DASHBOARD
     // ============================================
     vm.showDashboard = false;
-    vm.showWishlist = false;
     vm.userBookings = JSON.parse(localStorage.getItem('bookings') || '[]').filter(function(b) {
       return b.email === localStorage.getItem('userEmail');
     });
@@ -2160,22 +2722,6 @@ angular.module('hotelApp', [])
 
     vm.closeDashboard = function() {
       vm.showDashboard = false;
-      document.body.classList.remove('modal-open');
-    };
-
-    vm.openWishlist = function() {
-      // Refresh wishlist from localStorage
-      vm.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
-      // Update wishlist status for all rooms
-      vm.rooms.forEach(function(room) {
-        room.inWishlist = vm.isInWishlist(room);
-      });
-      vm.showWishlist = true;
-      document.body.classList.add('modal-open');
-    };
-
-    vm.closeWishlist = function() {
-      vm.showWishlist = false;
       document.body.classList.remove('modal-open');
     };
 
@@ -2223,25 +2769,6 @@ angular.module('hotelApp', [])
         vm.initScrollAnimations();
       }, 500);
     };
-
-    // Close chat when clicking outside
-    document.addEventListener('click', function(e) {
-      $timeout(function() {
-        // Check if click is outside chat widget and not on FAB menu items
-        // Don't close if clicking on window controls (they handle their own actions)
-        if (vm.showChat && 
-            !vm.chatMinimized &&
-            !e.target.closest('.chat-widget') && 
-            !e.target.closest('.fab-item') && 
-            !e.target.closest('.fab') &&
-            !e.target.closest('.chat-window-controls')) {
-          vm.showChat = false;
-          vm.chatMinimized = false;
-          vm.chatMaximized = false;
-          $scope.$apply();
-        }
-      }, 10);
-    });
 
     vm.init();
 

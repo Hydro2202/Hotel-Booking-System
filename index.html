@@ -212,29 +212,29 @@
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="amenity-item">
             <i class="fas fa-swimming-pool amenity-icon"></i>
-            <h5 class="amenity-title">Luxury Pool</h5>
-            <p class="amenity-description">Relax by our stunning infinity pool</p>
+            <h5 class="amenity-title">{{vm.t('luxuryPoolTitle')}}</h5>
+            <p class="amenity-description">{{vm.t('luxuryPoolDescription')}}</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="amenity-item">
             <i class="fas fa-utensils amenity-icon"></i>
-            <h5 class="amenity-title">Fine Dining</h5>
-            <p class="amenity-description">Award-winning restaurants</p>
+            <h5 class="amenity-title">{{vm.t('fineDiningTitle')}}</h5>
+            <p class="amenity-description">{{vm.t('fineDiningDescription')}}</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="amenity-item">
             <i class="fas fa-spa amenity-icon"></i>
-            <h5 class="amenity-title">Spa & Wellness</h5>
-            <p class="amenity-description">Rejuvenate your body and mind</p>
+            <h5 class="amenity-title">{{vm.t('spaWellnessTitle')}}</h5>
+            <p class="amenity-description">{{vm.t('spaWellnessDescription')}}</p>
           </div>
         </div>
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="amenity-item">
             <i class="fas fa-concierge-bell amenity-icon"></i>
-            <h5 class="amenity-title">24/7 Service</h5>
-            <p class="amenity-description">Round-the-clock concierge</p>
+            <h5 class="amenity-title">{{vm.t('service247Title')}}</h5>
+            <p class="amenity-description">{{vm.t('service247Description')}}</p>
           </div>
         </div>
       </div>
@@ -248,12 +248,12 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6">
-          <h2 class="section-title text-start">About StayUp</h2>
-          <p class="lead">Where Luxury Meets Tradition</p>
-          <p>Nestled in the heart of the city, StayUp offers an unparalleled experience of luxury and comfort. Our elegant rooms, world-class amenities, and exceptional service create memories that last a lifetime.</p>
-          <p>With over 20 years of excellence in hospitality, we combine traditional elegance with modern sophistication to provide our guests with an unforgettable stay.</p>
+          <h2 class="section-title text-start">{{vm.t('aboutStayUpTitle')}}</h2>
+          <p class="lead">{{vm.t('aboutStayUpLead')}}</p>
+          <p>{{vm.t('aboutStayUpBody1')}}</p>
+          <p>{{vm.t('aboutStayUpBody2')}}</p>
           <button class="btn btn-gold mt-3" ng-click="vm.scrollToSection('contact')">
-            Learn More
+            {{vm.t('aboutStayUpButton')}}
           </button>
         </div>
         <div class="col-lg-6">
@@ -268,46 +268,46 @@
        ============================================ -->
   <section class="section bg-light" id="rooms">
     <div class="container">
-      <h2 class="section-title">Our Luxurious Rooms</h2>
-      <p class="section-subtitle">Choose from our exquisite collection of rooms and suites</p>
+      <h2 class="section-title">{{vm.t('roomsSectionTitle')}}</h2>
+      <p class="section-subtitle">{{vm.t('roomsSectionSubtitle')}}</p>
 
       <!-- Filters -->
       <div class="filter-section">
         <div class="row">
           <div class="col-md-3">
             <div class="filter-group">
-              <label class="filter-label">Price Range</label>
+              <label class="filter-label">{{vm.t('filterPriceRange')}}</label>
               <div class="d-flex gap-2">
-                <input type="number" class="form-control" ng-model="vm.filters.priceRange.min" placeholder="Min" ng-change="vm.applyFilters()">
-                <input type="number" class="form-control" ng-model="vm.filters.priceRange.max" placeholder="Max" ng-change="vm.applyFilters()">
+                <input type="number" class="form-control" ng-model="vm.filters.priceRange.min" ng-attr-placeholder="{{vm.t('filterMinPlaceholder')}}" ng-change="vm.applyFilters()">
+                <input type="number" class="form-control" ng-model="vm.filters.priceRange.max" ng-attr-placeholder="{{vm.t('filterMaxPlaceholder')}}" ng-change="vm.applyFilters()">
               </div>
             </div>
           </div>
           <div class="col-md-3">
             <div class="filter-group">
-              <label class="filter-label">Room Type</label>
+              <label class="filter-label">{{vm.t('filterRoomType')}}</label>
               <select class="form-select" ng-model="vm.filters.roomType" ng-change="vm.applyFilters()">
-                <option value="">All Types</option>
-                <option value="Standard">Standard</option>
-                <option value="Suite">Suite</option>
-                <option value="Family">Family</option>
+                <option value="">{{vm.t('filterAllTypes')}}</option>
+                <option value="Standard">{{vm.t('filterStandard')}}</option>
+                <option value="Suite">{{vm.t('filterSuite')}}</option>
+                <option value="Family">{{vm.t('filterFamily')}}</option>
               </select>
             </div>
           </div>
           <div class="col-md-3">
             <div class="filter-group">
-              <label class="filter-label">Max Guests</label>
+              <label class="filter-label">{{vm.t('filterMaxGuests')}}</label>
               <select class="form-select" ng-model="vm.filters.maxGuests" ng-change="vm.applyFilters()">
-                <option value="">Any</option>
-                <option value="2">2 Guests</option>
-                <option value="4">4 Guests</option>
+                <option value="">{{vm.t('filterAnyGuests')}}</option>
+                <option value="2">{{vm.t('filterGuestsTwo')}}</option>
+                <option value="4">{{vm.t('filterGuestsFour')}}</option>
               </select>
               </div>
             </div>
           <div class="col-md-3">
             <div class="filter-group">
               <label class="filter-label">&nbsp;</label>
-              <button class="btn btn-outline-gold w-100" ng-click="vm.clearFilters()">Clear Filters</button>
+              <button class="btn btn-outline-gold w-100" ng-click="vm.clearFilters()">{{vm.t('filterClear')}}</button>
               </div>
             </div>
           </div>
@@ -379,7 +379,7 @@
               <div class="room-content">
                 <h5 class="room-title">{{room.name}}</h5>
                 <div class="room-price">₱{{room.price | number}}<span>{{vm.t('perNight')}}</span></div>
-                <button class="btn btn-gold btn-sm w-100 mt-2" ng-click="vm.openRoomDetails(room)">View</button>
+                <button class="btn btn-gold btn-sm w-100 mt-2" ng-click="vm.openRoomDetails(room)">{{vm.t('viewButton')}}</button>
               </div>
             </div>
           </div>
@@ -393,8 +393,8 @@
        ============================================ -->
   <section class="section" id="amenities">
     <div class="container">
-      <h2 class="section-title">World-Class Amenities</h2>
-      <p class="section-subtitle">Everything you need for a perfect stay</p>
+      <h2 class="section-title">{{vm.t('amenitiesSectionTitle')}}</h2>
+      <p class="section-subtitle">{{vm.t('amenitiesSectionSubtitle')}}</p>
       
       <div class="row">
         <div class="col-lg-4 col-md-6" ng-repeat="amenity in vm.amenities">
@@ -413,8 +413,8 @@
        ============================================ -->
   <section class="section bg-light" id="gallery">
     <div class="container">
-      <h2 class="section-title">Photo Gallery</h2>
-      <p class="section-subtitle">Take a glimpse of our beautiful hotel</p>
+      <h2 class="section-title">{{vm.t('gallerySectionTitle')}}</h2>
+      <p class="section-subtitle">{{vm.t('gallerySectionSubtitle')}}</p>
       
       <div class="gallery-grid">
         <div class="gallery-item" ng-repeat="image in vm.galleryImages" ng-click="vm.openGallery(image)">
@@ -487,8 +487,8 @@
        ============================================ -->
   <section class="section bg-light" id="contact">
     <div class="container">
-      <h2 class="section-title">Contact Us</h2>
-      <p class="section-subtitle">We'd love to hear from you</p>
+      <h2 class="section-title">{{vm.t('contactSectionTitle')}}</h2>
+      <p class="section-subtitle">{{vm.t('contactSectionSubtitle')}}</p>
       
       <div class="row">
         <div class="col-lg-8">
@@ -496,60 +496,60 @@
             <form ng-submit="vm.submitContact()">
               <div class="row">
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Full Name *</label>
+                  <label class="form-label">{{vm.t('contactFullName')}}</label>
                   <input type="text" class="form-control" ng-model="vm.contactForm.name" required>
                   <small class="text-danger" ng-if="vm.contactErrors.name">{{vm.contactErrors.name}}</small>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label class="form-label">Email *</label>
+                  <label class="form-label">{{vm.t('contactEmail')}}</label>
                   <input type="email" class="form-control" ng-model="vm.contactForm.email" required>
                   <small class="text-danger" ng-if="vm.contactErrors.email">{{vm.contactErrors.email}}</small>
                 </div>
               </div>
               <div class="mb-3">
-                <label class="form-label">Phone</label>
+                <label class="form-label">{{vm.t('contactPhone')}}</label>
                 <input type="tel" class="form-control" ng-model="vm.contactForm.phone">
               </div>
               <div class="mb-3">
-                <label class="form-label">Message *</label>
+                <label class="form-label">{{vm.t('contactMessage')}}</label>
                 <textarea class="form-control" rows="5" ng-model="vm.contactForm.message" required></textarea>
                 <small class="text-danger" ng-if="vm.contactErrors.message">{{vm.contactErrors.message}}</small>
               </div>
               <button type="submit" class="btn btn-gold">
-                <i class="fas fa-paper-plane me-2"></i>Send Message
+                <i class="fas fa-paper-plane me-2"></i>{{vm.t('contactSendMessage')}}
               </button>
             </form>
           </div>
         </div>
         <div class="col-lg-4">
           <div class="contact-info">
-            <h3>Get in Touch</h3>
+            <h3>{{vm.t('contactInfoTitle')}}</h3>
             <div class="contact-item">
               <i class="fas fa-map-marker-alt"></i>
               <div>
-                <strong>Address</strong>
+                <strong>{{vm.t('contactAddress')}}</strong>
                 <p>123 Luxury Street, Makati City, Philippines</p>
               </div>
             </div>
             <div class="contact-item">
               <i class="fas fa-phone"></i>
               <div>
-                <strong>Phone</strong>
+                <strong>{{vm.t('contactPhoneLabel')}}</strong>
                 <p>+63 2 1234 5678</p>
               </div>
               </div>
             <div class="contact-item">
               <i class="fas fa-envelope"></i>
               <div>
-                <strong>Email</strong>
+                <strong>{{vm.t('contactEmailLabel')}}</strong>
                 <p>info@StayUp.com</p>
               </div>
             </div>
             <div class="contact-item">
               <i class="fas fa-clock"></i>
               <div>
-                <strong>Front Desk</strong>
-                <p>24/7 Available</p>
+                <strong>{{vm.t('contactDeskLabel')}}</strong>
+                <p>{{vm.t('contactDeskHours')}}</p>
               </div>
             </div>
           </div>
@@ -566,44 +566,46 @@
       <div class="row">
         <div class="col-lg-4 mb-4">
           <h5>StayUp</h5>
-          <p>Experience luxury like never before. Your perfect stay awaits.</p>
-          <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+          <p>{{vm.t('footerDescription')}}</p>
+          <div class="developers-section">
+            <h6 style="color: var(--gold); margin-top: 1.5rem; margin-bottom: 0.75rem;">Developers</h6>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Raiden Villapando</li>
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Yuan Philip Cortez</li>
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Mharon Irvin Vergara</li>
+            </ul>
+          </div>
             </div>
         <div class="col-lg-2 col-md-6 mb-4">
-          <h5>Quick Links</h5>
+          <h5>{{vm.t('quickLinks')}}</h5>
           <ul class="list-unstyled">
-            <li><a href="#" ng-click="vm.navigateTo('home')">Home</a></li>
-            <li><a href="#" ng-click="vm.navigateTo('rooms')">Rooms</a></li>
-            <li><a href="#" ng-click="vm.navigateTo('amenities')">Amenities</a></li>
-            <li><a href="#" ng-click="vm.navigateTo('gallery')">Gallery</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('home')">{{vm.t('home')}}</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('rooms')">{{vm.t('rooms')}}</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('amenities')">{{vm.t('amenities')}}</a></li>
+            <li><a href="#" ng-click="vm.navigateTo('gallery')">{{vm.t('gallery')}}</a></li>
           </ul>
         </div>
         <div class="col-lg-2 col-md-6 mb-4">
-          <h5>Services</h5>
+          <h5>{{vm.t('servicesHeading')}}</h5>
           <ul class="list-unstyled">
-            <li><a href="#">Spa & Wellness</a></li>
-            <li><a href="#">Fine Dining</a></li>
-            <li><a href="#">Events</a></li>
-            <li><a href="#">Concierge</a></li>
+            <li><a href="#">{{vm.t('servicesSpa')}}</a></li>
+            <li><a href="#">{{vm.t('servicesDining')}}</a></li>
+            <li><a href="#">{{vm.t('servicesEvents')}}</a></li>
+            <li><a href="#">{{vm.t('servicesConcierge')}}</a></li>
           </ul>
               </div>
         <div class="col-lg-4 mb-4">
-          <h5>Newsletter</h5>
-          <p>Subscribe to get special offers and updates</p>
+          <h5>{{vm.t('newsletterHeading')}}</h5>
+          <p>{{vm.t('newsletterText')}}</p>
           <div class="input-group">
-            <input type="email" class="form-control" placeholder="Your email">
-            <button class="btn btn-gold" type="button">Subscribe</button>
+            <input type="email" class="form-control" ng-model="vm.newsletterEmail" ng-attr-placeholder="{{vm.t('newsletterPlaceholder')}}" ng-keyup="$event.key === 'Enter' && vm.subscribeNewsletter()">
+            <button class="btn btn-gold" type="button" ng-click="vm.subscribeNewsletter()">{{vm.t('newsletterButton')}}</button>
               </div>
             </div>
               </div>
       <hr class="my-4" style="border-color: #333;">
       <div class="text-center">
-        <p>&copy; {{vm.year}} StayUp. All rights reserved.</p>
+        <p>&copy; {{vm.year}} StayUp. {{vm.t('allRightsReserved')}}</p>
               </div>
             </div>
   </footer>
@@ -614,13 +616,13 @@
   <div class="fab" ng-click="vm.toggleFABMenu()">
     <i class="fas fa-plus"></i>
     <div class="fab-menu" ng-class="{'show': vm.showFABMenu}">
-      <div class="fab-item" ng-click="vm.openBookingModal(); vm.showFABMenu = false" title="Book Now">
+      <div class="fab-item" ng-click="vm.openBookingModal(); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabBookTitle')}}">
         <i class="fas fa-calendar-check"></i>
       </div>
-      <div class="fab-item" ng-click="vm.toggleChat(); vm.showFABMenu = false" title="Live Chat">
+      <div class="fab-item" ng-click="vm.toggleChat(); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabChatTitle')}}">
         <i class="fas fa-comments"></i>
       </div>
-      <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false" title="Contact">
+      <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabContactTitle')}}">
         <i class="fas fa-phone"></i>
       </div>
     </div>
@@ -629,7 +631,7 @@
   <!-- ============================================
        FLOATING CHAT ICON (when minimized)
        ============================================ -->
-  <div class="chat-floating-icon" ng-class="{'show': vm.chatMinimized && vm.showChat}" ng-click="vm.minimizeChat()" title="Open Chat">
+  <div class="chat-floating-icon" ng-class="{'show': vm.chatMinimized && vm.showChat}" ng-click="vm.minimizeChat()" ng-attr-title="{{vm.t('chatIconTooltip')}}">
     <i class="fas fa-comments"></i>
     <span class="chat-notification-badge" ng-if="vm.unreadMessages > 0">{{vm.unreadMessages}}</span>
   </div>
@@ -641,16 +643,16 @@
     <div class="chat-window-header">
       <div class="chat-window-title">
         <i class="fas fa-comments me-2"></i>
-        <span>Live Chat</span>
+        <span>{{vm.t('liveChatTitle')}}</span>
       </div>
       <div class="chat-window-controls">
-        <button class="chat-window-btn chat-minimize-btn" ng-click="vm.minimizeChat()" aria-label="Minimize" title="Minimize">
+        <button class="chat-window-btn chat-minimize-btn" ng-click="vm.minimizeChat()" ng-attr-aria-label="{{vm.t('chatMinimize')}}" ng-attr-title="{{vm.t('chatMinimize')}}">
           <i class="fas fa-minus"></i>
         </button>
-        <button class="chat-window-btn chat-maximize-btn" ng-click="vm.maximizeChat()" aria-label="Maximize" title="Maximize">
+        <button class="chat-window-btn chat-maximize-btn" ng-click="vm.maximizeChat()" ng-attr-aria-label="{{vm.t('chatMaximize')}}" ng-attr-title="{{vm.t('chatMaximize')}}">
           <i class="fas" ng-class="{'fa-square': !vm.chatMaximized, 'fa-window-restore': vm.chatMaximized}"></i>
         </button>
-        <button class="chat-window-btn chat-close-btn" ng-click="vm.toggleChat()" aria-label="Close" title="Close">
+        <button class="chat-window-btn chat-close-btn" ng-click="vm.toggleChat()" ng-attr-aria-label="{{vm.t('chatClose')}}" ng-attr-title="{{vm.t('chatClose')}}">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -791,6 +793,27 @@
               <textarea class="form-control" rows="3" ng-model="vm.bookingForm.specialRequests" ng-attr-placeholder="{{vm.t('anySpecialRequests')}}"></textarea>
             </div>
             
+            <!-- Price Display -->
+            <div class="price-summary mb-3" ng-if="vm.bookingForm.roomType && vm.totalPrice > 0">
+              <h5 class="mb-3">{{vm.t('priceSummary')}}</h5>
+              <div class="price-row">
+                <span>{{vm.bookingForm.roomType}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
+                <span>₱{{(vm.totalPrice / (vm.totalNights || 1)) | number}} {{vm.t('perNight')}}</span>
+              </div>
+              <div class="price-row" ng-if="vm.totalNights > 0">
+                <span>{{vm.t('subtotal')}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
+                <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+              <div class="price-row">
+                <span>{{vm.t('taxesFees')}}</span>
+                <span>{{vm.t('included')}}</span>
+              </div>
+              <div class="price-total">
+                <span>{{vm.t('total')}}:</span>
+                <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+            </div>
+            
             <!-- Discount Code -->
             <div class="mb-3">
               <label class="form-label">{{vm.t('discountCode')}}</label>
@@ -826,7 +849,7 @@
               <button type="button" class="btn btn-outline-gold" ng-click="vm.showSummary()" ng-if="!vm.showBookingSummary">
                 <i class="fas fa-eye me-2"></i>{{vm.t('viewSummary')}}
               </button>
-              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.showPaymentModal = true">
+              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.proceedToPayment()">
                 <i class="fas fa-check me-2"></i>{{vm.t('proceedToPayment')}}
               </button>
             </div>
@@ -949,9 +972,37 @@
         </div>
 
           <div ng-if="vm.selectedPaymentMethod && vm.selectedPaymentMethod !== 'Card'">
-            <div class="alert alert-info">
+            <div class="alert alert-info mb-3">
               <i class="fas fa-info-circle me-2"></i>
               {{vm.tReplace('redirectMessage', {method: vm.selectedPaymentMethod})}}
+            </div>
+            
+            <!-- Account Number Input for GCash, Maya, PayPal -->
+            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'GCash' || vm.selectedPaymentMethod === 'Maya'">
+              <label class="form-label">{{vm.selectedPaymentMethod}} {{vm.t('accountNumber')}} *</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                ng-class="{'is-invalid': vm.paymentErrors.accountNumber}"
+                ng-model="vm.paymentForm.accountNumber" 
+                ng-keyup="vm.formatAccountNumber()"
+                ng-attr-placeholder="09XX XXX XXXX"
+                maxlength="13"
+                pattern="[0-9\s]+">
+              <small class="text-danger" ng-if="vm.paymentErrors.accountNumber">{{vm.paymentErrors.accountNumber}}</small>
+              <small class="text-muted">{{vm.t('enterAccountNumber')}}</small>
+            </div>
+            
+            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'PayPal'">
+              <label class="form-label">PayPal {{vm.t('email')}} *</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                ng-class="{'is-invalid': vm.paymentErrors.paypalEmail}"
+                ng-model="vm.paymentForm.paypalEmail" 
+                placeholder="your.email@example.com">
+              <small class="text-danger" ng-if="vm.paymentErrors.paypalEmail">{{vm.paymentErrors.paypalEmail}}</small>
+              <small class="text-muted">{{vm.t('enterPayPalEmail')}}</small>
             </div>
           </div>
 
@@ -973,6 +1024,40 @@
     </div>
   </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentModal}" ng-if="vm.showPaymentModal" ng-click="vm.showPaymentModal = false" style="z-index: 1055;"></div>
+
+  <!-- ============================================
+       LOGIN PROMPT MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showLoginPromptModal}" ng-style="{'display': vm.showLoginPromptModal ? 'block' : 'none'}" ng-if="vm.showLoginPromptModal" style="z-index: 1065;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('loginRequired')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeLoginPrompt()"></button>
+        </div>
+        <div class="modal-body text-center" style="padding: 2rem;">
+          <div class="mb-4">
+            <i class="fas fa-lock" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
+            <h4 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold);">
+              {{vm.t('pleaseLoginFirst')}}
+            </h4>
+            <p class="text-muted mb-4" style="line-height: 1.6;">
+              {{vm.t('loginToBookMessage')}}
+            </p>
+          </div>
+          <div class="d-flex gap-2 justify-content-center">
+            <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-click="vm.goToLoginPage()">
+              <i class="fas fa-sign-in-alt me-2"></i>{{vm.t('loginNow')}}
+            </button>
+            <button type="button" class="btn btn-outline-gold" ng-click="vm.closeLoginPrompt(); window.location.href='register.html'">
+              <i class="fas fa-user-plus me-2"></i>{{vm.t('createAccount')}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showLoginPromptModal}" ng-if="vm.showLoginPromptModal" ng-click="vm.closeLoginPrompt()" style="z-index: 1060;"></div>
 
   <!-- ============================================
        PAYMENT SUCCESS MODAL
@@ -1419,6 +1504,31 @@
     </div>
     </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showEmailConfirmation}" ng-if="vm.showEmailConfirmation" ng-click="vm.closeEmailConfirmation()" style="z-index: 1065;"></div>
+
+  <!-- ============================================
+       NEWSLETTER THANK YOU MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showNewsletterThankYou}" ng-style="{'display': vm.showNewsletterThankYou ? 'block' : 'none'}" ng-if="vm.showNewsletterThankYou" style="z-index: 1070;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding: 3rem 2rem;">
+          <div class="payment-success-icon" style="background: var(--gold); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; animation: scaleIn 0.3s ease;">
+            <i class="fas fa-check" style="font-size: 2rem; color: var(--white);"></i>
+          </div>
+          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">
+            {{vm.t('newsletterThankYou')}}
+          </h3>
+          <p class="text-muted mb-4" style="font-size: 1rem; line-height: 1.6;">
+            {{vm.t('newsletterThankYouMessage')}}
+          </p>
+          <button class="btn btn-gold btn-ripple btn-glow" ng-click="vm.closeNewsletterThankYou()" style="margin-top: 1rem;">
+            <i class="fas fa-check me-2"></i>{{vm.t('done')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showNewsletterThankYou}" ng-if="vm.showNewsletterThankYou" ng-click="vm.closeNewsletterThankYou()" style="z-index: 1065;"></div>
 
   <!-- ============================================
        SCRIPTS

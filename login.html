@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - HOTEL NI YUAN</title>
+  <title>Login - StayUp</title>
   
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -325,17 +325,12 @@
       font-family: 'Playfair Display', serif;
       font-size: 2.2rem;
       font-weight: 900;
-      color: var(--theme-text);
+      color: var(--gold-light);
       margin-bottom: 0.5rem;
       position: relative;
       display: inline-block;
-      background: linear-gradient(135deg, var(--deep-gold), var(--gold-light), var(--deep-gold));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      background-size: 200% 100%;
-      animation: goldShine 3s linear infinite;
       text-shadow: 0 0 30px rgba(218, 165, 32, 0.5);
+      animation: goldShine 3s linear infinite;
     }
     
     @keyframes goldShine {
@@ -734,7 +729,7 @@
       color: var(--white);
       box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
     }
-    
+
     /* Back to Home */
     .back-to-home {
       position: fixed;
@@ -930,22 +925,22 @@
   <!-- Back to Home Button -->
   <a href="index.html" class="back-to-home">
     <i class="fas fa-arrow-left"></i>
-    <span>Back to Home</span>
+    <span>{{vm.t('backToHome')}}</span>
   </a>
   
   <!-- Theme Switcher -->
   <div class="theme-switcher">
-    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'black-gold'}" ng-click="vm.setTheme('black-gold')" title="Black & Gold">
+    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'black-gold'}" ng-click="vm.setTheme('black-gold')" ng-attr-title="{{vm.t('themeBlackGold')}}">
       <i class="fas fa-moon"></i>
     </button>
-    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'emerald'}" ng-click="vm.setTheme('emerald')" title="Emerald Luxury">
+    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'emerald'}" ng-click="vm.setTheme('emerald')" ng-attr-title="{{vm.t('themeEmerald')}}">
       <i class="fas fa-gem"></i>
     </button>
-    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'royal'}" ng-click="vm.setTheme('royal')" title="Royal White & Gold">
+    <button class="theme-btn" ng-class="{'active': vm.currentTheme === 'royal'}" ng-click="vm.setTheme('royal')" ng-attr-title="{{vm.t('themeRoyal')}}">
       <i class="fas fa-crown"></i>
     </button>
   </div>
-  
+
   <!-- Login Wrapper -->
   <div class="login-wrapper">
     <div class="login-card" id="loginCard" ng-class="{'shake': vm.showError}">
@@ -955,8 +950,8 @@
         <div class="login-logo">
           <i class="fas fa-hotel"></i>
         </div>
-        <h1 class="login-title" id="hotelTitle">HOTEL NI YUAN</h1>
-        <p class="login-subtitle">Sign in to continue your luxury experience</p>
+        <h1 class="login-title" id="hotelTitle">StayUp</h1>
+        <p class="login-subtitle">{{vm.t('loginSubtitle')}}</p>
       </div>
       
       <!-- Floating Icons -->
@@ -982,12 +977,12 @@
             ng-focus="vm.onInputFocus($event)"
             required>
           <i class="fas fa-envelope input-icon"></i>
-          <label for="email" class="form-label">Email Address</label>
+          <label for="email" class="form-label">{{vm.t('registerEmail')}}</label>
           <div class="error-message" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$error.email">
-            <i class="fas fa-exclamation-circle me-1"></i>Please enter a valid email address
+            <i class="fas fa-exclamation-circle me-1"></i>{{vm.t('registerErrorEmailInvalid')}}
           </div>
           <div class="error-message" ng-show="loginForm.email.$invalid && loginForm.email.$touched && loginForm.email.$error.required">
-            <i class="fas fa-exclamation-circle me-1"></i>Email is required
+            <i class="fas fa-exclamation-circle me-1"></i>{{vm.t('contactEmailRequired')}}
           </div>
         </div>
         
@@ -1007,15 +1002,15 @@
             required
             minlength="6">
           <i class="fas fa-lock input-icon"></i>
-          <label for="password" class="form-label">Password</label>
-          <button type="button" class="password-toggle" ng-class="{'active': vm.showPassword}" ng-click="vm.togglePassword()" title="Toggle password visibility">
+          <label for="password" class="form-label">{{vm.t('registerPassword')}}</label>
+          <button type="button" class="password-toggle" ng-class="{'active': vm.showPassword}" ng-click="vm.togglePassword()" ng-attr-title="{{vm.t('togglePassword')}}">
             <i class="fas" ng-class="vm.showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
           </button>
           <div class="error-message" ng-show="loginForm.password.$invalid && loginForm.password.$touched && loginForm.password.$error.minlength">
-            <i class="fas fa-exclamation-circle me-1"></i>Password must be at least 6 characters
+            <i class="fas fa-exclamation-circle me-1"></i>{{vm.t('registerErrorPasswordLength')}}
           </div>
           <div class="error-message" ng-show="loginForm.password.$invalid && loginForm.password.$touched && loginForm.password.$error.required">
-            <i class="fas fa-exclamation-circle me-1"></i>Password is required
+            <i class="fas fa-exclamation-circle me-1"></i>{{vm.t('passwordFieldsRequired')}}
           </div>
         </div>
         
@@ -1026,7 +1021,7 @@
             class="form-check-input" 
             id="rememberMe"
             ng-model="vm.loginForm.rememberMe">
-          <label class="form-check-label" for="rememberMe">Remember Me</label>
+          <label class="form-check-label" for="rememberMe">{{vm.t('rememberMe')}}</label>
         </div>
         
         <!-- Error Message -->
@@ -1042,13 +1037,13 @@
           ng-disabled="!vm.isFormValid || vm.isLoading"
           ng-click="vm.createRipple($event)">
           <span class="spinner" ng-if="vm.isLoading"></span>
-          <span ng-if="!vm.isLoading">Sign In</span>
-          <span ng-if="vm.isLoading">Signing In...</span>
+          <span ng-if="!vm.isLoading">{{vm.t('loginButton')}}</span>
+          <span ng-if="vm.isLoading">{{vm.t('loginSigningIn')}}</span>
         </button>
         
         <!-- Register Link -->
         <div class="login-footer">
-          <p>Don't have an account? <a href="register.html">Register Now</a></p>
+          <p>{{vm.t('registerPrompt')}} <a href="register.html">{{vm.t('registerLink')}}</a></p>
         </div>
         
       </form>
@@ -1064,8 +1059,12 @@
           <div class="success-icon">
             <i class="fas fa-check"></i>
           </div>
-          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">Welcome back, {{vm.userName}}!</h3>
-          <p class="text-muted mb-4">You have successfully logged in. Redirecting to homepage...</p>
+          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">
+            {{vm.successMode === 'register' ? vm.tReplace('registerSuccessHeading', {name: vm.successName || vm.t('guest')}) : vm.tReplace('loginSuccessHeading', {name: vm.successName || vm.t('guest')})}}
+          </h3>
+          <p class="text-muted mb-4">
+            {{vm.successMode === 'register' ? vm.t('registerSuccessMessage') : vm.t('loginSuccessMessage')}}
+          </p>
           <div style="display: inline-block; width: 2rem; height: 2rem; border: 3px solid var(--deep-gold); border-right-color: transparent; border-radius: 50%; animation: spin 0.8s linear infinite;"></div>
         </div>
       </div>
@@ -1078,7 +1077,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Create Account</h5>
+          <h5 class="modal-title">{{vm.t('registerTitle')}}</h5>
           <button type="button" class="btn-close" ng-click="vm.closeRegister()">&times;</button>
         </div>
         <div class="modal-body">
@@ -1088,7 +1087,7 @@
                 type="text" 
                 class="form-control" 
                 ng-model="vm.registerForm.name"
-                placeholder="Full Name"
+                ng-attr-placeholder="{{vm.t('registerFullName')}}"
                 required>
               <i class="fas fa-user input-icon"></i>
             </div>
@@ -1097,7 +1096,7 @@
                 type="email" 
                 class="form-control" 
                 ng-model="vm.registerForm.email"
-                placeholder="Email Address"
+                ng-attr-placeholder="{{vm.t('registerEmail')}}"
                 required>
               <i class="fas fa-envelope input-icon"></i>
             </div>
@@ -1106,7 +1105,7 @@
                 type="password" 
                 class="form-control" 
                 ng-model="vm.registerForm.password"
-                placeholder="Password (min. 6 characters)"
+                ng-attr-placeholder="{{vm.t('registerPassword')}}"
                 required
                 minlength="6">
               <i class="fas fa-lock input-icon"></i>
@@ -1116,7 +1115,7 @@
                 type="password" 
                 class="form-control" 
                 ng-model="vm.registerForm.confirmPassword"
-                placeholder="Confirm Password"
+                ng-attr-placeholder="{{vm.t('registerConfirmPassword')}}"
                 required>
               <i class="fas fa-lock input-icon"></i>
             </div>
@@ -1124,11 +1123,11 @@
               {{vm.registerError}}
             </div>
             <button type="submit" class="btn-login" ng-disabled="vm.isRegistering" ng-click="vm.createRipple($event)">
-              <span ng-if="!vm.isRegistering">Create Account</span>
-              <span ng-if="vm.isRegistering">Creating Account...</span>
+              <span ng-if="!vm.isRegistering">{{vm.t('registerButton')}}</span>
+              <span ng-if="vm.isRegistering">{{vm.t('registerCreating')}}</span>
             </button>
             <div class="text-center mt-3">
-              <p>Already have an account? <a href="login.html" style="color: var(--deep-gold); text-decoration: none; font-weight: 600;">Sign In</a></p>
+              <p>{{vm.t('registerExistingPrompt')}} <a href="login.html" style="color: var(--deep-gold); text-decoration: none; font-weight: 600;">{{vm.t('registerSignIn')}}</a></p>
             </div>
           </form>
         </div>
@@ -1143,8 +1142,21 @@
   <script src="app.js"></script>
   <script>
     // Login Controller
-    angular.module('hotelApp').controller('LoginCtrl', ['$scope', '$timeout', '$location', function($scope, $timeout, $location) {
+    angular.module('hotelApp').controller('LoginCtrl', ['$scope', '$timeout', '$location', 'LanguageService', function($scope, $timeout, $location, LanguageService) {
       const vm = this;
+      
+      vm.languages = LanguageService.getLanguages();
+      vm.currentLanguage = LanguageService.getCurrentLanguage();
+      vm.t = LanguageService.t;
+      vm.tReplace = LanguageService.tReplace;
+      vm.setLanguage = function(lang) {
+        LanguageService.setLanguage(lang);
+      };
+      $scope.$on('languageChanged', function(_, lang) {
+        $scope.$applyAsync(function() {
+          vm.currentLanguage = lang;
+        });
+      });
       
       // Initialize
       vm.loginForm = {
@@ -1170,25 +1182,36 @@
       vm.showRegisterModal = false;
       vm.isRegistering = false;
       vm.userName = '';
+      vm.successName = '';
+      vm.successMode = 'login';
       vm.currentTheme = localStorage.getItem('loginTheme') || 'black-gold';
       
       // Dark Mode
       vm.darkMode = localStorage.getItem('darkMode') === 'true';
       
+      vm.applyDarkMode = function() {
+        if (vm.darkMode) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+      };
+      vm.applyDarkMode();
+      
       vm.toggleDarkMode = function() {
         vm.darkMode = !vm.darkMode;
         localStorage.setItem('darkMode', vm.darkMode);
-        $scope.$apply();
+        vm.applyDarkMode();
       };
       
       // Theme Switcher
       vm.setTheme = function(theme) {
         vm.currentTheme = theme;
         localStorage.setItem('loginTheme', theme);
-        document.body.className = document.body.className.replace(/theme-\w+/g, '');
+        document.body.classList.remove('theme-black-gold', 'theme-emerald', 'theme-royal');
         document.body.classList.add('theme-' + theme);
-        $scope.$apply();
       };
+      vm.setTheme(vm.currentTheme || 'black-gold');
       
       // Password Toggle
       vm.togglePassword = function() {
@@ -1272,7 +1295,7 @@
         }
         
         if (!$scope.loginForm.$valid) {
-          vm.errorMessage = 'Please fill in all fields correctly';
+          vm.errorMessage = vm.t('loginFormError');
           vm.showErrorAnimation();
           return;
         }
@@ -1301,6 +1324,8 @@
             
             vm.errorMessage = '';
             vm.isLoading = false;
+            vm.successMode = 'login';
+            vm.successName = user.name;
             vm.userName = user.name;
             vm.showSuccessModal = true;
             document.body.classList.add('modal-open');
@@ -1315,7 +1340,7 @@
               window.location.replace('index.html');
             }, 1500);
           } else {
-            vm.errorMessage = 'Incorrect email or password';
+            vm.errorMessage = vm.t('invalidCredentials');
             vm.showErrorAnimation();
             vm.isLoading = false;
           }
@@ -1364,28 +1389,28 @@
         vm.registerError = '';
         
         if (!vm.registerForm.name || !vm.registerForm.name.trim()) {
-          vm.registerError = 'Please enter your name';
+          vm.registerError = vm.t('registerErrorName');
           return;
         }
         
         if (!vm.registerForm.email || !vm.registerForm.email.trim()) {
-          vm.registerError = 'Please enter your email';
+          vm.registerError = vm.t('registerErrorEmail');
           return;
         }
         
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(vm.registerForm.email)) {
-          vm.registerError = 'Please enter a valid email address';
+          vm.registerError = vm.t('registerErrorEmailInvalid');
           return;
         }
         
         if (!vm.registerForm.password || vm.registerForm.password.length < 6) {
-          vm.registerError = 'Password must be at least 6 characters';
+          vm.registerError = vm.t('registerErrorPasswordLength');
           return;
         }
         
         if (vm.registerForm.password !== vm.registerForm.confirmPassword) {
-          vm.registerError = 'Passwords do not match';
+          vm.registerError = vm.t('registerErrorMismatch');
           return;
         }
         
@@ -1396,7 +1421,7 @@
           const users = JSON.parse(localStorage.getItem('users') || '[]');
           
           if (users.find(function(u) { return u.email === vm.registerForm.email.trim(); })) {
-            vm.registerError = 'Email already registered';
+            vm.registerError = vm.t('emailExists');
             vm.isRegistering = false;
             return;
           }
@@ -1409,11 +1434,10 @@
           
           users.push(newUser);
           localStorage.setItem('users', JSON.stringify(users));
-          localStorage.setItem('userName', newUser.name);
-          localStorage.setItem('userEmail', newUser.email);
-          
           vm.isRegistering = false;
           vm.closeRegister();
+          vm.successMode = 'register';
+          vm.successName = newUser.name;
           vm.userName = newUser.name;
           vm.showSuccessModal = true;
           document.body.classList.add('modal-open');
@@ -1421,7 +1445,7 @@
           $timeout(function() {
             vm.showSuccessModal = false;
             document.body.classList.remove('modal-open');
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
           }, 1500);
         }, 500);
       };
