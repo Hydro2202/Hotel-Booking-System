@@ -567,14 +567,12 @@
         <div class="col-lg-4 mb-4">
           <h5>StayUp</h5>
           <p>{{vm.t('footerDescription')}}</p>
-          <div class="developers-section">
-            <h6 style="color: var(--gold); margin-top: 1.5rem; margin-bottom: 0.75rem;">Developers</h6>
-            <ul style="list-style: none; padding: 0; margin: 0;">
-              <li style="margin-bottom: 0.5rem; color: var(--white);">Raiden Villapando</li>
-              <li style="margin-bottom: 0.5rem; color: var(--white);">Yuan Philip Cortez</li>
-              <li style="margin-bottom: 0.5rem; color: var(--white);">Mharon Irvin Vergara</li>
-            </ul>
-          </div>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+              </div>
             </div>
         <div class="col-lg-2 col-md-6 mb-4">
           <h5>{{vm.t('quickLinks')}}</h5>
@@ -598,8 +596,8 @@
           <h5>{{vm.t('newsletterHeading')}}</h5>
           <p>{{vm.t('newsletterText')}}</p>
           <div class="input-group">
-            <input type="email" class="form-control" ng-model="vm.newsletterEmail" ng-attr-placeholder="{{vm.t('newsletterPlaceholder')}}" ng-keyup="$event.key === 'Enter' && vm.subscribeNewsletter()">
-            <button class="btn btn-gold" type="button" ng-click="vm.subscribeNewsletter()">{{vm.t('newsletterButton')}}</button>
+            <input type="email" class="form-control" ng-attr-placeholder="{{vm.t('newsletterPlaceholder')}}">
+            <button class="btn btn-gold" type="button">{{vm.t('newsletterButton')}}</button>
               </div>
             </div>
               </div>
@@ -793,27 +791,6 @@
               <textarea class="form-control" rows="3" ng-model="vm.bookingForm.specialRequests" ng-attr-placeholder="{{vm.t('anySpecialRequests')}}"></textarea>
             </div>
             
-            <!-- Price Display -->
-            <div class="price-summary mb-3" ng-if="vm.bookingForm.roomType && vm.totalPrice > 0">
-              <h5 class="mb-3">{{vm.t('priceSummary')}}</h5>
-              <div class="price-row">
-                <span>{{vm.bookingForm.roomType}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
-                <span>₱{{(vm.totalPrice / (vm.totalNights || 1)) | number}} {{vm.t('perNight')}}</span>
-              </div>
-              <div class="price-row" ng-if="vm.totalNights > 0">
-                <span>{{vm.t('subtotal')}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
-                <span>₱{{vm.totalPrice | number}}</span>
-              </div>
-              <div class="price-row">
-                <span>{{vm.t('taxesFees')}}</span>
-                <span>{{vm.t('included')}}</span>
-              </div>
-              <div class="price-total">
-                <span>{{vm.t('total')}}:</span>
-                <span>₱{{vm.totalPrice | number}}</span>
-              </div>
-            </div>
-            
             <!-- Discount Code -->
             <div class="mb-3">
               <label class="form-label">{{vm.t('discountCode')}}</label>
@@ -849,7 +826,7 @@
               <button type="button" class="btn btn-outline-gold" ng-click="vm.showSummary()" ng-if="!vm.showBookingSummary">
                 <i class="fas fa-eye me-2"></i>{{vm.t('viewSummary')}}
               </button>
-              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.proceedToPayment()">
+              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.showPaymentModal = true">
                 <i class="fas fa-check me-2"></i>{{vm.t('proceedToPayment')}}
               </button>
             </div>
@@ -972,37 +949,9 @@
         </div>
 
           <div ng-if="vm.selectedPaymentMethod && vm.selectedPaymentMethod !== 'Card'">
-            <div class="alert alert-info mb-3">
+            <div class="alert alert-info">
               <i class="fas fa-info-circle me-2"></i>
               {{vm.tReplace('redirectMessage', {method: vm.selectedPaymentMethod})}}
-            </div>
-            
-            <!-- Account Number Input for GCash, Maya, PayPal -->
-            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'GCash' || vm.selectedPaymentMethod === 'Maya'">
-              <label class="form-label">{{vm.selectedPaymentMethod}} {{vm.t('accountNumber')}} *</label>
-              <input 
-                type="text" 
-                class="form-control" 
-                ng-class="{'is-invalid': vm.paymentErrors.accountNumber}"
-                ng-model="vm.paymentForm.accountNumber" 
-                ng-keyup="vm.formatAccountNumber()"
-                ng-attr-placeholder="09XX XXX XXXX"
-                maxlength="13"
-                pattern="[0-9\s]+">
-              <small class="text-danger" ng-if="vm.paymentErrors.accountNumber">{{vm.paymentErrors.accountNumber}}</small>
-              <small class="text-muted">{{vm.t('enterAccountNumber')}}</small>
-            </div>
-            
-            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'PayPal'">
-              <label class="form-label">PayPal {{vm.t('email')}} *</label>
-              <input 
-                type="email" 
-                class="form-control" 
-                ng-class="{'is-invalid': vm.paymentErrors.paypalEmail}"
-                ng-model="vm.paymentForm.paypalEmail" 
-                placeholder="your.email@example.com">
-              <small class="text-danger" ng-if="vm.paymentErrors.paypalEmail">{{vm.paymentErrors.paypalEmail}}</small>
-              <small class="text-muted">{{vm.t('enterPayPalEmail')}}</small>
             </div>
           </div>
 
@@ -1024,40 +973,6 @@
     </div>
   </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentModal}" ng-if="vm.showPaymentModal" ng-click="vm.showPaymentModal = false" style="z-index: 1055;"></div>
-
-  <!-- ============================================
-       LOGIN PROMPT MODAL
-       ============================================ -->
-  <div class="modal fade modal-luxury" ng-class="{'show': vm.showLoginPromptModal}" ng-style="{'display': vm.showLoginPromptModal ? 'block' : 'none'}" ng-if="vm.showLoginPromptModal" style="z-index: 1065;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{vm.t('loginRequired')}}</h5>
-          <button type="button" class="btn-close" ng-click="vm.closeLoginPrompt()"></button>
-        </div>
-        <div class="modal-body text-center" style="padding: 2rem;">
-          <div class="mb-4">
-            <i class="fas fa-lock" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
-            <h4 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold);">
-              {{vm.t('pleaseLoginFirst')}}
-            </h4>
-            <p class="text-muted mb-4" style="line-height: 1.6;">
-              {{vm.t('loginToBookMessage')}}
-            </p>
-          </div>
-          <div class="d-flex gap-2 justify-content-center">
-            <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-click="vm.goToLoginPage()">
-              <i class="fas fa-sign-in-alt me-2"></i>{{vm.t('loginNow')}}
-            </button>
-            <button type="button" class="btn btn-outline-gold" ng-click="vm.closeLoginPrompt(); window.location.href='register.html'">
-              <i class="fas fa-user-plus me-2"></i>{{vm.t('createAccount')}}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-backdrop fade" ng-class="{'show': vm.showLoginPromptModal}" ng-if="vm.showLoginPromptModal" ng-click="vm.closeLoginPrompt()" style="z-index: 1060;"></div>
 
   <!-- ============================================
        PAYMENT SUCCESS MODAL
@@ -1504,31 +1419,6 @@
     </div>
     </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showEmailConfirmation}" ng-if="vm.showEmailConfirmation" ng-click="vm.closeEmailConfirmation()" style="z-index: 1065;"></div>
-
-  <!-- ============================================
-       NEWSLETTER THANK YOU MODAL
-       ============================================ -->
-  <div class="modal fade modal-luxury" ng-class="{'show': vm.showNewsletterThankYou}" ng-style="{'display': vm.showNewsletterThankYou ? 'block' : 'none'}" ng-if="vm.showNewsletterThankYou" style="z-index: 1070;">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body text-center" style="padding: 3rem 2rem;">
-          <div class="payment-success-icon" style="background: var(--gold); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; animation: scaleIn 0.3s ease;">
-            <i class="fas fa-check" style="font-size: 2rem; color: var(--white);"></i>
-          </div>
-          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">
-            {{vm.t('newsletterThankYou')}}
-          </h3>
-          <p class="text-muted mb-4" style="font-size: 1rem; line-height: 1.6;">
-            {{vm.t('newsletterThankYouMessage')}}
-          </p>
-          <button class="btn btn-gold btn-ripple btn-glow" ng-click="vm.closeNewsletterThankYou()" style="margin-top: 1rem;">
-            <i class="fas fa-check me-2"></i>{{vm.t('done')}}
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal-backdrop fade" ng-class="{'show': vm.showNewsletterThankYou}" ng-if="vm.showNewsletterThankYou" ng-click="vm.closeNewsletterThankYou()" style="z-index: 1065;"></div>
 
   <!-- ============================================
        SCRIPTS
