@@ -111,10 +111,161 @@ body.dark-mode .navbar-luxury {
 
 body.dark-mode .navbar-brand {
   color: var(--white) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 body.dark-mode .navbar-brand:hover {
   color: var(--gold-light) !important;
+  text-shadow: 0 2px 6px rgba(212, 175, 55, 0.5);
+}
+
+body.dark-mode .navbar-brand i {
+  color: var(--gold) !important;
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.5)) drop-shadow(0 0 8px rgba(212, 175, 55, 0.3));
+}
+
+body.dark-mode .navbar-brand:hover i {
+  color: var(--gold-light) !important;
+  filter: drop-shadow(0 3px 6px rgba(212, 175, 55, 0.7)) drop-shadow(0 0 12px rgba(212, 175, 55, 0.5));
+}
+
+/* General logo visibility in dark mode */
+body.dark-mode img[src*="logo"],
+body.dark-mode .logo,
+body.dark-mode .logo img,
+body.dark-mode .brand-logo,
+body.dark-mode .site-logo {
+  filter: brightness(1.1) contrast(1.1);
+  opacity: 1 !important;
+}
+
+body.dark-mode .logo-container,
+body.dark-mode .logo-wrapper {
+  background: transparent !important;
+}
+
+/* Ensure logo text is visible in dark mode */
+body.dark-mode .logo-text,
+body.dark-mode [class*="logo"] {
+  color: var(--white) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Circular logo with border - ensure visibility in dark mode */
+body.dark-mode .logo-circle,
+body.dark-mode [class*="logo"][class*="circle"],
+body.dark-mode .logo[style*="border-radius: 50%"] {
+  box-shadow: 0 0 0 2px var(--gold), 0 4px 12px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.2) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Logo with golden border - enhance in dark mode */
+body.dark-mode .logo[style*="border"],
+body.dark-mode [class*="logo"][style*="border"] {
+  border-color: var(--gold) !important;
+  box-shadow: 0 0 0 2px var(--gold), 0 4px 12px rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Logo images - ensure they stand out in dark mode */
+body.dark-mode img.logo,
+body.dark-mode .logo img {
+  filter: brightness(1.2) contrast(1.1) drop-shadow(0 2px 8px rgba(212, 175, 55, 0.3));
+}
+
+/* Logo visibility in light mode - ensure R and all logo elements are visible */
+.logo,
+.logo img,
+.brand-logo,
+.site-logo,
+img[src*="logo"] {
+  opacity: 1 !important;
+  filter: contrast(1.1);
+}
+
+/* Circular logo with border - ensure visibility in light mode */
+.logo-circle,
+[class*="logo"][class*="circle"],
+.logo[style*="border-radius: 50%"] {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px var(--gold), 0 0 0 4px rgba(212, 175, 55, 0.2) !important;
+  background: rgba(255, 255, 255, 1) !important;
+  border: 2px solid var(--gold) !important;
+}
+
+/* Logo text/letter R - ensure visibility in light mode */
+.logo-text,
+.logo span,
+[class*="logo"] span,
+.logo::before,
+.logo::after {
+  color: var(--black) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-weight: 700 !important;
+}
+
+/* Logo with golden border - enhance in light mode */
+.logo[style*="border"],
+[class*="logo"][style*="border"] {
+  border-color: var(--gold) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15), 0 0 0 2px var(--gold) !important;
+}
+
+/* Logo images - ensure they stand out in light mode */
+img.logo,
+.logo img {
+  filter: contrast(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  opacity: 1 !important;
+}
+
+/* Navbar brand logo - ensure visibility in light mode */
+.navbar-brand,
+.navbar-brand span {
+  color: var(--black) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand i {
+  color: var(--gold) !important;
+  filter: drop-shadow(0 2px 4px rgba(212, 175, 55, 0.4)) drop-shadow(0 0 4px rgba(212, 175, 55, 0.2));
+}
+
+/* Ensure logo letters (like R) are visible in light mode */
+.logo *,
+[class*="logo"] *,
+.logo-container *,
+.logo-wrapper * {
+  color: inherit;
+}
+
+/* Logo with white background and blue rectangle - ensure R is visible */
+.logo[style*="background"],
+.logo[style*="background: white"],
+.logo[style*="background: #fff"] {
+  background: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 0 2px var(--gold) !important;
+}
+
+.logo[style*="background"] *,
+.logo[style*="background: white"] *,
+.logo[style*="background: #fff"] * {
+  color: var(--black) !important;
+  font-weight: 700 !important;
+}
+
+/* Blue rectangle in logo - ensure text is visible */
+.logo [style*="background: blue"],
+.logo [style*="background: #"],
+.logo .logo-rectangle,
+.logo .logo-box {
+  background: #0066cc !important;
+}
+
+.logo [style*="background: blue"] *,
+.logo [style*="background: #"] *,
+.logo .logo-rectangle *,
+.logo .logo-box * {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-nav .nav-link {
@@ -730,6 +881,306 @@ body.dark-mode .elegant-option {
 }
 
 /* ============================================
+   LIQUID BLOB EFFECTS
+   ============================================ */
+
+.liquid-blob-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.liquid-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: transform, width, height;
+}
+
+.blob-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
+  top: 20%;
+  left: 10%;
+  animation: blobFloat1 20s ease-in-out infinite;
+}
+
+.blob-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
+  top: 60%;
+  right: 15%;
+  animation: blobFloat2 25s ease-in-out infinite;
+  animation-delay: -5s;
+}
+
+.blob-3 {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.35) 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
+  bottom: 20%;
+  left: 50%;
+  animation: blobFloat3 18s ease-in-out infinite;
+  animation-delay: -10s;
+}
+
+/* Mouse interaction - blob follows cursor */
+.hero-section:hover .blob-1 {
+  animation-play-state: paused;
+}
+
+.hero-section:hover .blob-2 {
+  animation-play-state: paused;
+}
+
+.hero-section:hover .blob-3 {
+  animation-play-state: paused;
+}
+
+/* Liquid morphing animations */
+@keyframes blobFloat1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    transform: translate(50px, -30px) scale(1.1);
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  50% {
+    transform: translate(-30px, 40px) scale(0.9);
+    border-radius: 70% 30% 50% 50% / 30% 50% 60% 70%;
+  }
+  75% {
+    transform: translate(30px, 20px) scale(1.05);
+    border-radius: 40% 70% 60% 30% / 70% 40% 50% 60%;
+  }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 50% 50% 50% 50% / 60% 40% 60% 40%;
+  }
+  33% {
+    transform: translate(-40px, -50px) scale(1.15);
+    border-radius: 60% 40% 60% 40% / 50% 60% 50% 60%;
+  }
+  66% {
+    transform: translate(40px, 30px) scale(0.95);
+    border-radius: 40% 60% 40% 60% / 60% 50% 60% 50%;
+  }
+}
+
+@keyframes blobFloat3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    border-radius: 70% 30% 50% 50% / 50% 50% 70% 30%;
+  }
+  50% {
+    transform: translate(30px, -40px) scale(1.2);
+    border-radius: 30% 70% 50% 50% / 50% 50% 30% 70%;
+  }
+}
+
+/* Enhanced liquid effect on hover */
+.hero-section:hover .liquid-blob {
+  opacity: 0.5;
+  filter: blur(50px);
+}
+
+.hero-section:hover .blob-1 {
+  width: 450px;
+  height: 450px;
+}
+
+.hero-section:hover .blob-2 {
+  width: 550px;
+  height: 550px;
+}
+
+.hero-section:hover .blob-3 {
+  width: 400px;
+  height: 400px;
+}
+
+/* Button liquid effect on hover */
+.hero-cta-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-cta-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  pointer-events: none;
+}
+
+.hero-cta-btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.hero-cta-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4), 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Text liquid effect on hover */
+.hero-title:hover,
+.hero-subtitle:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ============================================
+   WATER RIPPLE EFFECTS
+   ============================================ */
+
+.water-ripple-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.water-ripple {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 50%, transparent 100%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  animation: rippleExpand 1.5s ease-out forwards;
+}
+
+.water-ripple::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 1.5s ease-out 0.2s forwards;
+}
+
+.water-ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transform: translate(-50%, -50%);
+  animation: rippleExpand 1.5s ease-out 0.4s forwards;
+}
+
+@keyframes rippleExpand {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  30% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  60% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+}
+
+/* Continuous water wave effect */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 1;
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120'%3E%3Cpath d='M0,60 Q300,20 600,60 T1200,60 L1200,120 L0,120 Z' fill='white'/%3E%3C/svg%3E");
+  mask-size: 1200px 120px;
+  mask-repeat: repeat-x;
+  mask-position: bottom;
+  animation: waveAnimation 20s linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes waveAnimation {
+  0% {
+    mask-position: 0 bottom;
+  }
+  100% {
+    mask-position: 1200px bottom;
+  }
+}
+
+/* Water distortion effect on mouse move */
+.hero-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+    rgba(255, 255, 255, 0.1) 0%, 
+    rgba(255, 255, 255, 0.05) 30%, 
+    transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  transition: background 0.3s ease;
+  opacity: 0;
+}
+
+.hero-section:hover::before {
+  opacity: 1;
+}
+
+/* ============================================
    SECTIONS
    ============================================ */
 
@@ -987,6 +1438,18 @@ body.dark-mode .elegant-option {
   border-radius: 15px;
   border: none;
   box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+  background: var(--white);
+  color: var(--black);
+}
+
+.modal-luxury .modal-body {
+  color: var(--black);
+}
+
+.modal-luxury .modal-body p,
+.modal-luxury .modal-body span,
+.modal-luxury .modal-body div {
+  color: var(--black);
 }
 
 .modal.show {
@@ -1023,22 +1486,53 @@ body.modal-open {
   font-weight: 600;
   color: var(--black);
   margin-bottom: 0.5rem;
+  display: block;
 }
 
-.modal-luxury .form-control {
+.modal-luxury .form-control,
+.modal-luxury .form-select,
+.modal-luxury textarea {
   border: 2px solid #e0e0e0;
   border-radius: 8px;
   padding: 0.75rem;
   transition: var(--transition);
+  background: var(--white);
+  color: var(--black);
+  font-size: 1rem;
+}
+
+.modal-luxury textarea.form-control {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.modal-luxury .form-control::placeholder,
+.modal-luxury .form-select::placeholder {
+  color: #999;
+  opacity: 1;
 }
 
 .modal-luxury .form-control:focus {
   border-color: var(--gold);
   box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+  background: var(--white);
+  color: var(--black);
+  outline: none;
 }
 
 .modal-luxury .form-control.is-invalid {
   border-color: #dc3545;
+}
+
+.modal-luxury .form-select {
+  background-color: var(--white);
+  color: var(--black);
+}
+
+.modal-luxury .form-select:focus {
+  background-color: var(--white);
+  color: var(--black);
+  border-color: var(--gold);
 }
 
 .price-summary {
@@ -1046,12 +1540,21 @@ body.modal-open {
   padding: 1.5rem;
   border-radius: 10px;
   margin-top: 1.5rem;
+  color: var(--black);
+}
+
+.price-summary h5 {
+  color: var(--black);
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .price-row {
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.5rem;
+  color: var(--black);
+  font-size: 1rem;
 }
 
 .price-total {
@@ -1061,6 +1564,23 @@ body.modal-open {
   border-top: 2px solid var(--gold);
   padding-top: 0.5rem;
   margin-top: 0.5rem;
+}
+
+.modal-luxury .text-muted {
+  color: #666 !important;
+}
+
+.modal-luxury .text-success {
+  color: #28a745 !important;
+}
+
+.modal-luxury .text-danger {
+  color: #dc3545 !important;
+}
+
+.modal-luxury small {
+  color: #666;
+  font-size: 0.875rem;
 }
 
 /* ============================================
@@ -2102,30 +2622,113 @@ html {
 
 body.dark-mode .modal-luxury .modal-content {
   background: #1a1a1a !important;
-  color: #e0e0e0;
+  color: #e0e0e0 !important;
 }
 
 body.dark-mode .modal-luxury .modal-body {
-  background: #1a1a1a;
-  color: #e0e0e0;
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body.text-center {
+  background: #1a1a1a !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body,
+body.dark-mode .modal-luxury .modal-body *,
+body.dark-mode .modal-luxury .modal-body label,
+body.dark-mode .modal-luxury .modal-body span,
+body.dark-mode .modal-luxury .modal-body div,
+body.dark-mode .modal-luxury .modal-body p,
+body.dark-mode .modal-luxury .modal-body h5,
+body.dark-mode .modal-luxury .modal-body h4,
+body.dark-mode .modal-luxury .modal-body h3,
+body.dark-mode .modal-luxury .modal-body h2,
+body.dark-mode .modal-luxury .modal-body h1 {
+  color: #e0e0e0 !important;
 }
 
 body.dark-mode .modal-luxury .form-label {
+  color: #e0e0e0 !important;
+  font-weight: 600;
+}
+
+body.dark-mode .modal-luxury .form-control,
+body.dark-mode .modal-luxury .form-select,
+body.dark-mode .modal-luxury textarea,
+body.dark-mode .modal-luxury input[type="text"],
+body.dark-mode .modal-luxury input[type="email"],
+body.dark-mode .modal-luxury input[type="tel"],
+body.dark-mode .modal-luxury input[type="number"],
+body.dark-mode .modal-luxury input[type="date"],
+body.dark-mode .modal-luxury select {
+  background: #2a2a2a !important;
+  border-color: #555 !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .form-control:not(:placeholder-shown),
+body.dark-mode .modal-luxury input:not(:placeholder-shown),
+body.dark-mode .modal-luxury .form-control[value]:not([value=""]),
+body.dark-mode .modal-luxury input[value]:not([value=""]) {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .form-control:-webkit-autofill,
+body.dark-mode .modal-luxury input:-webkit-autofill {
+  -webkit-text-fill-color: #e0e0e0 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #2a2a2a inset !important;
+  box-shadow: 0 0 0px 1000px #2a2a2a inset !important;
+}
+
+body.dark-mode .modal-luxury textarea.form-control::placeholder {
+  color: #999 !important;
+  opacity: 1;
+}
+
+body.dark-mode .modal-luxury .form-control::placeholder,
+body.dark-mode .modal-luxury .form-select::placeholder {
+  color: #999 !important;
+  opacity: 1;
+}
+
+body.dark-mode .modal-luxury .form-control:focus,
+body.dark-mode .modal-luxury .form-select:focus {
+  background: #2a2a2a !important;
+  border-color: var(--gold) !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+  outline: none;
+}
+
+body.dark-mode .modal-luxury .form-control option,
+body.dark-mode .modal-luxury .form-select option,
+body.dark-mode #bookingModal select option {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .form-select:focus option,
+body.dark-mode #bookingModal select:focus option {
+  background: #2a2a2a !important;
   color: #e0e0e0 !important;
 }
 
   body.dark-mode .form-control,
   body.dark-mode .form-select {
-    background: #2a2a2a;
-    border-color: #444;
-    color: #e0e0e0;
+    background: #2a2a2a !important;
+    border-color: #555 !important;
+    color: #e0e0e0 !important;
   }
 
   body.dark-mode .form-control:focus,
   body.dark-mode .form-select:focus {
-    background: #2a2a2a;
-    border-color: var(--gold);
-    color: #e0e0e0;
+    background: #2a2a2a !important;
+    border-color: var(--gold) !important;
+    color: #e0e0e0 !important;
   }
 
   body.dark-mode .contact-info {
@@ -2140,9 +2743,23 @@ body.dark-mode .modal-luxury .form-label {
     background: #2a2a2a;
   }
 
-  body.dark-mode .booking-summary {
-    background: #2a2a2a;
-  }
+body.dark-mode .booking-summary {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .booking-summary h5 {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .summary-row {
+  color: #e0e0e0 !important;
+  border-bottom-color: #444 !important;
+}
+
+body.dark-mode .summary-row:last-child {
+  color: var(--gold-light) !important;
+}
 }
 
 /* Dark mode for all screen sizes */
@@ -2164,10 +2781,445 @@ body.dark-mode .room-card,
 body.dark-mode .amenity-item,
 body.dark-mode .testimonial-card,
 body.dark-mode .contact-form,
+/* Dashboard Card - Light Mode (Black Text) */
+.dashboard-card,
+.dashboard-card *,
+.dashboard-card h5,
+.dashboard-card p,
+.dashboard-card strong,
+.dashboard-card .text-muted {
+  color: #000000 !important;
+}
+
+.dashboard-card .text-muted {
+  color: #666666 !important;
+}
+
+/* Dashboard Card - Dark Mode (White Text) */
 body.dark-mode .dashboard-card {
-  background: #1a1a1a;
-  color: #e0e0e0;
-  border-color: #333;
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+  border-color: #333 !important;
+}
+
+body.dark-mode .dashboard-card *,
+body.dark-mode .dashboard-card h5,
+body.dark-mode .dashboard-card p,
+body.dark-mode .dashboard-card strong,
+body.dark-mode .dashboard-card .text-muted,
+body.dark-mode .dashboard-card i,
+body.dark-mode .dashboard-card .fas,
+body.dark-mode .dashboard-card span,
+body.dark-mode .dashboard-card div,
+body.dark-mode .dashboard-card .text-end,
+body.dark-mode .dashboard-card .text-end *,
+body.dark-mode .dashboard-card .text-end strong {
+  color: #ffffff !important;
+}
+
+body.dark-mode .dashboard-card .text-muted,
+body.dark-mode .dashboard-card .text-muted i {
+  color: #b0b0b0 !important;
+}
+
+/* Make price text white in dark mode */
+body.dark-mode .dashboard-card .text-gold,
+body.dark-mode .dashboard-card .text-end .text-gold,
+body.dark-mode .dashboard-card strong.text-gold,
+body.dark-mode .dashboard-card .text-end strong.text-gold {
+  color: #ffffff !important;
+}
+
+/* Ensure all text in text-end div is white */
+body.dark-mode .dashboard-card .text-end,
+body.dark-mode .dashboard-card .text-end *,
+body.dark-mode .dashboard-card .text-end div,
+body.dark-mode .dashboard-card .text-end strong,
+body.dark-mode .dashboard-card .text-end .mt-2,
+body.dark-mode .dashboard-card .text-end .mt-2 * {
+  color: #ffffff !important;
+}
+
+/* Booking reference text */
+body.dark-mode .dashboard-card p strong,
+body.dark-mode .dashboard-card .mb-0 strong {
+  color: #ffffff !important;
+}
+
+/* Dashboard modal body text in dark mode */
+body.dark-mode .modal-luxury .modal-body,
+body.dark-mode .modal-luxury .modal-body *,
+body.dark-mode .modal-luxury .modal-body p,
+body.dark-mode .modal-luxury .modal-body h5,
+body.dark-mode .modal-luxury .modal-body strong,
+body.dark-mode .modal-luxury .modal-body i,
+body.dark-mode .modal-luxury .modal-body .fas {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .text-muted,
+body.dark-mode .modal-luxury .modal-body .text-muted i {
+  color: #b0b0b0 !important;
+}
+
+/* Dashboard cancel button text in dark mode */
+body.dark-mode .dashboard-card .btn-outline-danger,
+body.dark-mode .dashboard-card .btn-outline-danger i,
+body.dark-mode .dashboard-card .btn-outline-danger .fas {
+  color: #ffffff !important;
+  border-color: #dc3545 !important;
+}
+
+body.dark-mode .dashboard-card .btn-outline-danger:hover {
+  background: #dc3545 !important;
+  color: #ffffff !important;
+}
+
+/* ============================================
+   COMPREHENSIVE WHITE TEXT FOR WISHLIST & MY BOOKINGS IN DARK MODE
+   ============================================ */
+
+/* Wishlist Modal - ALL text elements white */
+body.dark-mode .modal-luxury .modal-body .room-card,
+body.dark-mode .modal-luxury .modal-body .room-card *,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content *,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content h3,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content p,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content div,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content span,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content small,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content strong,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content i,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .fas,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-title,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-description,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-price,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-price span,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-amenities,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .room-amenities *,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .amenity-badge {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .room-card .room-content .text-muted,
+body.dark-mode .modal-luxury .modal-body .room-card .room-content small.text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* My Bookings Modal - ALL text elements white */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .d-flex,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .d-flex *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .d-flex div,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .d-flex div *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .justify-content-between,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .justify-content-between *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .align-items-start,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .align-items-start *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end div,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end div *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-0,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-0 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-2,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-2 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mt-2,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mt-2 * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted i,
+body.dark-mode .modal-luxury .modal-body .dashboard-card p.text-muted,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-2.text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Additional comprehensive rules for ALL text in My Bookings modal */
+body.dark-mode .modal-luxury .modal-body .dashboard-card .booking-status,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .booking-status *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .badge,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .badge *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-gold,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-gold *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card strong,
+body.dark-mode .modal-luxury .modal-body .dashboard-card strong *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn-sm,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn-sm *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn-outline-danger,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .btn-outline-danger *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mt-2,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mt-2 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-0,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-0 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-1,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-1 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-2,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-2 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-3,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-3 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-4,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .mb-4 *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .align-items-start,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .align-items-start *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .justify-content-between,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .justify-content-between *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .flex-wrap,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .flex-wrap * {
+  color: #ffffff !important;
+}
+
+/* Additional comprehensive rules for ALL text in Wishlist modal */
+body.dark-mode .modal-luxury .modal-body .room-card .btn,
+body.dark-mode .modal-luxury .modal-body .room-card .btn *,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-gold,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-gold *,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-outline-gold,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-outline-gold *,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-ripple,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-ripple *,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-glow,
+body.dark-mode .modal-luxury .modal-body .room-card .btn-glow *,
+body.dark-mode .modal-luxury .modal-body .room-card .flex-fill,
+body.dark-mode .modal-luxury .modal-body .room-card .flex-fill *,
+body.dark-mode .modal-luxury .modal-body .room-card .gap-2,
+body.dark-mode .modal-luxury .modal-body .room-card .gap-2 *,
+body.dark-mode .modal-luxury .modal-body .room-card .d-flex,
+body.dark-mode .modal-luxury .modal-body .room-card .d-flex *,
+body.dark-mode .modal-luxury .modal-body .room-card .justify-content-between,
+body.dark-mode .modal-luxury .modal-body .room-card .justify-content-between *,
+body.dark-mode .modal-luxury .modal-body .room-card .align-items-center,
+body.dark-mode .modal-luxury .modal-body .room-card .align-items-center *,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-2,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-2 *,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-3,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-3 *,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-4,
+body.dark-mode .modal-luxury .modal-body .room-card .mb-4 *,
+body.dark-mode .modal-luxury .modal-body .room-card .position-relative,
+body.dark-mode .modal-luxury .modal-body .room-card .position-relative * {
+  color: #ffffff !important;
+}
+
+/* Override any Bootstrap text color utilities in dark mode for these modals */
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-dark,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-black,
+body.dark-mode .modal-luxury .modal-body .room-card .text-dark,
+body.dark-mode .modal-luxury .modal-body .room-card .text-black {
+  color: #ffffff !important;
+}
+
+/* Universal selector for any remaining text elements in My Bookings */
+body.dark-mode .modal-luxury .modal-body .dashboard-card *:not(img):not(svg):not(path) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted * {
+  color: #b0b0b0 !important;
+}
+
+/* Universal selector for any remaining text elements in Wishlist */
+body.dark-mode .modal-luxury .modal-body .room-card *:not(img):not(svg):not(path) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .room-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .room-card .text-muted * {
+  color: #b0b0b0 !important;
+}
+
+/* Row and column containers in both modals */
+body.dark-mode .modal-luxury .modal-body .row,
+body.dark-mode .modal-luxury .modal-body .row *,
+body.dark-mode .modal-luxury .modal-body .col-lg-4,
+body.dark-mode .modal-luxury .modal-body .col-lg-4 *,
+body.dark-mode .modal-luxury .modal-body .col-md-6,
+body.dark-mode .modal-luxury .modal-body .col-md-6 *,
+body.dark-mode .modal-luxury .modal-body .mb-4,
+body.dark-mode .modal-luxury .modal-body .mb-4 * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .row .text-muted,
+body.dark-mode .modal-luxury .modal-body .col-lg-4 .text-muted,
+body.dark-mode .modal-luxury .modal-body .col-md-6 .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Override any inline styles or Bootstrap defaults */
+body.dark-mode .modal-luxury .modal-body [class*="dashboard-card"] *,
+body.dark-mode .modal-luxury .modal-body [class*="room-card"] *,
+body.dark-mode .modal-luxury .modal-body [class*="booking-card"] * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body [class*="dashboard-card"] .text-muted,
+body.dark-mode .modal-luxury .modal-body [class*="room-card"] .text-muted,
+body.dark-mode .modal-luxury .modal-body [class*="booking-card"] .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Dashboard Modal Content - Light Mode (Black Text) */
+.modal-luxury .modal-body .dashboard-card,
+.modal-luxury .modal-body .dashboard-card *,
+.modal-luxury .modal-body .dashboard-card h5,
+.modal-luxury .modal-body .dashboard-card p,
+.modal-luxury .modal-body .dashboard-card strong,
+.modal-luxury .modal-body .dashboard-card i {
+  color: #000000 !important;
+}
+
+.modal-luxury .modal-body .dashboard-card .text-muted,
+.modal-luxury .modal-body .text-center .text-muted {
+  color: #666666 !important;
+}
+
+/* Dashboard Modal Content - Dark Mode (White Text) */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card h5,
+body.dark-mode .modal-luxury .modal-body .dashboard-card p,
+body.dark-mode .modal-luxury .modal-body .dashboard-card strong,
+body.dark-mode .modal-luxury .modal-body .dashboard-card i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .text-center .text-muted {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-gold {
+  color: var(--gold) !important;
+}
+
+/* Dashboard Modal Header - Light Mode */
+.modal-luxury .modal-header .modal-title {
+  color: #000000 !important;
+}
+
+/* Dashboard Modal Header - Dark Mode */
+body.dark-mode .modal-luxury .modal-header .modal-title {
+  color: #ffffff !important;
+}
+
+/* Booking Reference Label */
+.dashboard-card strong {
+  color: inherit !important;
+  font-weight: 700 !important;
+}
+
+body.dark-mode .dashboard-card strong {
+  color: #ffffff !important;
+}
+
+/* My Bookings Modal - Ensure ALL text is white in dark mode */
+/* Target modal body that contains dashboard-card */
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card),
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) *,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) h5,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) p,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) strong,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) span,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) div,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) i,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .fas {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .text-muted,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .text-muted i {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .text-gold {
+  color: var(--gold) !important;
+}
+
+/* My Bookings - All dashboard cards and content (fallback for browsers without :has) */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card h5,
+body.dark-mode .modal-luxury .modal-body .dashboard-card p,
+body.dark-mode .modal-luxury .modal-body .dashboard-card strong,
+body.dark-mode .modal-luxury .modal-body .dashboard-card span,
+body.dark-mode .modal-luxury .modal-body .dashboard-card div,
+body.dark-mode .modal-luxury .modal-body .dashboard-card i,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .fas,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted i {
+  color: #b0b0b0 !important;
+}
+
+/* Empty state in My Bookings modal - dark mode */
+body.dark-mode .modal-luxury .modal-body .text-center,
+body.dark-mode .modal-luxury .modal-body .text-center *,
+body.dark-mode .modal-luxury .modal-body .text-center p,
+body.dark-mode .modal-luxury .modal-body .text-center i,
+body.dark-mode .modal-luxury .modal-body .text-center .text-muted {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .text-center .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Ensure all text in modal body when dashboard is shown */
+body.dark-mode .modal-luxury.show .modal-body,
+body.dark-mode .modal-luxury.show .modal-body *:not(.btn):not(.btn *):not(.booking-status):not(.booking-status *) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury.show .modal-body .text-muted:not(.btn *):not(.booking-status *) {
+  color: #b0b0b0 !important;
+}
+
+/* Comprehensive rule for My Bookings modal - ALL text white in dark mode */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card h5,
+body.dark-mode .modal-luxury .modal-body .dashboard-card p,
+body.dark-mode .modal-luxury .modal-body .dashboard-card strong,
+body.dark-mode .modal-luxury .modal-body .dashboard-card span,
+body.dark-mode .modal-luxury .modal-body .dashboard-card div,
+body.dark-mode .modal-luxury .modal-body .dashboard-card i,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .fas,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end *,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end div,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end strong,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end .text-gold,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end .mt-2,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-end .mt-2 * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted i,
+body.dark-mode .modal-luxury .modal-body .dashboard-card p.text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Booking Status Badge */
+.booking-status.confirmed {
+  background: #4CAF50 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .booking-status.confirmed {
+  background: #4CAF50 !important;
+  color: #ffffff !important;
 }
 
 body.dark-mode .room-description,
@@ -2219,7 +3271,7 @@ body.dark-mode .form-select:focus {
 }
 
 body.dark-mode .text-muted {
-  color: #888 !important;
+  color: #d0d0d0 !important;
 }
 
 body.dark-mode .amenity-badge {
@@ -2325,11 +3377,54 @@ body.dark-mode .developers-section li {
 }
 
 body.dark-mode .amenity-title {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 
 body.dark-mode .amenity-item {
-  color: #e0e0e0;
+  color: #ffffff !important;
+  background: #1a1a1a !important;
+}
+
+body.dark-mode .amenity-item *,
+body.dark-mode .amenity-item p,
+body.dark-mode .amenity-item h5,
+body.dark-mode .amenity-item span {
+  color: #ffffff !important;
+}
+
+body.dark-mode .amenity-description {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .amenity-icon {
+  color: var(--gold) !important;
+}
+
+/* Ensure all text in sections with bg-light is white in dark mode */
+body.dark-mode .section.bg-light,
+body.dark-mode .section.bg-light *,
+body.dark-mode .section.bg-light p,
+body.dark-mode .section.bg-light h1,
+body.dark-mode .section.bg-light h2,
+body.dark-mode .section.bg-light h3,
+body.dark-mode .section.bg-light h4,
+body.dark-mode .section.bg-light h5,
+body.dark-mode .section.bg-light h6,
+body.dark-mode .section.bg-light span,
+body.dark-mode .section.bg-light div {
+  color: #ffffff !important;
+}
+
+body.dark-mode .section.bg-light .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Container and row elements in dark mode sections */
+body.dark-mode .section.bg-light .container,
+body.dark-mode .section.bg-light .container *,
+body.dark-mode .section.bg-light .row,
+body.dark-mode .section.bg-light .row * {
+  color: #ffffff !important;
 }
 
 body.dark-mode .contact-form label {
@@ -2362,12 +3457,291 @@ body.dark-mode .form-label {
 }
 
 body.dark-mode .price-summary {
-  background: #2a2a2a;
-  color: #e0e0e0;
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
 }
 
-body.dark-mode .price-total {
-  color: var(--gold-light);
+body.dark-mode .price-summary h5 {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .price-row,
+body.dark-mode .price-row span {
+  color: #e0e0e0 !important;
+  border-bottom-color: #444 !important;
+}
+
+body.dark-mode .price-total,
+body.dark-mode .price-total span {
+  color: var(--gold-light) !important;
+  border-top-color: var(--gold) !important;
+}
+
+body.dark-mode .modal-luxury .price-summary *,
+body.dark-mode .modal-luxury .price-summary span,
+body.dark-mode .modal-luxury .price-summary div,
+body.dark-mode .modal-luxury .price-summary h5 {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .price-total span {
+  color: var(--gold-light) !important;
+}
+
+body.dark-mode .modal-luxury .text-muted {
+  color: #d0d0d0 !important;
+}
+
+body.dark-mode .modal-luxury .text-success {
+  color: #75b798 !important;
+}
+
+body.dark-mode .modal-luxury .text-danger {
+  color: #f5c2c7 !important;
+}
+
+body.dark-mode .modal-luxury small {
+  color: #999 !important;
+}
+
+body.dark-mode .modal-luxury .input-group-text {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  border-color: #555 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body p,
+body.dark-mode .modal-luxury .modal-body span,
+body.dark-mode .modal-luxury .modal-body div {
+  color: #e0e0e0 !important;
+}
+
+.modal-luxury .input-group .form-control {
+  color: var(--black);
+}
+
+body.dark-mode .modal-luxury .input-group .form-control {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .input-group .btn {
+  color: var(--white) !important;
+}
+
+/* Login Required Modal - Dark Mode Text Visibility */
+body.dark-mode .modal-luxury .modal-body.text-center,
+body.dark-mode .modal-luxury .modal-body.text-center * {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body.text-center h4,
+body.dark-mode .modal-luxury .modal-body.text-center h4[style] {
+  color: var(--gold-light) !important;
+  font-weight: 700 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body.text-center p,
+body.dark-mode .modal-luxury .modal-body.text-center p.text-muted,
+body.dark-mode .modal-luxury .modal-body.text-center .text-muted {
+  color: #d0d0d0 !important;
+  font-weight: 400 !important;
+}
+
+/* Override inline styles in login prompt modal */
+body.dark-mode .modal-luxury .modal-body[style*="padding"] h4,
+body.dark-mode .modal-luxury .modal-body[style*="padding"] p {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body[style*="padding"] h4[style*="deep-gold"],
+body.dark-mode .modal-luxury .modal-body[style*="padding"] h4[style*="--deep-gold"] {
+  color: var(--gold-light) !important;
+}
+
+body.dark-mode .modal-luxury .modal-body[style*="padding"] .text-muted {
+  color: #d0d0d0 !important;
+}
+
+/* Universal rule for all text in login prompt modal body */
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4,
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 *,
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 h4,
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 p {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 h4 {
+  color: var(--gold-light) !important;
+}
+
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 p.text-muted {
+  color: #d0d0d0 !important;
+}
+
+/* Override inline style for h4 in login modal - highest specificity */
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 h4[style*="deep-gold"],
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 h4[style*="--deep-gold"],
+body.dark-mode .modal-luxury .modal-body.text-center .mb-4 h4[style*="color"] {
+  color: var(--gold-light) !important;
+}
+
+/* Ensure modal title is always visible */
+body.dark-mode .modal-luxury .modal-title {
+  color: var(--white) !important;
+}
+
+/* Final catch-all for all text in modal body */
+body.dark-mode .modal-luxury .modal-body p,
+body.dark-mode .modal-luxury .modal-body h4,
+body.dark-mode .modal-luxury .modal-body h5,
+body.dark-mode .modal-luxury .modal-body span,
+body.dark-mode .modal-luxury .modal-body div:not(.btn):not(button) {
+  color: #e0e0e0 !important;
+}
+
+/* Login prompt modal specific styles */
+.login-prompt-title {
+  color: var(--deep-gold);
+  font-weight: 700;
+}
+
+body.dark-mode .login-prompt-title {
+  color: var(--gold-light) !important;
+}
+
+.login-prompt-text {
+  color: #666;
+}
+
+body.dark-mode .login-prompt-text {
+  color: #d0d0d0 !important;
+}
+
+/* Comprehensive catch-all for all text in booking modal */
+body.dark-mode #bookingModal .modal-content,
+body.dark-mode #bookingModal .modal-body,
+body.dark-mode #bookingModal .modal-body *:not(button):not(.btn):not(i) {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal input,
+body.dark-mode #bookingModal select,
+body.dark-mode #bookingModal textarea,
+body.dark-mode #bookingModal .form-control,
+body.dark-mode #bookingModal .form-select {
+  background: #2a2a2a !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+  border-color: #555 !important;
+}
+
+body.dark-mode #bookingModal input[type="text"],
+body.dark-mode #bookingModal input[type="email"],
+body.dark-mode #bookingModal input[type="tel"],
+body.dark-mode #bookingModal input[type="number"],
+body.dark-mode #bookingModal input[type="date"] {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal input:focus,
+body.dark-mode #bookingModal textarea:focus,
+body.dark-mode #bookingModal select:focus {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+  background: #2a2a2a !important;
+}
+
+body.dark-mode #bookingModal input::placeholder,
+body.dark-mode #bookingModal textarea::placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+body.dark-mode #bookingModal input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+body.dark-mode #bookingModal input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+body.dark-mode #bookingModal input[type="date"]::-webkit-datetime-edit-text,
+body.dark-mode #bookingModal input[type="date"]::-webkit-datetime-edit-month-field,
+body.dark-mode #bookingModal input[type="date"]::-webkit-datetime-edit-day-field,
+body.dark-mode #bookingModal input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* Force all input text to be visible in dark mode */
+body.dark-mode #bookingModal input[ng-model],
+body.dark-mode #bookingModal textarea[ng-model],
+body.dark-mode #bookingModal select[ng-model] {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* Ensure filled inputs are visible */
+body.dark-mode #bookingModal .form-control:not(:placeholder-shown),
+body.dark-mode #bookingModal input:not(:placeholder-shown),
+body.dark-mode #bookingModal textarea:not(:placeholder-shown) {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal label {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal .price-summary,
+body.dark-mode #bookingModal .price-summary * {
+  color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal .price-total,
+body.dark-mode #bookingModal .price-total * {
+  color: var(--gold-light) !important;
+}
+
+/* Ultimate fix for input text visibility - highest specificity */
+body.dark-mode #bookingModal.modal-luxury .modal-body .form-control,
+body.dark-mode #bookingModal.modal-luxury .modal-body input,
+body.dark-mode #bookingModal.modal-luxury .modal-body textarea,
+body.dark-mode #bookingModal.modal-luxury .modal-body select {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal.modal-luxury .modal-body .form-control::value,
+body.dark-mode #bookingModal.modal-luxury .modal-body input::value {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* Target all input fields after labels in booking modal */
+body.dark-mode #bookingModal .form-label + .form-control,
+body.dark-mode #bookingModal .form-label + input,
+body.dark-mode #bookingModal .mb-3 input,
+body.dark-mode #bookingModal .mb-3 .form-control {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* Universal rule for ALL input text in booking modal - highest priority */
+body.dark-mode #bookingModal input,
+body.dark-mode #bookingModal textarea,
+body.dark-mode #bookingModal select {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+body.dark-mode #bookingModal input *,
+body.dark-mode #bookingModal textarea * {
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
 }
 
 body.dark-mode .alert {
@@ -2647,11 +4021,17 @@ body.dark-mode .chat-floating-icon:hover {
 
 body.dark-mode {
   background: #0a0a0a;
-  color: #e0e0e0;
+  color: #ffffff !important;
 }
 
-body.dark-mode h1, body.dark-mode h2, body.dark-mode h3 {
-  color: #ffffff;
+/* Make headings white in dark mode */
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+  color: #ffffff !important;
 }
 
 body.dark-mode .room-card,
@@ -2922,6 +4302,67 @@ body.dark-mode .glass-card {
   color: var(--white);
 }
 
+/* FAB Widget Dark Mode - Keep white backgrounds and ensure icons are visible */
+body.dark-mode .fab {
+  background: var(--gold) !important;
+  color: var(--white) !important;
+  box-shadow: 0 5px 20px rgba(212, 175, 55, 0.6) !important;
+}
+
+body.dark-mode .fab i {
+  color: var(--white) !important;
+}
+
+body.dark-mode .fab-item {
+  background: var(--white) !important;
+  color: var(--gold) !important;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.4) !important;
+}
+
+body.dark-mode .fab-item i {
+  color: var(--gold) !important;
+}
+
+body.dark-mode .fab-item:hover {
+  background: var(--gold) !important;
+  color: var(--white) !important;
+}
+
+body.dark-mode .fab-item:hover i {
+  color: var(--white) !important;
+}
+
+body.dark-mode .fab-menu {
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.dark-mode .fab-menu.show {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Ensure FAB widget is always visible and not affected by global text color rules */
+body.dark-mode .fab,
+body.dark-mode .fab *,
+body.dark-mode .fab-item,
+body.dark-mode .fab-item *,
+body.dark-mode .fab-menu,
+body.dark-mode .fab-menu * {
+  z-index: 1000 !important;
+}
+
+/* Override white text rule for FAB items with white backgrounds */
+body.dark-mode .fab-item,
+body.dark-mode .fab-item * {
+  color: var(--gold) !important;
+}
+
+body.dark-mode .fab-item:hover,
+body.dark-mode .fab-item:hover * {
+  color: var(--white) !important;
+}
+
 /* ============================================
    FEATURED ROOMS CAROUSEL
    ============================================ */
@@ -3012,8 +4453,9 @@ body.dark-mode .glass-card {
 }
 
 .wishlist-btn i {
-  color: var(--gray);
+  color: #999;
   font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
 .wishlist-btn:hover {
@@ -3021,13 +4463,25 @@ body.dark-mode .glass-card {
   transform: scale(1.1);
 }
 
-.wishlist-btn.active {
+.wishlist-btn:hover i {
   color: #ff385c;
 }
 
-.wishlist-btn.active i {
-  color: #ff385c;
+.wishlist-btn.active {
+  color: #ff0000;
+}
+
+.wishlist-btn.active i,
+.wishlist-btn.active .fas.fa-heart,
+.wishlist-btn.active .far.fa-heart {
+  color: #ff0000 !important;
   animation: heartBeat 0.5s ease;
+}
+
+.wishlist-btn.active:hover i,
+.wishlist-btn.active:hover .fas.fa-heart,
+.wishlist-btn.active:hover .far.fa-heart {
+  color: #ff0000 !important;
 }
 
 @keyframes heartBeat {
@@ -3035,6 +4489,211 @@ body.dark-mode .glass-card {
   25% { transform: scale(1.2); }
   50% { transform: scale(1); }
   75% { transform: scale(1.1); }
+}
+
+/* Dark mode wishlist button */
+body.dark-mode .wishlist-btn {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+body.dark-mode .wishlist-btn i {
+  color: #999;
+}
+
+body.dark-mode .wishlist-btn:hover i {
+  color: #ff385c;
+}
+
+body.dark-mode .wishlist-btn.active i,
+body.dark-mode .wishlist-btn.active .fas.fa-heart,
+body.dark-mode .wishlist-btn.active .far.fa-heart {
+  color: #ff0000 !important;
+}
+
+body.dark-mode .wishlist-btn.active:hover i,
+body.dark-mode .wishlist-btn.active:hover .fas.fa-heart,
+body.dark-mode .wishlist-btn.active:hover .far.fa-heart {
+  color: #ff0000 !important;
+}
+
+/* Dark mode wishlist modal text */
+body.dark-mode .modal-luxury .modal-content {
+  background: #1a1a1a !important;
+}
+
+body.dark-mode .modal-luxury .modal-header,
+body.dark-mode .modal-luxury .modal-header .modal-title,
+body.dark-mode .modal-luxury .modal-header .modal-title i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body,
+body.dark-mode .modal-luxury .modal-body * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .room-title,
+body.dark-mode .modal-luxury .modal-body .room-description,
+body.dark-mode .modal-luxury .modal-body .room-price,
+body.dark-mode .modal-luxury .modal-body .room-price span,
+body.dark-mode .modal-luxury .modal-body small,
+body.dark-mode .modal-luxury .modal-body .text-muted {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .amenity-badge {
+  color: #ffffff !important;
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: rgba(212, 175, 55, 0.5) !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .btn-close {
+  filter: invert(1);
+}
+
+/* Wishlist modal room cards - ensure all text is white */
+body.dark-mode .modal-luxury .room-card,
+body.dark-mode .modal-luxury .room-card *,
+body.dark-mode .modal-luxury .room-content,
+body.dark-mode .modal-luxury .room-content * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .room-card .room-title,
+body.dark-mode .modal-luxury .room-card h3,
+body.dark-mode .modal-luxury .room-card .room-description,
+body.dark-mode .modal-luxury .room-card p,
+body.dark-mode .modal-luxury .room-card .room-price,
+body.dark-mode .modal-luxury .room-card .room-price span,
+body.dark-mode .modal-luxury .room-card small,
+body.dark-mode .modal-luxury .room-card .text-muted {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .room-card .amenity-badge {
+  color: #ffffff !important;
+  background: rgba(212, 175, 55, 0.2) !important;
+  border-color: rgba(212, 175, 55, 0.5) !important;
+}
+
+/* Override any conflicting room-card styles in wishlist modal */
+body.dark-mode .modal-luxury .room-card .room-content h3,
+body.dark-mode .modal-luxury .room-card .room-content .room-title,
+body.dark-mode .modal-luxury .room-card .room-content .room-description,
+body.dark-mode .modal-luxury .room-card .room-content .room-price,
+body.dark-mode .modal-luxury .room-card .room-content .room-price span {
+  color: #ffffff !important;
+}
+
+/* Override bg-white black text rule for wishlist modal room cards */
+body.dark-mode .modal-luxury .room-card.bg-white,
+body.dark-mode .modal-luxury .room-card.bg-white *,
+body.dark-mode .modal-luxury .bg-white .room-card,
+body.dark-mode .modal-luxury .bg-white .room-card * {
+  color: #ffffff !important;
+}
+
+/* Ensure room card background is dark in wishlist modal */
+body.dark-mode .modal-luxury .room-card {
+  background: #2a2a2a !important;
+}
+
+/* Override all default room-card text colors in wishlist modal */
+body.dark-mode .modal-luxury .room-card .room-title,
+body.dark-mode .modal-luxury .room-card .room-description,
+body.dark-mode .modal-luxury .room-card .room-price,
+body.dark-mode .modal-luxury .room-card .room-price span,
+body.dark-mode .modal-luxury .room-card small,
+body.dark-mode .modal-luxury .room-card .text-muted {
+  color: #ffffff !important;
+}
+
+/* ============================================
+   COMPREHENSIVE WHITE TEXT FOR WISHLIST & MY BOOKINGS IN DARK MODE
+   ============================================ */
+
+/* Wishlist Modal - ALL text white in dark mode */
+body.dark-mode .modal-luxury .modal-body:has(.room-card),
+body.dark-mode .modal-luxury .modal-body:has(.room-card) *,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) h3,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) p,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) span,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) div,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) small,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) strong,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) i,
+body.dark-mode .modal-luxury .modal-body:has(.room-card) .fas {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body:has(.room-card) .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* My Bookings Modal - ALL text white in dark mode */
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card),
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) *,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) h5,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) p,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) span,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) div,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) strong,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) i,
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .fas {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body:has(.dashboard-card) .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Fallback for browsers without :has() support - Wishlist */
+body.dark-mode .modal-luxury .modal-body .row .room-card,
+body.dark-mode .modal-luxury .modal-body .row .room-card *,
+body.dark-mode .modal-luxury .modal-body .col-lg-4 .room-card,
+body.dark-mode .modal-luxury .modal-body .col-lg-4 .room-card *,
+body.dark-mode .modal-luxury .modal-body .col-md-6 .room-card,
+body.dark-mode .modal-luxury .modal-body .col-md-6 .room-card * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .row .room-card .text-muted,
+body.dark-mode .modal-luxury .modal-body .col-lg-4 .room-card .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Fallback for browsers without :has() support - My Bookings */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury .modal-body ng-repeat[ng-repeat*="userBookings"] .dashboard-card,
+body.dark-mode .modal-luxury .modal-body ng-repeat[ng-repeat*="userBookings"] .dashboard-card * {
+  color: #ffffff !important;
+}
+
+/* Empty state text in both modals */
+body.dark-mode .modal-luxury .modal-body .text-center,
+body.dark-mode .modal-luxury .modal-body .text-center *,
+body.dark-mode .modal-luxury .modal-body .text-center p,
+body.dark-mode .modal-luxury .modal-body .text-center i,
+body.dark-mode .modal-luxury .modal-body .text-center .text-muted {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .text-center .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Ensure heart in wishlist modal is red */
+.modal-luxury .wishlist-btn.active i,
+.modal-luxury .wishlist-btn.active .fas.fa-heart,
+.modal-luxury .wishlist-btn.active .far.fa-heart {
+  color: #ff0000 !important;
+}
+
+body.dark-mode .modal-luxury .wishlist-btn.active i,
+body.dark-mode .modal-luxury .wishlist-btn.active .fas.fa-heart,
+body.dark-mode .modal-luxury .wishlist-btn.active .far.fa-heart {
+  color: #ff0000 !important;
 }
 
 /* ============================================
@@ -3633,6 +5292,13 @@ body.dark-mode .glass-card {
   padding: 2rem;
   border-radius: 15px;
   margin-top: 2rem;
+  color: var(--black);
+}
+
+.booking-summary h5 {
+  color: var(--black);
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
 .summary-row {
@@ -3640,6 +5306,8 @@ body.dark-mode .glass-card {
   justify-content: space-between;
   padding: 0.75rem 0;
   border-bottom: 1px solid #e0e0e0;
+  color: var(--black);
+  font-size: 1rem;
 }
 
 .summary-row:last-child {
@@ -4009,6 +5677,24 @@ body.dark-mode .glass-card {
 
 .wishlist-btn-airbnb i {
   font-size: 1.1rem;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.wishlist-btn-airbnb:hover i {
+  color: #ff385c;
+}
+
+.wishlist-btn-airbnb.active i,
+.wishlist-btn-airbnb.active .fas.fa-heart,
+.wishlist-btn-airbnb.active .far.fa-heart {
+  color: #ff0000 !important;
+}
+
+.wishlist-btn-airbnb.active:hover i,
+.wishlist-btn-airbnb.active:hover .fas.fa-heart,
+.wishlist-btn-airbnb.active:hover .far.fa-heart {
+  color: #ff0000 !important;
 }
 
 .airbnb-divider {
@@ -4152,4 +5838,1342 @@ body.dark-mode .glass-card {
     width: 35px;
     height: 35px;
   }
+}
+
+/* ============================================
+   DARK MODE: WHITE TEXT ON DARK, BLACK TEXT ON WHITE
+   ============================================ */
+
+/* Make all text elements white in dark mode by default */
+body.dark-mode {
+  color: #ffffff !important;
+}
+
+body.dark-mode p,
+body.dark-mode span:not(.text-muted):not(.text-success):not(.text-danger):not(.text-warning):not(.text-info),
+body.dark-mode div:not([class*="bg-white"]):not([class*="bg-light"]):not([class*="modal-content"]):not([class*="card"]),
+body.dark-mode label:not([class*="modal-content"] *):not([class*="card"] *),
+body.dark-mode li,
+body.dark-mode td,
+body.dark-mode th,
+body.dark-mode a:not([class*="text-"]),
+body.dark-mode small:not([class*="text-"]) {
+  color: #ffffff !important;
+}
+
+/* Exception: White background elements get black text */
+body.dark-mode [style*="background: white"],
+body.dark-mode [style*="background: #fff"],
+body.dark-mode [style*="background: #ffffff"],
+body.dark-mode [style*="background-color: white"],
+body.dark-mode [style*="background-color: #fff"],
+body.dark-mode [style*="background-color: #ffffff"],
+body.dark-mode [style*="background: rgba(255, 255, 255"],
+body.dark-mode [style*="background-color: rgba(255, 255, 255"] {
+  color: #000000 !important;
+}
+
+body.dark-mode [style*="background: white"] *,
+body.dark-mode [style*="background: #fff"] *,
+body.dark-mode [style*="background: #ffffff"] *,
+body.dark-mode [style*="background-color: white"] *,
+body.dark-mode [style*="background-color: #fff"] *,
+body.dark-mode [style*="background-color: #ffffff"] *,
+body.dark-mode [style*="background: rgba(255, 255, 255"] *,
+body.dark-mode [style*="background-color: rgba(255, 255, 255"] * {
+  color: #000000 !important;
+}
+
+/* Modal bodies with white backgrounds */
+body.dark-mode .modal-body[style*="background: white"],
+body.dark-mode .modal-body[style*="background: #fff"],
+body.dark-mode .modal-body[style*="background: #ffffff"],
+body.dark-mode .modal-content[style*="background: white"],
+body.dark-mode .modal-content[style*="background: #fff"],
+body.dark-mode .modal-content[style*="background: #ffffff"] {
+  color: #000000 !important;
+}
+
+body.dark-mode .modal-body[style*="background: white"] *,
+body.dark-mode .modal-body[style*="background: #fff"] *,
+body.dark-mode .modal-body[style*="background: #ffffff"] *,
+body.dark-mode .modal-content[style*="background: white"] *,
+body.dark-mode .modal-content[style*="background: #fff"] *,
+body.dark-mode .modal-content[style*="background: #ffffff"] * {
+  color: #000000 !important;
+}
+
+/* ============================================
+   DARK MODE: FORCE BLACK TEXT ON WHITE/LIGHT BACKGROUNDS
+   ============================================ */
+
+/* Bootstrap white/light background classes - only if actually white */
+/* In dark mode, bg-light becomes dark, so text should be white */
+body.dark-mode .bg-white:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]),
+body.dark-mode .bg-white:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) * {
+  color: #000000 !important;
+}
+
+/* bg-light in dark mode has dark background, so text should be white */
+body.dark-mode .bg-light,
+body.dark-mode .bg-light * {
+  color: #ffffff !important;
+}
+
+/* Bootstrap cards with default white background - only if actually white */
+/* EXCLUDE profile-modal cards */
+body.dark-mode .card:not(.profile-card):not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]),
+body.dark-mode .card:not(.profile-card):not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) *:not([class*="text-gold"]):not([class*="text-success"]):not([class*="text-danger"]) {
+  color: #000000 !important;
+}
+
+/* Profile cards should have white text */
+body.dark-mode .profile-card,
+body.dark-mode .profile-card * {
+  color: #ffffff !important;
+}
+
+/* Profile close button - make visible in dark mode (base styles - enhanced version below) */
+/* Enhanced profile close button - transparent background in dark mode */
+body.dark-mode .profile-close-btn,
+body.dark-mode .profile-close-btn .btn,
+body.dark-mode .profile-close-btn .btn-light,
+body.dark-mode .profile-close-btn .btn-circle {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  z-index: 1000 !important;
+}
+
+body.dark-mode .profile-close-btn .btn i,
+body.dark-mode .profile-close-btn .btn-light i,
+body.dark-mode .profile-close-btn .fas.fa-times,
+body.dark-mode .profile-close-btn i.fa-times {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 1.2rem !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  filter: none;
+}
+
+body.dark-mode .profile-close-btn .btn:hover,
+body.dark-mode .profile-close-btn .btn-light:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  transform: scale(1.15) rotate(90deg) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+body.dark-mode .profile-close-btn .btn:hover i,
+body.dark-mode .profile-close-btn .btn-light:hover i {
+  color: #ffffff !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  filter: none;
+}
+
+/* Bootstrap modal content (default white) - force black text only on white backgrounds */
+/* EXCLUDE profile-modal from this rule */
+body.dark-mode .modal-content:not(.profile-shell):not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]):not([style*="background: rgba(1a"]),
+body.dark-mode .modal-content:not(.profile-shell):not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]):not([style*="background: rgba(1a"]) *:not(.modal-header *):not([class*="text-gold"]):not([class*="text-success"]):not([class*="text-danger"]):not([class*="text-warning"]):not([class*="text-info"]) {
+  color: #000000 !important;
+}
+
+/* Bootstrap list group items - only if they have white/light background */
+body.dark-mode .list-group-item:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]),
+body.dark-mode .list-group-item:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) * {
+  color: #000000 !important;
+}
+
+/* Bootstrap alert with light backgrounds */
+body.dark-mode .alert:not(.alert-dark):not(.alert-secondary),
+body.dark-mode .alert:not(.alert-dark):not(.alert-secondary) * {
+  color: #000000 !important;
+}
+
+/* Alert info specifically - should have readable text */
+body.dark-mode .modal-content .alert-info,
+body.dark-mode .modal-content .alert-info * {
+  color: #0c5460 !important;
+}
+
+body.dark-mode .modal-content .alert-info strong {
+  color: #000000 !important;
+  font-weight: 700;
+}
+
+/* Booking summary in white modals - only apply black text if modal-content is white */
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .booking-summary,
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .booking-summary *,
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .summary-row,
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .summary-row *,
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .summary-row span {
+  color: #000000 !important;
+}
+
+/* Price total should be gold, not black */
+body.dark-mode .modal-content .price-total {
+  color: var(--gold) !important;
+}
+
+body.dark-mode .modal-content .price-total span {
+  color: var(--gold) !important;
+}
+
+/* Profile Modal - Ensure all text is white in dark mode (override any black text rules) */
+body.dark-mode .profile-modal,
+body.dark-mode .profile-modal *,
+body.dark-mode .profile-modal p,
+body.dark-mode .profile-modal span,
+body.dark-mode .profile-modal div,
+body.dark-mode .profile-modal label,
+body.dark-mode .profile-modal h1,
+body.dark-mode .profile-modal h2,
+body.dark-mode .profile-modal h3,
+body.dark-mode .profile-modal h4,
+body.dark-mode .profile-modal h5,
+body.dark-mode .profile-modal h6 {
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal .profile-input,
+body.dark-mode .profile-modal .form-control.profile-input,
+body.dark-mode .profile-modal .form-select.profile-input,
+body.dark-mode .profile-modal input.profile-input,
+body.dark-mode .profile-modal textarea.profile-input,
+body.dark-mode .profile-modal select.profile-input {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #2a2a2a !important;
+  border-color: #555 !important;
+}
+
+body.dark-mode .profile-modal .profile-input::placeholder,
+body.dark-mode .profile-modal .form-control.profile-input::placeholder,
+body.dark-mode .profile-modal textarea.profile-input::placeholder {
+  color: #999 !important;
+  opacity: 1 !important;
+}
+
+body.dark-mode .profile-modal .profile-input:focus,
+body.dark-mode .profile-modal .form-control.profile-input:focus,
+body.dark-mode .profile-modal .form-select.profile-input:focus {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: #2a2a2a !important;
+  border-color: var(--gold) !important;
+}
+
+body.dark-mode .profile-modal .profile-input option {
+  background: #2a2a2a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal .profile-field-label {
+  color: #ffffff !important;
+}
+
+/* Profile Info Section - Ensure all text is visible */
+body.dark-mode .profile-info,
+body.dark-mode .profile-info *,
+body.dark-mode .profile-info h3,
+body.dark-mode .profile-info p,
+body.dark-mode .profile-info .text-muted,
+body.dark-mode .profile-info i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-info .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Profile Stats - Make all text visible */
+body.dark-mode .profile-stats .stat-value {
+  background: linear-gradient(135deg, #ffd700 0%, var(--gold) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  color: var(--gold) !important;
+}
+
+body.dark-mode .profile-stats .stat-label {
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* Profile Avatar Text */
+/* Profile avatar fallback - black text in light mode for visibility */
+.profile-avatar-fallback {
+  color: #000000 !important;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Profile avatar fallback - white text in dark mode for visibility */
+body.dark-mode .profile-avatar,
+body.dark-mode .profile-avatar *,
+body.dark-mode .profile-avatar-fallback {
+  color: #ffffff !important;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7), 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Profile Tabs - Make text visible */
+body.dark-mode .profile-tabs,
+body.dark-mode .profile-tabs .nav-link,
+body.dark-mode .profile-tabs .nav-link i {
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-tabs .nav-link {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .profile-tabs .nav-link.active,
+body.dark-mode .profile-tabs .nav-link.active i {
+  color: var(--gold) !important;
+}
+
+body.dark-mode .profile-tabs .nav-link:hover {
+  color: var(--gold) !important;
+}
+
+/* Booking Cards in Profile */
+body.dark-mode .booking-card,
+body.dark-mode .booking-card *,
+body.dark-mode .booking-card h5,
+body.dark-mode .booking-card p,
+body.dark-mode .booking-card .text-muted,
+body.dark-mode .booking-card small {
+  color: #ffffff !important;
+}
+
+body.dark-mode .booking-card .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Empty State */
+body.dark-mode .empty-state,
+body.dark-mode .empty-state *,
+body.dark-mode .empty-state p,
+body.dark-mode .empty-state .text-muted {
+  color: #ffffff !important;
+}
+
+body.dark-mode .empty-state .text-muted {
+  color: #b0b0b0 !important;
+}
+
+body.dark-mode .empty-icon {
+  color: var(--gold) !important;
+}
+
+/* Buttons in Profile */
+body.dark-mode .profile-card .btn,
+body.dark-mode .profile-card .btn i {
+  color: inherit !important;
+}
+
+body.dark-mode .profile-card .btn-outline-secondary {
+  color: #ffffff !important;
+  border-color: #666 !important;
+}
+
+body.dark-mode .profile-card .btn-outline-secondary:hover {
+  background: #666 !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal .form-control,
+body.dark-mode .profile-modal .form-select,
+body.dark-mode .profile-modal input,
+body.dark-mode .profile-modal textarea,
+body.dark-mode .profile-modal select {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+/* Profile shell - ensure dark background and white text - HIGHEST PRIORITY */
+body.dark-mode .profile-shell {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal .modal-content {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal .modal-body {
+  background: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-shell *,
+body.dark-mode .profile-shell p,
+body.dark-mode .profile-shell span,
+body.dark-mode .profile-shell div,
+body.dark-mode .profile-shell label,
+body.dark-mode .profile-shell h1,
+body.dark-mode .profile-shell h2,
+body.dark-mode .profile-shell h3,
+body.dark-mode .profile-shell h4,
+body.dark-mode .profile-shell h5,
+body.dark-mode .profile-shell h6,
+body.dark-mode .profile-shell a,
+body.dark-mode .profile-shell button:not(.btn-gold):not(.btn-outline-gold) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-shell .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Override ANY white background rules for profile modal - highest specificity */
+body.dark-mode .profile-modal .modal-content.profile-shell,
+body.dark-mode .profile-modal .modal-content.profile-shell *,
+body.dark-mode .profile-modal .modal-content,
+body.dark-mode .profile-modal .modal-content *,
+body.dark-mode .profile-modal .modal-body,
+body.dark-mode .profile-modal .modal-body * {
+  color: #ffffff !important;
+}
+
+/* Ensure profile modal is excluded from white background black text rules */
+body.dark-mode .profile-modal .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) * {
+  color: #ffffff !important;
+}
+
+/* Profile modal - force white text always in dark mode - override everything */
+body.dark-mode .profile-modal,
+body.dark-mode .profile-modal .modal-content,
+body.dark-mode .profile-modal .modal-body,
+body.dark-mode .profile-modal .profile-card,
+body.dark-mode .profile-modal .profile-info,
+body.dark-mode .profile-modal .profile-stats,
+body.dark-mode .profile-modal .profile-tabs,
+body.dark-mode .profile-modal .tab-content,
+body.dark-mode .profile-modal .profile-field-label {
+  color: #ffffff !important;
+}
+
+body.dark-mode .profile-modal *:not(.btn-gold):not(.btn-gold *):not(.btn-outline-gold):not(.btn-outline-gold *):not([class*="text-gold"]):not([class*="text-success"]):not([class*="text-danger"]):not([class*="text-warning"]):not([class*="text-info"]) {
+  color: #ffffff !important;
+}
+
+/* Modal body text on white modals - only if modal-content is white */
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .modal-body,
+body.dark-mode .modal-content:not([style*="background: #1"]):not([style*="background: #2"]):not([style*="background: #0"]):not([style*="background: rgba(0"]):not([style*="background: rgba(26"]):not([style*="background: rgba(42"]) .modal-body *:not(.modal-header *):not([class*="text-gold"]) {
+  color: #000000 !important;
+}
+
+/* Text muted should be darker on white backgrounds */
+body.dark-mode .modal-content .text-muted,
+body.dark-mode .card .text-muted,
+body.dark-mode .bg-white .text-muted,
+body.dark-mode .bg-light .text-muted {
+  color: #666666 !important;
+}
+
+/* Headings on white backgrounds */
+body.dark-mode .modal-content h1,
+body.dark-mode .modal-content h2,
+body.dark-mode .modal-content h3,
+body.dark-mode .modal-content h4,
+body.dark-mode .modal-content h5,
+body.dark-mode .modal-content h6,
+body.dark-mode .card h1,
+body.dark-mode .card h2,
+body.dark-mode .card h3,
+body.dark-mode .card h4,
+body.dark-mode .card h5,
+body.dark-mode .card h6 {
+  color: #000000 !important;
+}
+
+/* Strong and bold text on white backgrounds */
+body.dark-mode .modal-content strong,
+body.dark-mode .modal-content b,
+body.dark-mode .card strong,
+body.dark-mode .card b {
+  color: #000000 !important;
+}
+
+/* But keep gold/colored text visible */
+body.dark-mode .modal-content .text-gold,
+body.dark-mode .modal-content .price-total,
+body.dark-mode .card .text-gold {
+  color: var(--gold) !important;
+}
+
+/* Modal header (gold background) should keep white text */
+body.dark-mode .modal-header,
+body.dark-mode .modal-header *,
+body.dark-mode .modal-header .modal-title {
+  color: #ffffff !important;
+}
+
+/* Override for elements that should remain white (dark backgrounds) */
+body.dark-mode .modal-content[style*="background: #1"],
+body.dark-mode .modal-content[style*="background: #2"],
+body.dark-mode .modal-content[style*="background: #0"],
+body.dark-mode .modal-content[style*="background: rgba(0"],
+body.dark-mode .modal-content[style*="background: rgba(26"],
+body.dark-mode .modal-content[style*="background: rgba(42"] {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-content[style*="background: #1"] *,
+body.dark-mode .modal-content[style*="background: #2"] *,
+body.dark-mode .modal-content[style*="background: #0"] *,
+body.dark-mode .modal-content[style*="background: rgba(0"] *,
+body.dark-mode .modal-content[style*="background: rgba(26"] *,
+body.dark-mode .modal-content[style*="background: rgba(42"] * {
+  color: #ffffff !important;
+}
+
+/* ============================================
+   NOTIFICATION WIDGET
+   ============================================ */
+
+.notification-widget {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  min-width: 300px;
+  max-width: 400px;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(400px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.notification-widget.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  position: relative;
+}
+
+.notification-content i {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.notification-widget.info .notification-content i {
+  color: #0dcaf0;
+}
+
+.notification-widget.success .notification-content i {
+  color: #198754;
+}
+
+.notification-widget.warning .notification-content i {
+  color: #ffc107;
+}
+
+.notification-widget.error .notification-content i {
+  color: #dc3545;
+}
+
+.notification-message {
+  flex: 1;
+  color: var(--black);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.notification-close {
+  background: none;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.notification-close:hover {
+  color: var(--black);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode notification */
+body.dark-mode .notification-widget {
+  background: #1a1a1a;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.2);
+}
+
+body.dark-mode .notification-message {
+  color: #ffffff !important;
+}
+
+body.dark-mode .notification-close {
+  color: #b0b0b0;
+}
+
+body.dark-mode .notification-close:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ============================================
+   PROFILE MODAL - AMAZING ANIMATIONS & WIDGETS
+   ============================================ */
+
+/* Profile Modal Base Styles */
+.profile-modal {
+  animation: profileModalFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-modal.show .modal-dialog {
+  animation: profileModalSlideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.profile-shell {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(212, 175, 55, 0.1);
+}
+
+body.dark-mode .profile-shell {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(212, 175, 55, 0.3);
+}
+
+/* Animated Cover Background */
+.profile-cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--deep-gold) 50%, var(--gold) 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+  opacity: 0.1;
+  z-index: 0;
+}
+
+body.dark-mode .profile-cover {
+  opacity: 0.15;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--deep-gold) 50%, var(--gold) 100%);
+}
+
+/* Profile Body */
+.profile-body {
+  position: relative;
+  z-index: 2;
+  padding: 2rem;
+}
+
+/* Profile Cards with Staggered Animation */
+.profile-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  animation: profileCardFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+.profile-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.profile-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.profile-card:hover::before {
+  left: 100%;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 48px rgba(212, 175, 55, 0.2);
+}
+
+body.dark-mode .profile-card {
+  background: rgba(26, 26, 26, 0.95);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .profile-card:hover {
+  box-shadow: 0 12px 48px rgba(212, 175, 55, 0.3);
+}
+
+/* Profile Avatar with Pulse Animation */
+.profile-avatar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  animation: avatarFloat 3s ease-in-out infinite;
+}
+
+.profile-avatar img,
+.profile-avatar-fallback {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2), 0 8px 24px rgba(212, 175, 55, 0.3);
+  animation: avatarPulse 2s ease-in-out infinite;
+  transition: all 0.3s ease;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-avatar:hover img,
+.profile-avatar:hover .profile-avatar-fallback {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.3), 0 12px 32px rgba(212, 175, 55, 0.4);
+}
+
+.profile-avatar-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--deep-gold) 100%);
+  color: #000000 !important;
+  font-size: 3rem;
+  font-weight: 900 !important;
+  text-transform: uppercase;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.6), 0 0 8px rgba(255, 255, 255, 0.3);
+  position: relative;
+  letter-spacing: 2px;
+}
+
+/* Profile Stats with Counter Animation */
+.profile-stats {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(212, 175, 55, 0.15) 100%);
+  border-radius: 12px;
+  border: 2px solid rgba(212, 175, 55, 0.3);
+  animation: statsFadeIn 0.8s ease backwards;
+  animation-delay: 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .profile-stats {
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(212, 175, 55, 0.25) 100%) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+}
+
+/* Ensure all text in profile-stats is visible in light mode */
+.profile-stats * {
+  color: inherit;
+}
+
+.profile-stats .stat-label {
+  color: #1a1a1a !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure all text in profile-stats is visible in dark mode */
+body.dark-mode .profile-stats * {
+  color: inherit;
+}
+
+.profile-stats > div {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: numberCountUp 1s ease-out;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Ensure stat-value is visible in both light and dark modes */
+body.dark-mode .stat-value {
+  background: linear-gradient(135deg, #ffd700 0%, var(--gold) 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  color: #1a1a1a !important;
+  margin-top: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .stat-label {
+  color: #ffffff !important;
+}
+
+/* Profile Tabs with Slide Animation */
+.profile-tabs {
+  border-bottom: 2px solid rgba(212, 175, 55, 0.1);
+  position: relative;
+}
+
+.profile-tabs .nav-link {
+  position: relative;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.75rem 1.5rem;
+  color: var(--gray);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-right: 0.5rem;
+  background: transparent;
+}
+
+.profile-tabs .nav-link:hover {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.05);
+  transform: translateY(-2px);
+}
+
+.profile-tabs .nav-link.active {
+  color: var(--gold);
+  background: rgba(212, 175, 55, 0.1);
+  font-weight: 600;
+}
+
+.profile-tabs .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--deep-gold) 100%);
+  border-radius: 2px 2px 0 0;
+  animation: tabIndicatorSlide 0.3s ease;
+}
+
+/* Tab Content Animation */
+.tab-content {
+  position: relative;
+  min-height: 300px;
+}
+
+.tab-pane {
+  animation: tabContentFadeIn 0.4s ease;
+}
+
+.tab-pane.active {
+  animation: tabContentSlideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Form Inputs with Focus Animation */
+.profile-input {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+
+.profile-input:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1), 0 4px 12px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.profile-field-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--black);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.profile-input:focus + .profile-field-label,
+.profile-input:focus ~ .profile-field-label {
+  color: var(--gold);
+}
+
+/* Buttons with Ripple Effect */
+.profile-card .btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-card .btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.profile-card .btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.profile-card .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.3);
+}
+
+.profile-card .btn:active {
+  transform: translateY(0);
+}
+
+/* Booking Cards Animation */
+.booking-card {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: bookingCardFadeIn 0.5s ease backwards;
+}
+
+/* Booking Card - Light Mode (Black Text) */
+.booking-card,
+.booking-card *,
+.booking-card h5,
+.booking-card p,
+.booking-card strong,
+.booking-card .text-muted,
+.booking-card small {
+  color: #000000 !important;
+}
+
+.booking-card .text-muted {
+  color: #666666 !important;
+}
+
+.booking-card:nth-child(1) { animation-delay: 0.1s; }
+.booking-card:nth-child(2) { animation-delay: 0.2s; }
+.booking-card:nth-child(3) { animation-delay: 0.3s; }
+.booking-card:nth-child(4) { animation-delay: 0.4s; }
+
+.booking-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+  border-color: var(--gold);
+}
+
+/* Booking Card - Dark Mode (White Text) */
+body.dark-mode .booking-card {
+  background: rgba(42, 42, 42, 0.5);
+  border-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Empty State Animation */
+.empty-state {
+  padding: 3rem 2rem;
+  animation: emptyStateFadeIn 0.6s ease;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.3;
+  animation: emptyIconPulse 2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+/* Close Button Animation */
+.profile-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  animation: closeButtonFadeIn 0.5s ease backwards;
+  animation-delay: 0.3s;
+}
+
+.profile-close-btn .btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.profile-close-btn .btn:hover {
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Keyframe Animations */
+@keyframes profileModalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes profileModalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes profileCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes avatarFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes avatarPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2), 0 8px 24px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, 0.3), 0 12px 32px rgba(212, 175, 55, 0.4);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes statsFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes numberCountUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tabIndicatorSlide {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes tabContentFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes tabContentSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bookingCardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes emptyStateFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes emptyIconPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.5;
+  }
+}
+
+@keyframes closeButtonFadeIn {
+  from {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+/* Floating Particles */
+.profile-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: particleFloat 15s infinite ease-in-out;
+}
+
+.particle:nth-child(1) {
+  left: 10%;
+  top: 20%;
+  animation-delay: 0s;
+  animation-duration: 12s;
+}
+
+.particle:nth-child(2) {
+  left: 20%;
+  top: 60%;
+  animation-delay: 2s;
+  animation-duration: 15s;
+}
+
+.particle:nth-child(3) {
+  left: 50%;
+  top: 10%;
+  animation-delay: 4s;
+  animation-duration: 18s;
+}
+
+.particle:nth-child(4) {
+  left: 70%;
+  top: 40%;
+  animation-delay: 1s;
+  animation-duration: 14s;
+}
+
+.particle:nth-child(5) {
+  left: 85%;
+  top: 80%;
+  animation-delay: 3s;
+  animation-duration: 16s;
+}
+
+.particle:nth-child(6) {
+  left: 40%;
+  top: 90%;
+  animation-delay: 5s;
+  animation-duration: 13s;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translate(20px, -30px) scale(1.2);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-15px, -50px) scale(0.8);
+    opacity: 0.4;
+  }
+  75% {
+    transform: translate(30px, -20px) scale(1.1);
+    opacity: 0.6;
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .profile-stats {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+  }
+  
+  .profile-avatar img,
+  .profile-avatar-fallback {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .particle {
+    display: none;
+  }
+}
+
+/* ============================================
+   FINAL OVERRIDE: ALL TEXT WHITE IN DARK MODE
+   FOR MY BOOKINGS AND WISHLIST MODALS
+   ============================================ */
+
+/* Maximum specificity override for My Bookings modal */
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .dashboard-card,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .dashboard-card *:not(img):not(svg):not(path):not(canvas) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .dashboard-card .text-muted * {
+  color: #b0b0b0 !important;
+}
+
+/* Maximum specificity override for Wishlist modal */
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .room-card,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .room-card *,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .room-card *:not(img):not(svg):not(path):not(canvas) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .room-card .text-muted,
+body.dark-mode .modal-luxury.modal.show .modal-dialog .modal-content .modal-body .room-card .text-muted * {
+  color: #b0b0b0 !important;
+}
+
+/* Override for when modal is shown via ng-class */
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .dashboard-card,
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .dashboard-card *,
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .room-card,
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .room-card * {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .dashboard-card .text-muted,
+body.dark-mode .modal-luxury[ng-class*="show"] .modal-body .room-card .text-muted {
+  color: #b0b0b0 !important;
+}
+
+/* Universal override for all text in modal body when dark mode is active */
+body.dark-mode .modal-luxury .modal-body .dashboard-card,
+body.dark-mode .modal-luxury .modal-body .dashboard-card *:not(img):not(svg):not(path):not(canvas):not(video):not(iframe),
+body.dark-mode .modal-luxury .modal-body .room-card,
+body.dark-mode .modal-luxury .modal-body .room-card *:not(img):not(svg):not(path):not(canvas):not(video):not(iframe) {
+  color: #ffffff !important;
+}
+
+body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted *:not(img):not(svg):not(path):not(canvas):not(video):not(iframe),
+body.dark-mode .modal-luxury .modal-body .room-card .text-muted *:not(img):not(svg):not(path):not(canvas):not(video):not(iframe) {
+  color: #b0b0b0 !important;
 }

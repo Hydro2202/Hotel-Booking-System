@@ -156,7 +156,13 @@
   <!-- ============================================
        HERO SECTION
        ============================================ -->
-  <section class="hero-section parallax" id="home" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&h=1080&fit=crop') center/cover;">
+  <section class="hero-section parallax" id="home" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&h=1080&fit=crop') center/cover;" ng-mousemove="vm.onHeroMouseMove($event)" ng-mouseleave="vm.onHeroMouseLeave()" ng-click="vm.createWaterRipple($event)">
+    <div class="liquid-blob-container">
+      <div class="liquid-blob blob-1"></div>
+      <div class="liquid-blob blob-2"></div>
+      <div class="liquid-blob blob-3"></div>
+    </div>
+    <div class="water-ripple-container"></div>
     <div class="hero-content fade-in">
       <h1 class="hero-title">{{vm.t('welcomeTo')}} <span class="hero-highlight">StayUp</span></h1>
       <p class="hero-subtitle">{{vm.t('experienceLuxury')}}</p>
@@ -324,11 +330,6 @@
             <option value="newest">{{vm.t('newestFirst')}}</option>
           </select>
         </div>
-        <div>
-          <button class="btn btn-outline-gold btn-sm" ng-click="vm.openComparison()" ng-if="vm.compareRooms.length >= 2">
-            <i class="fas fa-balance-scale me-2"></i>{{vm.t('compare')}} ({{vm.compareRooms.length}})
-          </button>
-        </div>
         </div>
 
       <!-- Room Cards -->
@@ -357,11 +358,6 @@
                 </button>
                 <button class="btn btn-gold flex-fill btn-ripple btn-glow" ng-click="vm.openBookingModal(room)">
                   <i class="fas fa-calendar-check me-2"></i>{{vm.t('bookNow')}}
-                </button>
-              </div>
-              <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-outline-secondary flex-fill" ng-click="vm.addToCompare(room)" ng-disabled="vm.compareRooms.length >= vm.maxCompare || vm.compareRooms.find(function(r) { return r.id === room.id; })">
-                  <i class="fas fa-balance-scale me-1"></i>{{vm.t('compare')}}
                 </button>
               </div>
             </div>
@@ -567,12 +563,14 @@
         <div class="col-lg-4 mb-4">
           <h5>StayUp</h5>
           <p>{{vm.t('footerDescription')}}</p>
-          <div class="footer-social">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+          <div class="developers-section">
+            <h6 style="color: var(--gold); margin-top: 1.5rem; margin-bottom: 0.75rem;">Developers</h6>
+            <ul style="list-style: none; padding: 0; margin: 0;">
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Raiden Villapando</li>
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Yuan Philip Cortez</li>
+              <li style="margin-bottom: 0.5rem; color: var(--white);">Mharon Irvin Vergara</li>
+            </ul>
+          </div>
             </div>
         <div class="col-lg-2 col-md-6 mb-4">
           <h5>{{vm.t('quickLinks')}}</h5>
@@ -596,8 +594,8 @@
           <h5>{{vm.t('newsletterHeading')}}</h5>
           <p>{{vm.t('newsletterText')}}</p>
           <div class="input-group">
-            <input type="email" class="form-control" ng-attr-placeholder="{{vm.t('newsletterPlaceholder')}}">
-            <button class="btn btn-gold" type="button">{{vm.t('newsletterButton')}}</button>
+            <input type="email" class="form-control" ng-model="vm.newsletterEmail" ng-attr-placeholder="{{vm.t('newsletterPlaceholder')}}" ng-keyup="$event.key === 'Enter' && vm.subscribeNewsletter()">
+            <button class="btn btn-gold" type="button" ng-click="vm.subscribeNewsletter()">{{vm.t('newsletterButton')}}</button>
               </div>
             </div>
               </div>
@@ -611,25 +609,38 @@
   <!-- ============================================
        FLOATING ACTION BUTTON
        ============================================ -->
-  <div class="fab" ng-click="vm.toggleFABMenu()">
+  <div class="fab" ng-click="vm.toggleFABMenu(); $event.stopPropagation()">
     <i class="fas fa-plus"></i>
-    <div class="fab-menu" ng-class="{'show': vm.showFABMenu}">
-      <div class="fab-item" ng-click="vm.openBookingModal(); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabBookTitle')}}">
+    <div class="fab-menu" ng-class="{'show': vm.showFABMenu}" ng-click="$event.stopPropagation()">
+      <div class="fab-item" ng-click="vm.openBookingModal(); vm.showFABMenu = false; $event.stopPropagation()" ng-attr-title="{{vm.t('fabBookTitle')}}">
         <i class="fas fa-calendar-check"></i>
       </div>
-      <div class="fab-item" ng-click="vm.toggleChat(); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabChatTitle')}}">
+      <div class="fab-item" ng-click="vm.toggleChat(); vm.showFABMenu = false; $event.stopPropagation()" ng-attr-title="{{vm.t('fabChatTitle')}}">
         <i class="fas fa-comments"></i>
       </div>
-      <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false" ng-attr-title="{{vm.t('fabContactTitle')}}">
+      <div class="fab-item" ng-click="vm.scrollToSection('contact'); vm.showFABMenu = false; $event.stopPropagation()" ng-attr-title="{{vm.t('fabContactTitle')}}">
         <i class="fas fa-phone"></i>
       </div>
     </div>
   </div>
 
   <!-- ============================================
+       NOTIFICATION WIDGET
+       ============================================ -->
+  <div class="notification-widget" ng-class="{'show': vm.notification.show, 'info': vm.notification.type === 'info', 'success': vm.notification.type === 'success', 'warning': vm.notification.type === 'warning', 'error': vm.notification.type === 'error'}">
+    <div class="notification-content">
+      <i class="fas" ng-class="{'fa-info-circle': vm.notification.type === 'info', 'fa-check-circle': vm.notification.type === 'success', 'fa-exclamation-triangle': vm.notification.type === 'warning', 'fa-times-circle': vm.notification.type === 'error'}"></i>
+      <span class="notification-message">{{vm.notification.message}}</span>
+      <button class="notification-close" ng-click="vm.hideNotification()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================
        FLOATING CHAT ICON (when minimized)
        ============================================ -->
-  <div class="chat-floating-icon" ng-class="{'show': vm.chatMinimized && vm.showChat}" ng-click="vm.minimizeChat()" ng-attr-title="{{vm.t('chatIconTooltip')}}">
+  <div class="chat-floating-icon" ng-class="{'show': vm.chatMinimized && vm.showChat}" ng-click="vm.restoreChat()" ng-attr-title="{{vm.t('chatIconTooltip')}}">
     <i class="fas fa-comments"></i>
     <span class="chat-notification-badge" ng-if="vm.unreadMessages > 0">{{vm.unreadMessages}}</span>
   </div>
@@ -637,7 +648,7 @@
   <!-- ============================================
        LIVE CHAT WIDGET
        ============================================ -->
-  <div class="chat-widget" ng-class="{'show': vm.showChat && !vm.chatMinimized, 'minimized': vm.chatMinimized, 'maximized': vm.chatMaximized}">
+  <div class="chat-widget" ng-class="{'show': vm.showChat && !vm.chatMinimized, 'minimized': vm.chatMinimized}">
     <div class="chat-window-header">
       <div class="chat-window-title">
         <i class="fas fa-comments me-2"></i>
@@ -646,9 +657,6 @@
       <div class="chat-window-controls">
         <button class="chat-window-btn chat-minimize-btn" ng-click="vm.minimizeChat()" ng-attr-aria-label="{{vm.t('chatMinimize')}}" ng-attr-title="{{vm.t('chatMinimize')}}">
           <i class="fas fa-minus"></i>
-        </button>
-        <button class="chat-window-btn chat-maximize-btn" ng-click="vm.maximizeChat()" ng-attr-aria-label="{{vm.t('chatMaximize')}}" ng-attr-title="{{vm.t('chatMaximize')}}">
-          <i class="fas" ng-class="{'fa-square': !vm.chatMaximized, 'fa-window-restore': vm.chatMaximized}"></i>
         </button>
         <button class="chat-window-btn chat-close-btn" ng-click="vm.toggleChat()" ng-attr-aria-label="{{vm.t('chatClose')}}" ng-attr-title="{{vm.t('chatClose')}}">
           <i class="fas fa-times"></i>
@@ -791,6 +799,27 @@
               <textarea class="form-control" rows="3" ng-model="vm.bookingForm.specialRequests" ng-attr-placeholder="{{vm.t('anySpecialRequests')}}"></textarea>
             </div>
             
+            <!-- Price Display -->
+            <div class="price-summary mb-3" ng-if="vm.bookingForm.roomType && vm.totalPrice > 0">
+              <h5 class="mb-3">{{vm.t('priceSummary')}}</h5>
+              <div class="price-row">
+                <span>{{vm.bookingForm.roomType}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
+                <span>₱{{(vm.totalPrice / (vm.totalNights || 1)) | number}} {{vm.t('perNight')}}</span>
+              </div>
+              <div class="price-row" ng-if="vm.totalNights > 0">
+                <span>{{vm.t('subtotal')}} ({{vm.totalNights}} {{vm.totalNights === 1 ? vm.t('night') : vm.t('nights')}})</span>
+                <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+              <div class="price-row">
+                <span>{{vm.t('taxesFees')}}</span>
+                <span>{{vm.t('included')}}</span>
+              </div>
+              <div class="price-total">
+                <span>{{vm.t('total')}}:</span>
+                <span>₱{{vm.totalPrice | number}}</span>
+              </div>
+            </div>
+            
             <!-- Discount Code -->
             <div class="mb-3">
               <label class="form-label">{{vm.t('discountCode')}}</label>
@@ -826,7 +855,7 @@
               <button type="button" class="btn btn-outline-gold" ng-click="vm.showSummary()" ng-if="!vm.showBookingSummary">
                 <i class="fas fa-eye me-2"></i>{{vm.t('viewSummary')}}
               </button>
-              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.showPaymentModal = true">
+              <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-if="!vm.showBookingSummary" ng-click="vm.proceedToPayment()">
                 <i class="fas fa-check me-2"></i>{{vm.t('proceedToPayment')}}
               </button>
             </div>
@@ -949,9 +978,37 @@
         </div>
 
           <div ng-if="vm.selectedPaymentMethod && vm.selectedPaymentMethod !== 'Card'">
-            <div class="alert alert-info">
+            <div class="alert alert-info mb-3">
               <i class="fas fa-info-circle me-2"></i>
               {{vm.tReplace('redirectMessage', {method: vm.selectedPaymentMethod})}}
+            </div>
+            
+            <!-- Account Number Input for GCash, Maya, PayPal -->
+            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'GCash' || vm.selectedPaymentMethod === 'Maya'">
+              <label class="form-label">{{vm.selectedPaymentMethod}} {{vm.t('accountNumber')}} *</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                ng-class="{'is-invalid': vm.paymentErrors.accountNumber}"
+                ng-model="vm.paymentForm.accountNumber" 
+                ng-keyup="vm.formatAccountNumber()"
+                ng-attr-placeholder="09XX XXX XXXX"
+                maxlength="13"
+                pattern="[0-9\s]+">
+              <small class="text-danger" ng-if="vm.paymentErrors.accountNumber">{{vm.paymentErrors.accountNumber}}</small>
+              <small class="text-muted">{{vm.t('enterAccountNumber')}}</small>
+            </div>
+            
+            <div class="mb-3" ng-if="vm.selectedPaymentMethod === 'PayPal'">
+              <label class="form-label">PayPal {{vm.t('email')}} *</label>
+              <input 
+                type="email" 
+                class="form-control" 
+                ng-class="{'is-invalid': vm.paymentErrors.paypalEmail}"
+                ng-model="vm.paymentForm.paypalEmail" 
+                placeholder="your.email@example.com">
+              <small class="text-danger" ng-if="vm.paymentErrors.paypalEmail">{{vm.paymentErrors.paypalEmail}}</small>
+              <small class="text-muted">{{vm.t('enterPayPalEmail')}}</small>
             </div>
           </div>
 
@@ -975,6 +1032,40 @@
   <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentModal}" ng-if="vm.showPaymentModal" ng-click="vm.showPaymentModal = false" style="z-index: 1055;"></div>
 
   <!-- ============================================
+       LOGIN PROMPT MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showLoginPromptModal}" ng-style="{'display': vm.showLoginPromptModal ? 'block' : 'none'}" ng-if="vm.showLoginPromptModal" style="z-index: 1065;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{vm.t('loginRequired')}}</h5>
+          <button type="button" class="btn-close" ng-click="vm.closeLoginPrompt()"></button>
+        </div>
+        <div class="modal-body text-center" style="padding: 2rem;">
+          <div class="mb-4">
+            <i class="fas fa-lock" style="font-size: 3rem; color: var(--gold); margin-bottom: 1rem;"></i>
+            <h4 class="mb-3 login-prompt-title" style="font-family: 'Playfair Display', serif;">
+              {{vm.t('pleaseLoginFirst')}}
+            </h4>
+            <p class="text-muted mb-4 login-prompt-text" style="line-height: 1.6;">
+              {{vm.t('loginToBookMessage')}}
+            </p>
+          </div>
+          <div class="d-flex gap-2 justify-content-center">
+            <button type="button" class="btn btn-gold btn-ripple btn-glow" ng-click="vm.goToLoginPage()">
+              <i class="fas fa-sign-in-alt me-2"></i>{{vm.t('loginNow')}}
+            </button>
+            <button type="button" class="btn btn-outline-gold btn-ripple btn-glow" ng-click="vm.goToRegisterPage()">
+              <i class="fas fa-user-plus me-2"></i>{{vm.t('createAccount')}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showLoginPromptModal}" ng-if="vm.showLoginPromptModal" ng-click="vm.closeLoginPrompt()" style="z-index: 1060;"></div>
+
+  <!-- ============================================
        PAYMENT SUCCESS MODAL
        ============================================ -->
   <div class="modal fade modal-luxury" ng-class="{'show': vm.showPaymentSuccess}" ng-style="{'display': vm.showPaymentSuccess ? 'block' : 'none'}" ng-if="vm.showPaymentSuccess" style="z-index: 1070;">
@@ -993,58 +1084,6 @@
     </div>
   </div>
   <div class="modal-backdrop fade" ng-class="{'show': vm.showPaymentSuccess}" ng-if="vm.showPaymentSuccess" style="z-index: 1065;"></div>
-
-  <!-- ============================================
-       ROOM COMPARISON MODAL
-       ============================================ -->
-  <div class="modal fade modal-luxury" ng-class="{'show': vm.showComparison}" ng-style="{'display': vm.showComparison ? 'block' : 'none'}" ng-if="vm.showComparison" style="z-index: 1055;">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{vm.t('compareRooms')}}</h5>
-          <button type="button" class="btn-close" ng-click="vm.showComparison = false"></button>
-        </div>
-        <div class="modal-body">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>{{vm.t('feature')}}</th>
-                <th ng-repeat="room in vm.compareRooms">{{room.name}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>{{vm.t('price')}}</strong></td>
-                <td ng-repeat="room in vm.compareRooms">₱{{room.price | number}}{{vm.t('perNight')}}</td>
-              </tr>
-              <tr>
-                <td><strong>{{vm.t('size')}}</strong></td>
-                <td ng-repeat="room in vm.compareRooms">{{room.size}}</td>
-              </tr>
-              <tr>
-                <td><strong>{{vm.t('maxGuests')}}</strong></td>
-                <td ng-repeat="room in vm.compareRooms">{{room.maxGuests}}</td>
-              </tr>
-              <tr>
-                <td><strong>{{vm.t('amenities')}}</strong></td>
-                <td ng-repeat="room in vm.compareRooms">
-                  <span class="amenity-badge" ng-repeat="amenity in room.amenities">{{amenity}}</span>
-                </td>
-              </tr>
-              <tr>
-                <td><strong>{{vm.t('action')}}</strong></td>
-                <td ng-repeat="room in vm.compareRooms">
-                  <button class="btn btn-gold btn-sm" ng-click="vm.openBookingModal(room); vm.showComparison = false">{{vm.t('bookNow')}}</button>
-                  <button class="btn btn-outline-secondary btn-sm" ng-click="vm.removeFromCompare(room)">{{vm.t('remove')}}</button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-            </div>
-  <div class="modal-backdrop fade" ng-class="{'show': vm.showComparison}" ng-if="vm.showComparison" ng-click="vm.showComparison = false" style="z-index: 1050;"></div>
 
   <!-- ============================================
        USER DASHBOARD MODAL
@@ -1110,7 +1149,7 @@
         <div class="modal-body">
           <div ng-if="!vm.wishlist || vm.wishlist.length === 0" class="text-center py-5">
             <i class="fas fa-heart fa-3x text-muted mb-3" style="opacity: 0.3;"></i>
-            <p class="text-muted">{{vm.t('noWishlistItems')}}</p>
+            <p class="text-muted">{{vm.t('no Wish list Items')}}</p>
             <button class="btn btn-gold" ng-click="vm.navigateTo('rooms'); vm.closeWishlist()">
               <i class="fas fa-bed me-2"></i>{{vm.t('viewRooms')}}
             </button>
@@ -1161,6 +1200,14 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content profile-shell shadow-lg">
         <div class="profile-cover"></div>
+        <div class="profile-particles">
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+          <div class="particle"></div>
+        </div>
         <div class="profile-close-btn">
           <button type="button" class="btn btn-light btn-circle" ng-click="vm.closeProfile()" aria-label="Close profile">
             <i class="fas fa-times"></i>
@@ -1172,6 +1219,7 @@
             <div class="col-lg-4">
               <div class="profile-card h-100">
                 <div class="profile-avatar">
+                  <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="angular.element(this).scope().vm.handleAvatarUpload(event)">
                   <img ng-if="vm.profile.avatar" ng-src="{{vm.profile.avatar}}" alt="Avatar">
                   <div ng-if="!vm.profile.avatar" class="profile-avatar-fallback">
                     {{(vm.profile.name || 'G')[0]}}
@@ -1421,6 +1469,31 @@
   <div class="modal-backdrop fade" ng-class="{'show': vm.showEmailConfirmation}" ng-if="vm.showEmailConfirmation" ng-click="vm.closeEmailConfirmation()" style="z-index: 1065;"></div>
 
   <!-- ============================================
+       NEWSLETTER THANK YOU MODAL
+       ============================================ -->
+  <div class="modal fade modal-luxury" ng-class="{'show': vm.showNewsletterThankYou}" ng-style="{'display': vm.showNewsletterThankYou ? 'block' : 'none'}" ng-if="vm.showNewsletterThankYou" style="z-index: 1070;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body text-center" style="padding: 3rem 2rem;">
+          <div class="payment-success-icon" style="background: var(--gold); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; animation: scaleIn 0.3s ease;">
+            <i class="fas fa-check" style="font-size: 2rem; color: var(--white);"></i>
+          </div>
+          <h3 class="mb-3" style="font-family: 'Playfair Display', serif; color: var(--deep-gold); font-weight: 700;">
+            {{vm.t('newsletterThankYou')}}
+          </h3>
+          <p class="text-muted mb-4" style="font-size: 1rem; line-height: 1.6;">
+            {{vm.t('newsletterThankYouMessage')}}
+          </p>
+          <button class="btn btn-gold btn-ripple btn-glow" ng-click="vm.closeNewsletterThankYou()" style="margin-top: 1rem;">
+            <i class="fas fa-check me-2"></i>{{vm.t('done')}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-backdrop fade" ng-class="{'show': vm.showNewsletterThankYou}" ng-if="vm.showNewsletterThankYou" ng-click="vm.closeNewsletterThankYou()" style="z-index: 1065;"></div>
+
+  <!-- ============================================
        SCRIPTS
        ============================================ -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
@@ -1430,11 +1503,18 @@
 
   <script>
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('.elegant-selector')) {
-        const scope = angular.element(document.querySelector('[ng-controller]')).scope();
-        if (scope && scope.vm) {
+      const scope = angular.element(document.querySelector('[ng-controller]')).scope();
+      if (scope && scope.vm) {
+        // Close language dropdown if clicking outside
+        if (!e.target.closest('.elegant-selector')) {
           scope.$apply(function() {
             scope.vm.showLanguageDropdown = false;
+          });
+        }
+        // Close FAB menu if clicking outside
+        if (!e.target.closest('.fab') && !e.target.closest('.fab-menu')) {
+          scope.$apply(function() {
+            scope.vm.closeFABMenu();
           });
         }
       }

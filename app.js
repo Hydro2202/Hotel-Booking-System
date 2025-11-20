@@ -1042,7 +1042,8 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     // ============================================
     vm.profile = {
       name: localStorage.getItem('userName') || 'Guest',
-      email: localStorage.getItem('userEmail') || ''
+      email: localStorage.getItem('userEmail') || '',
+      avatar: localStorage.getItem('userAvatar') || null
     };
 
     vm.logout = function() {
@@ -1084,10 +1085,16 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
       vm.profileForm.newPassword = '';
       vm.profileForm.confirmPassword = '';
       
+      // Load avatar from localStorage
+      vm.profile.avatar = localStorage.getItem('userAvatar') || null;
+      
       // Load user bookings
       vm.userBookings = JSON.parse(localStorage.getItem('bookings') || '[]').filter(function(b) {
         return b.email === vm.profile.email;
       });
+      
+      // Update profile stats to ensure counts are fresh
+      vm.updateProfileStats();
       
       vm.showProfileModal = true;
       document.body.classList.add('modal-open');
@@ -1096,6 +1103,20 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     vm.refreshBookings = function() {
       vm.userBookings = JSON.parse(localStorage.getItem('bookings') || '[]').filter(function(b) {
         return b.email === vm.profile.email;
+      });
+      // Also update wishlist count
+      vm.updateProfileStats();
+    };
+
+    // Update profile stats (bookings and wishlist counts)
+    vm.updateProfileStats = function() {
+      // Refresh wishlist count
+      vm.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      
+      // Refresh bookings count
+      var userEmail = vm.profile.email || localStorage.getItem('userEmail');
+      vm.userBookings = JSON.parse(localStorage.getItem('bookings') || '[]').filter(function(b) {
+        return b.email === userEmail;
       });
     };
     
@@ -1106,6 +1127,63 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
       vm.profileForm.currentPassword = '';
       vm.profileForm.newPassword = '';
       vm.profileForm.confirmPassword = '';
+    };
+
+    // ============================================
+    // AVATAR UPLOAD
+    // ============================================
+    vm.changeAvatar = function() {
+      const fileInput = document.getElementById('avatar-upload');
+      if (fileInput) {
+        fileInput.click();
+      }
+    };
+
+    vm.handleAvatarUpload = function(event) {
+      const file = event.target.files[0];
+      if (!file) {
+        return;
+      }
+
+      // Validate file type
+      if (!file.type.match('image.*')) {
+        alert('Please select an image file.');
+        event.target.value = '';
+        return;
+      }
+
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size should be less than 5MB.');
+        event.target.value = '';
+        return;
+      }
+
+      // Read file as base64
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64Image = e.target.result;
+        
+        // Save to localStorage
+        localStorage.setItem('userAvatar', base64Image);
+        
+        // Update profile within Angular context
+        $scope.$apply(function() {
+          vm.profile.avatar = base64Image;
+        });
+        
+        // Show success notification
+        if (vm.showNotification) {
+          vm.showNotification('Profile picture updated successfully!', 'success');
+        }
+      };
+      
+      reader.onerror = function() {
+        alert('Error reading the image file. Please try again.');
+        event.target.value = '';
+      };
+      
+      reader.readAsDataURL(file);
     };
     
     vm.updateProfile = function($event) {
@@ -1700,6 +1778,9 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
       bookings.push(bookingData);
       localStorage.setItem('bookings', JSON.stringify(bookings));
 
+      // Update profile stats to refresh booking count
+      vm.updateProfileStats();
+
       // Close modals
       vm.closeBookingModal();
       vm.showPaymentModal = false;
@@ -2126,13 +2207,25 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     vm.toggleWishlist = function(room) {
       const index = vm.wishlist.findIndex(function(r) { return r.id === room.id; });
       if (index > -1) {
+        // Remove from wishlist
         vm.wishlist.splice(index, 1);
         room.inWishlist = false;
+        vm.showNotification(vm.t('removedFromWishlist') || 'Room removed from wishlist', 'info');
       } else {
+        // Add to wishlist
         vm.wishlist.push(room);
         room.inWishlist = true;
+        vm.showNotification(vm.t('addedToWishlist') || 'Room added to wishlist!', 'success');
       }
       localStorage.setItem('wishlist', JSON.stringify(vm.wishlist));
+      
+      // Update all rooms' wishlist status
+      vm.rooms.forEach(function(r) {
+        r.inWishlist = vm.isInWishlist(r);
+      });
+      
+      // Update profile stats to refresh wishlist count
+      vm.updateProfileStats();
     };
 
     vm.isInWishlist = function(room) {
@@ -2143,6 +2236,33 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     vm.rooms.forEach(function(room) {
       room.inWishlist = vm.isInWishlist(room);
     });
+
+    vm.showWishlist = false;
+
+    vm.openWishlist = function() {
+      // Refresh wishlist from localStorage
+      vm.wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+      
+      // Update room wishlist status
+      vm.rooms.forEach(function(room) {
+        room.inWishlist = vm.isInWishlist(room);
+      });
+      
+      // Update profile stats to ensure counts are fresh
+      vm.updateProfileStats();
+      
+      // Show notification if wishlist is empty
+      if (!vm.wishlist || vm.wishlist.length === 0) {
+        vm.showNotification(vm.t('noWishlistItems') || 'You haven\'t added any rooms to your wishlist yet. Click the heart icon on any room to add it!', 'info');
+        // Still open the modal to show the empty state
+      }
+      
+      vm.showWishlist = true;
+    };
+
+    vm.closeWishlist = function() {
+      vm.showWishlist = false;
+    };
 
     // ============================================
     // RECENTLY VIEWED
@@ -2360,6 +2480,7 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     // LIVE CHAT
     // ============================================
     vm.showChat = false;
+    vm.chatMinimized = false;
     const chatResponseKeys = ['chatResponseFriendly', 'chatResponseHelp', 'chatResponseOffers', 'chatResponseDesk'];
     vm.chatMessages = [
       { type: 'bot', text: vm.t('chatWelcome') }
@@ -2368,6 +2489,17 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
 
     vm.toggleChat = function() {
       vm.showChat = !vm.showChat;
+      if (!vm.showChat) {
+        vm.chatMinimized = false;
+      }
+    };
+
+    vm.minimizeChat = function() {
+      vm.chatMinimized = true;
+    };
+
+    vm.restoreChat = function() {
+      vm.chatMinimized = false;
     };
 
     vm.sendChatMessage = function() {
@@ -2579,6 +2711,34 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
       vm.showFABMenu = !vm.showFABMenu;
     };
 
+    vm.closeFABMenu = function() {
+      vm.showFABMenu = false;
+    };
+
+    // ============================================
+    // NOTIFICATION SYSTEM
+    // ============================================
+    vm.notification = {
+      show: false,
+      message: '',
+      type: 'info' // info, success, warning, error
+    };
+
+    vm.showNotification = function(message, type) {
+      vm.notification.message = message;
+      vm.notification.type = type || 'info';
+      vm.notification.show = true;
+      
+      // Auto-hide after 5 seconds
+      $timeout(function() {
+        vm.notification.show = false;
+      }, 5000);
+    };
+
+    vm.hideNotification = function() {
+      vm.notification.show = false;
+    };
+
     // ============================================
     // SCROLL ANIMATIONS
     // ============================================
@@ -2629,6 +2789,11 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     vm.goToLoginPage = function() {
       vm.closeLoginPrompt();
       window.location.href = 'login.html';
+    };
+
+    vm.goToRegisterPage = function() {
+      vm.closeLoginPrompt();
+      window.location.href = 'register.html';
     };
 
     vm.openRegister = function() {
@@ -2698,7 +2863,7 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
       vm.showRegisterModal = false;
       alert(vm.t('registrationSuccessful'));
     };
-
+    
     // ============================================
     // USER DASHBOARD
     // ============================================
@@ -2741,8 +2906,123 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
               return b.email === (vm.profile.email || localStorage.getItem('userEmail'));
             });
           }
+          // Update profile stats to refresh booking count
+          vm.updateProfileStats();
           alert(vm.t('bookingCancelled') || 'Booking cancelled successfully');
         }
+      }
+    };
+
+    // ============================================
+    // LIQUID BLOB MOUSE INTERACTION
+    // ============================================
+    // Throttle for water ripples
+    vm.lastRippleTime = 0;
+    vm.rippleThrottle = 200; // milliseconds between ripples
+
+    vm.onHeroMouseMove = function(event) {
+      const heroSection = event.currentTarget;
+      const rect = heroSection.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      
+      // Update CSS variable for water distortion effect
+      heroSection.style.setProperty('--mouse-x', x + '%');
+      heroSection.style.setProperty('--mouse-y', y + '%');
+      
+      // Create water ripple on mouse move (throttled)
+      const now = Date.now();
+      if (now - vm.lastRippleTime > vm.rippleThrottle) {
+        vm.createWaterRipple(event);
+        vm.lastRippleTime = now;
+      }
+      
+      // Update blob positions based on mouse
+      const blob1 = document.querySelector('.blob-1');
+      const blob2 = document.querySelector('.blob-2');
+      const blob3 = document.querySelector('.blob-3');
+      
+      if (blob1) {
+        const offsetX1 = (x - 10) * 0.3;
+        const offsetY1 = (y - 20) * 0.3;
+        blob1.style.transform = `translate(${offsetX1}px, ${offsetY1}px) scale(1.1)`;
+        blob1.style.transition = 'transform 0.3s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
+      
+      if (blob2) {
+        const offsetX2 = (x - 85) * 0.4;
+        const offsetY2 = (y - 60) * 0.4;
+        blob2.style.transform = `translate(${offsetX2}px, ${offsetY2}px) scale(1.15)`;
+        blob2.style.transition = 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
+      
+      if (blob3) {
+        const offsetX3 = (x - 50) * 0.25;
+        const offsetY3 = (y - 80) * 0.25;
+        blob3.style.transform = `translate(${offsetX3}px, ${offsetY3}px) scale(1.05)`;
+        blob3.style.transition = 'transform 0.35s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
+    };
+
+    vm.createWaterRipple = function(event) {
+      const heroSection = event.currentTarget || document.querySelector('.hero-section');
+      if (!heroSection) return;
+      
+      const rect = heroSection.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      
+      const rippleContainer = heroSection.querySelector('.water-ripple-container');
+      if (!rippleContainer) return;
+      
+      // Create ripple element
+      const ripple = document.createElement('div');
+      ripple.className = 'water-ripple';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      
+      // Randomize size for more natural effect
+      const size = 50 + Math.random() * 100;
+      ripple.style.width = size + 'px';
+      ripple.style.height = size + 'px';
+      
+      rippleContainer.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(function() {
+        if (ripple.parentNode) {
+          ripple.parentNode.removeChild(ripple);
+        }
+      }, 1500);
+    };
+
+    vm.onHeroMouseLeave = function() {
+      const heroSection = document.querySelector('.hero-section');
+      
+      // Reset CSS variables
+      if (heroSection) {
+        heroSection.style.setProperty('--mouse-x', '50%');
+        heroSection.style.setProperty('--mouse-y', '50%');
+      }
+      
+      // Reset blobs to original position
+      const blob1 = document.querySelector('.blob-1');
+      const blob2 = document.querySelector('.blob-2');
+      const blob3 = document.querySelector('.blob-3');
+      
+      if (blob1) {
+        blob1.style.transform = '';
+        blob1.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
+      
+      if (blob2) {
+        blob2.style.transform = '';
+        blob2.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+      }
+      
+      if (blob3) {
+        blob3.style.transform = '';
+        blob3.style.transition = 'transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
       }
     };
 
@@ -2758,11 +3038,16 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
         // User is logged in - load profile
         vm.profile.name = savedName;
         vm.profile.email = savedEmail;
+        vm.profile.avatar = localStorage.getItem('userAvatar') || null;
       } else {
         // Guest access - allow viewing without login
         vm.profile.name = 'Guest';
         vm.profile.email = '';
+        vm.profile.avatar = null;
       }
+      
+      // Initialize profile stats (bookings and wishlist counts)
+      vm.updateProfileStats();
       
       // Initialize scroll animations
       $timeout(function() {
