@@ -7177,3 +7177,432 @@ body.dark-mode .modal-luxury .modal-body .dashboard-card .text-muted *:not(img):
 body.dark-mode .modal-luxury .modal-body .room-card .text-muted *:not(img):not(svg):not(path):not(canvas):not(video):not(iframe) {
   color: #b0b0b0 !important;
 }
+
+/* ============================================
+   COMPREHENSIVE MOBILE RESPONSIVENESS
+   ============================================ */
+
+/* Modal Responsiveness */
+@media (max-width: 575.98px) {
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+  
+  .modal-content {
+    border-radius: 0.5rem;
+  }
+  
+  .modal-header {
+    padding: 1rem;
+  }
+  
+  .modal-body {
+    padding: 1rem;
+  }
+  
+  .modal-footer {
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .modal-footer .btn {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* Chat Widget Mobile */
+@media (max-width: 768px) {
+  .chat-widget {
+    width: calc(100% - 2rem) !important;
+    max-width: 100% !important;
+    right: 1rem !important;
+    left: 1rem !important;
+    bottom: 5rem !important;
+    height: calc(100vh - 6rem) !important;
+    max-height: 500px !important;
+  }
+  
+  .chat-floating-icon {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    width: 50px !important;
+    height: 50px !important;
+  }
+  
+  .chat-widget-content {
+    height: calc(100% - 60px) !important;
+  }
+  
+  .chat-input-container {
+    padding: 0.75rem !important;
+  }
+  
+  .chat-input-container input {
+    font-size: 0.9rem !important;
+    padding: 0.5rem !important;
+  }
+}
+
+/* FAB Mobile */
+@media (max-width: 768px) {
+  .fab {
+    bottom: 1rem !important;
+    right: 1rem !important;
+    width: 56px !important;
+    height: 56px !important;
+  }
+  
+  .fab-menu {
+    bottom: 70px !important;
+    right: 0 !important;
+  }
+  
+  .fab-item {
+    width: 48px !important;
+    height: 48px !important;
+    margin-bottom: 0.75rem !important;
+  }
+}
+
+/* Featured Carousel Mobile */
+@media (max-width: 768px) {
+  .featured-carousel .room-card .row {
+    flex-direction: column;
+  }
+  
+  .featured-carousel .room-card .col-md-6 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .carousel-control-custom {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 1rem !important;
+  }
+}
+
+/* Contact Form Mobile */
+@media (max-width: 768px) {
+  .contact-form,
+  .contact-info {
+    padding: 1.5rem 1rem !important;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .contact-item i {
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+}
+
+/* Profile Modal Mobile */
+@media (max-width: 768px) {
+  .profile-modal {
+    padding: 1rem !important;
+  }
+  
+  .profile-card {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .profile-avatar {
+    margin-bottom: 1rem;
+  }
+  
+  .profile-tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .profile-tab {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .profile-form .row {
+    margin: 0;
+  }
+  
+  .profile-form .col-md-6 {
+    padding: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Room Cards Mobile */
+@media (max-width: 576px) {
+  .room-card .room-content {
+    padding: 1rem !important;
+  }
+  
+  .room-card .d-flex.gap-2 {
+    flex-direction: column;
+    gap: 0.5rem !important;
+  }
+  
+  .room-card .d-flex.gap-2 .btn {
+    width: 100%;
+  }
+  
+  .room-amenities {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  
+  .amenity-badge {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Price Summary Mobile */
+@media (max-width: 576px) {
+  .price-summary {
+    padding: 1rem !important;
+    font-size: 0.9rem;
+  }
+  
+  .price-row {
+    flex-direction: column;
+    gap: 0.25rem;
+    text-align: left;
+  }
+  
+  .price-total {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+  }
+}
+
+/* Search Container Mobile */
+@media (max-width: 768px) {
+  .search-container {
+    margin: 1rem 0.5rem !important;
+    padding: 0.75rem !important;
+  }
+  
+  .search-input {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 2.5rem 0.75rem 1rem !important;
+  }
+  
+  .search-suggestions {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}
+
+/* Hero Section Mobile */
+@media (max-width: 576px) {
+  .hero-section {
+    padding: 2rem 1rem !important;
+    min-height: 100vh;
+  }
+  
+  .hero-content {
+    padding: 1rem;
+  }
+  
+  .hero-cta-btn {
+    width: 100%;
+    margin-bottom: 0.75rem;
+  }
+  
+  .hero-cta-btn:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Gallery Mobile */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .gallery-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Testimonials Mobile */
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  .testimonial-text {
+    font-size: 1rem !important;
+  }
+}
+
+/* FAQ Mobile */
+@media (max-width: 768px) {
+  .faq-item {
+    margin-bottom: 1rem;
+  }
+  
+  .faq-question {
+    padding: 1rem !important;
+    font-size: 0.95rem;
+  }
+  
+  .faq-answer {
+    padding: 0 1rem 1rem !important;
+    font-size: 0.9rem;
+  }
+}
+
+/* Footer Mobile */
+@media (max-width: 768px) {
+  .footer-luxury {
+    text-align: center !important;
+    padding: 2rem 1rem !important;
+  }
+  
+  .footer-luxury .row > div {
+    margin-bottom: 2rem;
+  }
+  
+  .footer-luxury .row > div:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Input Groups Mobile */
+@media (max-width: 576px) {
+  .input-group {
+    flex-direction: column;
+  }
+  
+  .input-group .form-control {
+    border-radius: 0.375rem !important;
+    margin-bottom: 0.5rem;
+  }
+  
+  .input-group .btn {
+    border-radius: 0.375rem !important;
+    width: 100%;
+  }
+}
+
+/* Dashboard Cards Mobile */
+@media (max-width: 768px) {
+  .dashboard-card {
+    padding: 1rem !important;
+  }
+  
+  .dashboard-card .d-flex.justify-content-between {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .dashboard-card .text-end {
+    text-align: left !important;
+    margin-top: 1rem;
+  }
+  
+  .booking-status {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Wishlist Cards Mobile */
+@media (max-width: 768px) {
+  .modal-luxury .modal-body .row {
+    margin: 0;
+  }
+  
+  .modal-luxury .modal-body .col-lg-4,
+  .modal-luxury .modal-body .col-md-6 {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Language Dropdown Mobile */
+@media (max-width: 768px) {
+  .language-dropdown {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 2rem) !important;
+    max-width: 300px !important;
+  }
+}
+
+/* User Profile Dropdown Mobile */
+@media (max-width: 768px) {
+  .user-profile-dropdown .dropdown-menu {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 4rem !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: calc(100% - 2rem) !important;
+    max-width: 300px !important;
+  }
+}
+
+/* Prevent text overflow on mobile */
+@media (max-width: 576px) {
+  * {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  .btn {
+    white-space: normal;
+    word-wrap: break-word;
+  }
+}
+
+/* Ensure touch targets are at least 44x44px */
+@media (max-width: 768px) {
+  .btn,
+  .nav-link,
+  .dropdown-item,
+  .fab-item,
+  .chat-window-btn,
+  .wishlist-btn {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Smooth scrolling for mobile */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
