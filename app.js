@@ -2577,14 +2577,44 @@ app.controller('MainCtrl', ['$scope', '$timeout', 'LanguageService', function($s
     };
 
     vm.showSummary = function() {
-      if (!vm.validateForm()) {
+      // Ensure selectedRoom is set from roomType if not already set
+      if (!vm.selectedRoom && vm.bookingForm.roomType) {
+        vm.selectedRoom = vm.rooms.find(function(r) {
+          return r.name === vm.bookingForm.roomType;
+        });
+      }
+      
+      // Calculate price before showing summary
+      vm.calculatePrice();
+      
+      // Check if we have minimum required info to show summary
+      if (!vm.bookingForm.roomType || !vm.bookingForm.checkIn || !vm.bookingForm.checkOut) {
+        alert(vm.t('pleaseFillRequiredFields') || 'Please fill in room type, check-in, and check-out dates to view summary.');
         return;
       }
+      
+      // If dates are invalid, show error
+      if (vm.bookingForm.checkIn && vm.bookingForm.checkOut) {
+        const checkIn = new Date(vm.bookingForm.checkIn);
+        const checkOut = new Date(vm.bookingForm.checkOut);
+        if (checkOut <= checkIn) {
+          alert(vm.t('checkOutAfterCheckIn') || 'Check-out date must be after check-in date.');
+          return;
+        }
+      }
+      
+      // Show the summary modal
       vm.showBookingSummary = true;
+      document.body.classList.add('modal-open');
     };
 
     vm.hideSummary = function() {
       vm.showBookingSummary = false;
+      // Don't remove modal-open class here as booking modal might still be open
+      // Only remove if booking modal is also closed
+      if (!vm.showBookingModal) {
+        document.body.classList.remove('modal-open');
+      }
     };
 
     // ============================================

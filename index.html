@@ -899,7 +899,7 @@
           <div class="booking-summary">
             <div class="summary-row">
               <span>{{vm.t('room')}}:</span>
-              <span>{{vm.selectedRoom.name}}</span>
+              <span>{{vm.selectedRoom ? vm.selectedRoom.name : vm.bookingForm.roomType}}</span>
             </div>
             <div class="summary-row">
               <span>{{vm.t('checkIn')}}:</span>
