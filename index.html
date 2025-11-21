@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="pics/Logo.png">
+
   <title>StayUp- Luxury Hotel Booking</title>
   
   <!-- Google Fonts -->
@@ -1220,7 +1222,7 @@
               <div class="profile-card h-100">
                 <div class="profile-avatar">
                   <input type="file" id="avatar-upload" accept="image/*" style="display: none;" onchange="angular.element(this).scope().vm.handleAvatarUpload(event)">
-                  <img ng-if="vm.profile.avatar" ng-src="{{vm.profile.avatar}}" alt="Avatar">
+                  <img ng-if="vm.profile.avatar" ng-src="{{vm.profile.avatar}}" alt="Avatar" onerror="this.onerror=null; this.src='pics/h1.jpg';">
                   <div ng-if="!vm.profile.avatar" class="profile-avatar-fallback">
                     {{(vm.profile.name || 'G')[0]}}
                   </div>
@@ -1502,6 +1504,41 @@
   
 
   <script>
+    // Global fallback handler for all review avatars
+    function setAvatarFallback(img) {
+      if (img && !img.dataset.fallbackSet) {
+        img.dataset.fallbackSet = 'true';
+        img.addEventListener('error', function() {
+          this.onerror = null;
+          this.src = 'pics/h1.jpg';
+        });
+      }
+    }
+    
+    // Apply fallback to all avatar images on page load and dynamically
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find all images that might be avatars
+      const avatarImages = document.querySelectorAll('img[ng-src*="avatar"], img[alt*="avatar"], img[alt*="Avatar"], .review-avatar img, .testimonial-avatar img');
+      avatarImages.forEach(setAvatarFallback);
+    });
+    
+    // Watch for dynamically added avatar images (for Angular)
+    var observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1) { // Element node
+            const avatarImgs = node.querySelectorAll ? node.querySelectorAll('img[ng-src*="avatar"], img[alt*="avatar"], img[alt*="Avatar"], .review-avatar img, .testimonial-avatar img') : [];
+            avatarImgs.forEach(setAvatarFallback);
+            if (node.tagName === 'IMG' && (node.src && node.src.includes('avatar') || node.alt && node.alt.toLowerCase().includes('avatar'))) {
+              setAvatarFallback(node);
+            }
+          }
+        });
+      });
+    });
+    
+    observer.observe(document.body, { childList: true, subtree: true });
+    
     document.addEventListener('click', function(e) {
       const scope = angular.element(document.querySelector('[ng-controller]')).scope();
       if (scope && scope.vm) {
